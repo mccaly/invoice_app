@@ -1,0 +1,19 @@
+<% provide(:title, "New Account") %> 
+<h1>Create New Account</h1>
+
+<div class="row">
+<div class="container">
+	<div class="span6 offset3">
+		<%= form_for(@account) do |f| %>
+			<div class="form">
+				<%= f.text_field :name, :required => true, placeholder:"New account name" %>
+				<%= f.text_field :contact_name, :required => true, placeholder:"Account contact" %>
+				<%= f.text_field :contact_email, :required => true, placeholder:"Contact email address" %>
+				<%= f.submit "Save", class: "btn btn-large" %>
+			</div>
+		<% end %>
+	</div>
+</div>
+</div>
+
+

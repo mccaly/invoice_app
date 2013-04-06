@@ -11,7 +11,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130314044442) do
+ActiveRecord::Schema.define(:version => 20130406205526) do
+
+# Could not dump table "accounts" because of following StandardError
+#   Unknown type 'sting' for column 'contact_company'
+
+  create_table "invoices", :force => true do |t|
+    t.string   "name"
+    t.string   "number"
+    t.datetime "date_begin"
+    t.datetime "date_end"
+    t.string   "billing_cycle"
+    t.integer  "amount"
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+    t.integer  "user_id",       :default => 0
+    t.integer  "account_id"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "name"

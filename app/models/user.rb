@@ -13,6 +13,10 @@ class User < ActiveRecord::Base
   attr_accessible :email, :name, :password, :password_confirmation
   has_secure_password
 
+  has_and_belongs_to_many :accounts
+
+  has_many :invoices
+
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token
 

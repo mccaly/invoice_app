@@ -1,0 +1,132 @@
+<% provide(:title, "Account details") %> 
+
+<h1>Acount Overview</h1>
+
+<div class="row">
+	<div class="container">
+
+  		<div class="row">
+  		<div class="span12">	
+  			<div class="well span4 pull-left">
+  				<p>Account: <strong><%= @account.name %></strong></p>
+  				<p>Contact name: <strong><%= @account.contact_name %></strong></p>
+  				<p>Contact email: <strong><%= @account.contact_email %></strong></p>
+  			</div>
+  		</div>	
+  		</div>
+  		
+  		<div class="row">	
+  		<div class="span12">	
+ 	 		<a class="btn btn-primary btn-large pull-right" type="button"  href="<%= new_account_invoice_path (@account.id) %>">New Invoice
+    		</a>
+    	</div>
+    	</div>
+
+    	<div class="span12">
+    	<table class="table table-hover table-bordered">
+    		<caption><h4 class="pull-left">Current Invoices</h4> </caption>
+    		<thead>
+      			<tr>
+        			<th>Invoice</th>
+        			<th>$</th>
+        			<th>Start date</th>
+        			<th>End date</th>
+        			<th>days to payment</th>
+      			</tr>
+    		</thead>
+
+    		<tbody>
+      			<tr>
+        			<td>#</td>
+        			<td>#</td>
+        			<td>#</td>
+        			<td>#</td>
+        			<td>#</td>
+      			</tr>
+    		</tbody>
+  		</table>
+  		</div>
+
+
+  		<div class="span12">
+    	<table class="table table-hover table-bordered">
+    		<caption><h4 class="pull-left">Overdue Invoices</h4> </caption>
+    		<thead>
+      			<tr>
+        			<th>Invoice</th>
+        			<th>$</th>
+        			<th>Start date</th>
+        			<th>End date</th>
+        			<th>days overdue</th>
+      			</tr>
+    		</thead>
+
+    		<tbody>
+      			<tr>
+        			<td>#</td>
+        			<td>#</td>
+        			<td>#</td>
+        			<td>#</td>
+        			<td>#</td>
+      			</tr>
+    		</tbody>
+  		</table>
+  		</div>
+
+
+  		<div class="span12">
+    	<table class="table table-hover table-bordered">
+    		<caption><h4 class="pull-left">Unpaid Invoices</h4> </caption>
+    		<thead>
+      			<tr>
+        			<th>Invoice</th>
+        			<th>$</th>
+        			<th>Start date</th>
+        			<th>End date</th>
+        			<th>days to payment</th>
+      			</tr>
+    		</thead>
+
+    		<tbody>
+      			<tr>
+        			<td>#</td>
+        			<td>#</td>
+        			<td>#</td>
+        			<td>#</td>
+        			<td>#</td>
+      			</tr>
+    		</tbody>
+  		</table>
+  		</div>
+
+  		<div class="span12">
+    	<table class="table table-hover table-bordered">
+    		<caption><h4 class="pull-left">Paid Invoices</h4> </caption>
+    		<thead>
+      			<tr>
+        			<th>Invoice</th>
+        			<th>$</th>
+        			<th>Start date</th>
+        			<th>End date</th>
+        			<th>days since payment</th>
+      			</tr>
+    		</thead>
+
+    		<tbody>
+      			<tr>
+        			<td>#</td>
+        			<td>#</td>
+        			<td>#</td>
+        			<td>#</td>
+        			<td>#</td>
+      			</tr>
+    		</tbody>
+  		</table>
+  		</div>
+
+
+
+
+
+ 	</div>
+ </div>
