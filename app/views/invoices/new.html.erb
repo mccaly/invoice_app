@@ -7,22 +7,23 @@
 
 		<div class="row">
   			<div class="span12">
-  				<h4> Account details </h4>	
+  		    <legend> Account Details</legend>		
   				<div class="well span4 pull-left">
  			
   					<p>Account: <strong><%= @account.name %></strong></p>
   					<p>Contact name: <strong><%= @account.contact_name %></strong></p>
 	  				<p>Contact email: <strong><%= @account.contact_email %></strong></p>
 
-  				</div>
+  			  </div>
   			</div>	
-  		</div>
+  	</div>
 
 <!--New Invoice data input-->
   		<div class="row">
   			<div class="span12">
-  				<div class="well span9">
-
+  				<legend>Invoice details</legend>
+          <div class="well span9">
+            
   					<%= form_for(@invoice, :url => {:controller => :invoices, :action => :create}) do |f| %>
   						<div class="form">	
   							<div class="row">
@@ -76,7 +77,23 @@
   			</div>
   		</div>
 
+<!--Add new unit-->
 
+    <div class="row">
+      <div class="span12">
+        <div class="row">
+          <legend>New Unit</legend> 
+            <div class="row"> 
+              <div class="span12">  
+                <div class="well span9">
+                  <button class="btn btn-primary" type="button">New Unit
+                  </button> 
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
 
 
 

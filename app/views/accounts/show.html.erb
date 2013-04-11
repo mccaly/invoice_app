@@ -22,6 +22,33 @@
     	</div>
     	</div>
 
+      <div class="span12">
+      <table class="table table-hover table-bordered">
+        <caption><h4 class="pull-left">All invoices</h4> </caption>
+        <thead>
+            <tr>
+              <th>Invoice</th>
+              <th>$</th>
+              <th>Start date</th>
+              <th>End date</th>
+              <th>days to payment</th>
+            </tr>
+        </thead>
+
+        <tbody>
+          <% @invoices.each do |invoice| %>
+            <tr>
+              <td><%= link_to invoice.name, account_invoice_path(@account, invoice) %></td>
+              <td>#</td>
+              <td><%= invoice.date_begin %></td>
+              <td><%= invoice.date_end %></td>
+              <td>#</td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      </div>
+
     	<div class="span12">
     	<table class="table table-hover table-bordered">
     		<caption><h4 class="pull-left">Current Invoices</h4> </caption>

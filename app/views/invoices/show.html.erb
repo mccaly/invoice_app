@@ -1,0 +1,59 @@
+<% provide(:title, "New Invoice") %> 
+<%= javascript_include_tag "invoices" %>
+
+<!--invoice details-->
+
+<div class="row">
+	<div class="container">
+
+		<div class="row">
+			<div class="span12">
+				<h4>Account Details</h4>
+				<div class="well span4 pull-left">
+					<p>Account: <strong><%= @account.name %></strong></p>
+  					<p>Contact name: <strong><%= @account.contact_name %></strong></p>
+	  				<p>Contact email: <strong><%= @account.contact_email %></strong></p>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="span12">
+				<h4>Invoice Details</h4>
+				<div class="well span4 pull-left">
+					<p>Name: <strong><%= @invoice.name %></strong></p>
+  					<p>Number: <strong><%= @invoice.number %></strong></p>
+	  				<p>Billing Cycle: <strong><%= @invoice.billing_cycle %></strong></p>
+	  				<p>Date Begin: <strong><%= @invoice.date_begin %></strong></p>
+	  				<p>Date End: <strong><%= @invoice.date_end %></strong></p>
+				</div>
+			</div>
+		</div>
+
+<!--Add new unit-->
+
+    <div class="row">
+      <div class="span12">
+        <div class="row">
+          <legend>New Unit</legend> 
+            <a class="btn btn-primary btn-large pull-left" type="button"  href="<%= new_account_invoice_unit_path(@account, @invoice) %>">New Unit
+    		</a>
+        </div>
+      </div>
+    </div>
+
+ 
+
+<!--Edit-->
+
+		<div class="row">
+			<div class="span11">
+				<a class="btn btn-primary btn-large pull-right" type="button"> Edit </a>
+			</div>
+		</div>
+
+
+	
+
+	</div>
+</div>
