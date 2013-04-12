@@ -1,17 +1,15 @@
 InvoiceApp::Application.routes.draw do
-  resources :users
-  resources :sessions, only: [:new, :create, :destroy]
-  resources :accounts, only: [:create, :new, :show] do 
-      resources :invoices  do
-        resources :units        
-      end
-    end
+  devise_for :users
 
   root to: 'static_pages#home'
 
-  match '/signup', to: 'users#new'
-  match '/signin', to: 'sessions#new'
-  match '/signout', to: 'sessions#destroy', via: :delete
+  resources :users
+
+  resources :accounts, only: [:create, :new, :show] do 
+    resources :invoices  do
+      resources :units        
+    end
+  end
 
   match '/invoices/:id', to: 'invoices#show' 
 

@@ -1,11 +1,12 @@
 class UnitsController < ApplicationController
 
 	def create
-		account = Account.find_by_id(params[:account_id])
-		invoice = Invoice.find_by_id(params[:invoice_id])
-		@unit = account.invoices.units.build(params[:unit])
+		account = Account.find(params[:account_id])
+		invoice = Invoice.find(params[:invoice_id])
+		@unit = invoice.units.build(params[:unit])
 		if @unit.save
 			flash[:success] = "New Unit saved"
+			redirect_to account_invoice_path(account, invoice)
 		else
 			raise unit.errors.full_messages.inspect
 		end
@@ -13,8 +14,8 @@ class UnitsController < ApplicationController
 
 	def new
 		@unit = Units.new
-		@account = Account.find_by_id(params[:account_id])
-		@invoice = Invoice.find_by_id(params[:invoice_id])
+		@account = Account.find(params[:account_id])
+		@invoice = Invoice.find(params[:invoice_id])
 	end
 
 	def units

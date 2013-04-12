@@ -1,5 +1,14 @@
-class Account < ActiveRecord::Base
-  attr_accessible :name, :contact_name, :contact_email, :contact_company
+class Account 
+	include Mongoid::Document
+	include Mongoid::Timestamps
+
+  field :name, :type => String
+  field :contact_name, :type => String
+  field :contact_email, :type => String
+  field :contact_company, :type => String
+
+
+
 
   has_and_belongs_to_many :users
 

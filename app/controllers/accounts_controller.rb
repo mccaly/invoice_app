@@ -5,8 +5,8 @@ class AccountsController < ApplicationController
 	end
 
 	def show
-		@account = Account.find_by_id(params[:id])
-		@invoices = Invoice.find_all_by_account_id(params[:id])
+		@account = Account.find(params[:id])
+		@invoices = @account.invoices
 	end
 
 	def index
