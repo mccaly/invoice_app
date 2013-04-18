@@ -17,41 +17,45 @@
   		
   		<div class="row">	
   		<div class="span12">	
- 	 		<a class="btn btn-primary btn-large pull-right" type="button"  href="<%= new_account_invoice_path (@account.id) %>">New Invoice
+ 	 		<a class="btn btn-primary btn-large pull-right" type="button"  href="<%= new_deal_path (@account.id) %>">New Deal
     		</a>
     	</div>
     	</div>
 
+<!--Deal list -->
+
       <div class="span12">
       <table class="table table-hover table-bordered">
-        <caption><h4 class="pull-left">All invoices</h4> </caption>
+        <caption><h4 class="pull-left">All Deals</h4> </caption>
         <thead>
             <tr>
-              <th>Invoice</th>
-              <th>$</th>
+              <th>Deal name</th>
               <th>Start date</th>
               <th>End date</th>
-              <th>days to payment</th>
+              <th>Billing Cycle</th>
             </tr>
         </thead>
 
         <tbody>
-          <% @invoices.each do |invoice| %>
+          <% # %>
             <tr>
-              <td><%= link_to invoice.name, account_invoice_path(@account, invoice) %></td>
+              <td></td>
               <td>#</td>
-              <td><%= invoice.date_begin %></td>
-              <td><%= invoice.date_end %></td>
+              <td>#</td>
+              <td>#</td>
               <td>#</td>
             </tr>
-          <% end %>
+          <% # %>
         </tbody>
       </table>
       </div>
 
+<!--List of invoices-->
+
     	<div class="span12">
+      <legend> Invoices </legend>
     	<table class="table table-hover table-bordered">
-    		<caption><h4 class="pull-left">Current Invoices</h4> </caption>
+    		<caption><h4 class="pull-left">Current</h4> </caption>
     		<thead>
       			<tr>
         			<th>Invoice</th>
@@ -77,7 +81,7 @@
 
   		<div class="span12">
     	<table class="table table-hover table-bordered">
-    		<caption><h4 class="pull-left">Overdue Invoices</h4> </caption>
+    		<caption><h4 class="pull-left">Overdue</h4> </caption>
     		<thead>
       			<tr>
         			<th>Invoice</th>
@@ -103,7 +107,7 @@
 
   		<div class="span12">
     	<table class="table table-hover table-bordered">
-    		<caption><h4 class="pull-left">Unpaid Invoices</h4> </caption>
+    		<caption><h4 class="pull-left">Unpaid</h4> </caption>
     		<thead>
       			<tr>
         			<th>Invoice</th>
@@ -128,7 +132,7 @@
 
   		<div class="span12">
     	<table class="table table-hover table-bordered">
-    		<caption><h4 class="pull-left">Paid Invoices</h4> </caption>
+    		<caption><h4 class="pull-left">Paid</h4> </caption>
     		<thead>
       			<tr>
         			<th>Invoice</th>

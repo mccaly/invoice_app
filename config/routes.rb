@@ -11,6 +11,8 @@ InvoiceApp::Application.routes.draw do
     end
   end
 
+  resources :deals
+
   match '/invoices/:id', to: 'invoices#show' 
 
   #match '/accounts/:account_id/invoices/new', to: 'units#create'
