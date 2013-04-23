@@ -1,0 +1,21 @@
+<% provide(:title, "Edit Account") %> 
+<h1>	Edit Account</h1>
+
+<div class="row">
+	<div class="container">
+		<div class="span6 offset3">
+		<%= form_for(@account) do |account_show| %>
+			<div class="form">
+				<%= account_show.label :name %>
+				<%= account_show.text_field :name, :required => true %>
+				<%= account_show.label :contact_name %>
+				<%= account_show.text_field :contact_name, :required => true %>
+				<%= account_show.label :contact_email %>
+				<%= account_show.text_field :contact_email, :required => true %>
+				<%= account_show.submit "Save", class: "btn btn-large" %>
+			</div>
+		<% end %>
+	</div>
+
+	</div>
+</div>

@@ -14,5 +14,7 @@ class Account
 
   has_many :invoices
 
+  has_many :deals
+
 
 end

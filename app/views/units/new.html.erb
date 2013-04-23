@@ -18,27 +18,62 @@
 
 				<div class="offset5">
 					<div class="well span4 pull-left">
-						<p>Name: <strong><%= @invoice.name %></strong></p>
-  						<p>Number: <strong><%= @invoice.number %></strong></p>
-	  					<p>Billing Cycle: <strong><%= @invoice.billing_cycle %></strong></p>
-		  				<p>Date Begin: <strong><%= @invoice.date_begin %></strong></p>
-	  					<p>Date End: <strong><%= @invoice.date_end %></strong></p>
+						<p>Name: <strong><%= @deal.name %></strong></p>
+	  					<p>Billing Cycle: <strong><%= @deal.billing_cycle %></strong></p>
+		  				<p>Date Begin: <strong><%= @deal.start_date %></strong></p>
+	  					<p>Date End: <strong><%= @deal.end_date %></strong></p>
 					</div>
 				</div>
 			</div>
 		</div>
 
-<!--unit naming-->
 
-	<legend>New Unit</legend>
-	<div class="span6">
-		<%= form_for(@unit, :url => {:controller => :units, :action => :create}) do |unit| %>
-			<div class="form">
-				<%= unit.text_field :name, :required => true, placeholder:"New Unit name" %>
-				<%= unit.submit "Save", class: "btn btn-large" %>
+	<!--Unit input-->
+
+		<div class="row">
+			<div class="span12">
+				<legend>Deal Terms</legend>
+				<div class="container-fluid">
+  					<div class="row-fluid">
+    					<div class="well span3">
+      						<p>1. Deal Overview</p>
+      						<p><strong>2. Deal Terms</strong></p>
+      						<p>3. Finish/ Summary</p>
+      						</br>
+      						</br>
+      						</br>
+      						</br>
+      					
+      					
+    					</div>
+    					
+    					<div class="well span9">
+      							<%= form_for(@unit, :url => {:controller => :units, :action => :create}) do |f| %>
+  									<div class="form">	
+  										<div class="row">
+  											<div class="span11">
+  												<div class="span7 offset1">
+  													<%= f.text_field :name, :required => true, placeholder:"Unit name" %>	
+  												</div>
+  												<div class="span2">
+  													<%= f.text_field :amount, :required => true, placeholder:"$" %>
+  												</div>
+  												<div class="span2">
+  													<%= f.submit "Save", class: "btn" %>
+  												</div>
+  											</div>
+  										</div>
+  									</div>
+  								<% end %>
+
+  								<a class="btn btn-primary pull-right" type="button" href= "<%= deal_path(@deal) %>" >Finish
+    							</a>
+							
+    					</div>
+  					</div>
+				</div>
 			</div>
-		<% end %>
-	</div>
+		</div>
 
 
 </div>

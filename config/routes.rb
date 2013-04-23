@@ -4,14 +4,16 @@ InvoiceApp::Application.routes.draw do
   root to: 'static_pages#home'
 
   resources :users
+  resources :accounts, only: [:create, :new, :show, :edit, :update]
 
-  resources :accounts, only: [:create, :new, :show] do 
-    resources :invoices  do
-      resources :units        
-    end
-  end
+  resources :deals do
+    resources :units
+  end 
+  
+  resources :invoices
 
-  resources :deals
+  
+
 
   match '/invoices/:id', to: 'invoices#show' 
 

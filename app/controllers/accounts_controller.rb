@@ -6,13 +6,27 @@ class AccountsController < ApplicationController
 
 	def show
 		@account = Account.find(params[:id])
-		@invoices = @account.invoices
+		@deals = @account.deals
+		
 	end
 
 	def index
 
 	end
 
+	def edit
+		@account = Account.find(params[:id])
+	end
+
+	def update
+	@account = Account.find(params[:id])
+		if @account.update_attributes(params[:account])
+			flash[:success] = "Deal Updated"
+			redirect_to account_path(@account)
+		else
+			render 'edit'
+		end	
+	end
 
 	def create
 		@account = current_user.accounts.build(params[:account])
@@ -25,6 +39,7 @@ class AccountsController < ApplicationController
 	end
 
 	def destroy
+		
 	end
 
 	def new

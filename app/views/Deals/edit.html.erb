@@ -1,0 +1,80 @@
+<% provide(:title, "Edit Deal") %> 
+<h1>	Edit Deal</h1>
+
+<div class="row">
+	<div class="container">
+
+<!--Account overview-->
+		<div class="row">
+  			<div class="span12">
+  		    <legend> Account Details</legend>		
+  				<div class="well span4 pull-left">
+ 			
+  					<p>Account: <strong><%= @account.name %></strong></p>
+  					<p>Contact name: <strong><%= @account.contact_name %></strong></p>
+	  				<p>Contact email: <strong><%= @account.contact_email %></strong></p>
+
+  			  	</div>
+  			</div>	
+  		</div>
+
+
+
+<!--Update Deal Overvoew-->
+		<div class="row">
+			<div class="span12">
+				<legend>Deal Overview</legend>
+					<%= form_for (@deal) do |deal_show| %>
+						<div class="form">
+							<div class="row">
+  								<div class="span9">
+  									<div class="span14 offset1">
+  										<%= deal_show.label :name %>
+  										<%= deal_show.text_field :name %>	
+  									</div>
+
+  								</div>
+  							</div>
+
+  							<div class="row">
+  								<div class="span9 offset1">
+  									<div class="span4">
+										<p>Date to begin deal</p>
+  											<%= deal_show.date_select :start_date %>
+  										</div>
+  									<div class="span4">
+  										<p>Date to end invoice</p>
+  											<%= deal_show.date_select :end_date%>
+  									</div>
+  								</div>
+  							</div>
+
+  							<div class="row">
+  								<div class="span9">	
+  									<div class="span4 offset1">
+  										<p>Billing Cycle</br/>
+  										</br>
+  											<%= deal_show.radio_button :billing_cycle, 'Daily' %>  Daily<br/>
+  											<%= deal_show.radio_button :billing_cycle, 'Monthly' %>  Monthly<br/>
+  											<%= deal_show.radio_button :billing_cycle, 'Yearly' %>  Yearly 
+										</p>
+										</br>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="span14">
+								<div class="span4 pull-right">
+									<%= deal_show.submit "Save", class: "btn btn-primary" %>
+								</div>
+							</div>
+						</div>
+					<% end %>
+
+			</div>
+		</div>
+
+	</div>
+</div>

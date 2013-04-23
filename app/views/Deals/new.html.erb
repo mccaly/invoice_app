@@ -1,4 +1,5 @@
-<% provide(:title, "New Invoice") %> 
+<% provide(:title, "New Deal") %> 
+<%= javascript_include_tag "deals" %>
 
 
 <div class="row">
@@ -15,9 +16,83 @@
   					<p>Contact name: <strong><%= @account.contact_name %></strong></p>
 	  				<p>Contact email: <strong><%= @account.contact_email %></strong></p>
 
-  			  </div>
+  			  	</div>
   			</div>	
   		</div>
+
+<!--Deal overview input-->
+
+		<div class="row">
+			<div class="span12">
+				<legend>Deal Terms</legend>
+				<div class="container-fluid">
+  					<div class="row-fluid">
+    					<div class="well span3">
+      						<p><strong>1. Deal Overview</strong></p>
+      						<p>2. Deal Terms</p>
+      						<p>3. Finish/ Summary</p>
+      						</br>
+      						</br>
+      						</br>
+      						</br>
+      				
+      					
+    					</div>
+    					
+    					<div class="well span9">
+      						<%= form_for(@deal, :url => {:controller => :deals, :action => :create}) do |f| %>
+  									<div class="form">	
+  										<div class="row">
+  											<div class="span9">
+  												<div class="span14 offset1">
+  													<%= f.text_field :name, :required => true, placeholder:"Deal name" %>	
+  												</div>
+
+  											</div>
+  										</div>
+
+  										<div class="row">
+  											<div class="span9 offset1">
+  												<div class="span6">
+													<p>Date to begin deal</p>
+  														<%= f.date_select :start_date, :required => true %>
+  												</div>
+  												<div class="span6">
+			  										<p>Date to end invoice</p>
+  														<%= f.date_select :end_date%>
+  												</div>
+  											</div>
+  										</div>
+
+  										<div class="row">
+  											<div class="span9">	
+  												<div class="span4 offset1">
+  												<p>Billing Cycle</br/>
+  												</br>
+  													<%= f.radio_button :billing_cycle, 'Daily' %>  Daily<br/>
+  													<%= f.radio_button :billing_cycle, 'Monthly' %>  Monthly<br/>
+  													<%= f.radio_button :billing_cycle, 'Yearly' %>  Yearly 
+												</p>
+												</br>
+												</div>
+											</div>
+										</div>
+
+										<div class="row">
+											<div class="span14">
+												<div class="span4 pull-right">
+													<%= f.hidden_field :account_id, :value => @account.id %>
+													<%= f.submit "Next", class: "btn btn-primary" %>
+												</div>
+											</div>
+										</div>
+									</div>
+							<% end %>
+    					</div>
+  					</div>
+				</div>
+			</div>
+		</div>
 
 
   	</div>

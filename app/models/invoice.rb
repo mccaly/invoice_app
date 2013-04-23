@@ -15,5 +15,5 @@ class Invoice
 
   belongs_to :user
 
-  has_many :deals
+  belongs_to :deal
 end

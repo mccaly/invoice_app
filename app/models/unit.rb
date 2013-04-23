@@ -4,9 +4,10 @@ class Unit
 
   field :api_key, :type => String
   field :name, :type => String
+  field :amount, :type => Integer
 
 
-  belongs_to :invoice
+  belongs_to :deal
 
   
 end

@@ -1,0 +1,83 @@
+<% provide(:title, "New Unit") %> 
+<h1>	Deal Sumary</h1>
+
+<div class="row">
+	<div class="container">
+
+<!--Show Invoice and acount details-->
+
+		<div class="row">
+		<legend>Account details</legend>
+			<div class="span12-centered">
+
+				<div class="well span4 pull-left">
+					<p>Account: <strong><%= @account.name %></strong></p>
+  					<p>Contact name: <strong><%= @account.contact_name %></strong></p>
+	  				<p>Contact email: <strong><%= @account.contact_email %></strong></p>
+				</div>
+
+			</div>
+		</div>
+
+
+
+
+<!--Show overview of deal & Units-->
+
+		<div class="row">
+			<div class="span12">
+				<legend>Deal Terms</legend>
+				<div class="container-fluid">
+  					<div class="row-fluid">
+    					<div class="well span3">
+      						<p>1. Deal Overview</p>
+      						<p>2. Deal Terms</p>
+      						<p><strong>3. Finish/ Summary</strong></p>
+      						</br>
+      						</br>
+      						</br>
+      						</br>
+    					</div>
+    					
+    					<div class="well span9">
+      						<legend>Deal Overview <a class="btn pull-right" type="button" href= "<%= edit_deal_path(@deal) %>" >Edit Overview
+    							</a></legend>
+      							<p>Name: <strong><%= @deal.name %></strong></p>
+	  							<p>Billing Cycle: <strong><%= @deal.billing_cycle %></strong></p>
+		  						<p>Date Begin: <strong><%= @deal.start_date %></strong></p>
+	  							<p>Date End: <strong><%= @deal.end_date %></strong></p>
+
+	  						<legend>Deal Terms</legend>
+	  							<table class="table">
+	  								<thead>
+      									<tr>
+        									<th>Unit name</th>
+        									<th>Unit amount</th>
+        									<th>Secret key</th>
+      									</tr>
+    								</thead>
+
+    								<tbody>
+	  									<% @unit.each do |unit| %>
+	  									<tr>
+      								  		<td><%= unit.name  %></td>
+        							  		<td>$<%= unit.amount %></td>
+        									<td>#</td>
+        									<td class="pull-right"> <%= link_to 'delete', [@deal, unit], :method => :delete %></td>
+  								    	</tr>
+  										<% end %>
+  									</tbody>
+  								</table>
+  							<a class="btn pull-left" type="button" href= "<%= new_deal_unit_path(@deal) %>" > + New Unit</a>
+  										
+
+    					</div>
+  					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+	</div>
+</div>

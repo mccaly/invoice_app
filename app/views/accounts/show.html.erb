@@ -7,7 +7,9 @@
 
   		<div class="row">
   		<div class="span12">	
-  			<div class="well span4 pull-left">
+  			<div class="well span6 pull-left">
+          <legend>Account details<a class="btn pull-right" type="button" href= "<%= edit_account_path(@account) %>" >Edit details
+                  </a></legend>
   				<p>Account: <strong><%= @account.name %></strong></p>
   				<p>Contact name: <strong><%= @account.contact_name %></strong></p>
   				<p>Contact email: <strong><%= @account.contact_email %></strong></p>
@@ -17,7 +19,7 @@
   		
   		<div class="row">	
   		<div class="span12">	
- 	 		<a class="btn btn-primary btn-large pull-right" type="button"  href="<%= new_deal_path (@account.id) %>">New Deal
+ 	 		<a class="btn btn-primary btn-large pull-right" type="button" href= "<%= new_deal_path(account_id: @account.id) %>" >New Deal
     		</a>
     	</div>
     	</div>
@@ -25,7 +27,7 @@
 <!--Deal list -->
 
       <div class="span12">
-      <table class="table table-hover table-bordered">
+      <table class="table table-hover">
         <caption><h4 class="pull-left">All Deals</h4> </caption>
         <thead>
             <tr>
@@ -37,15 +39,15 @@
         </thead>
 
         <tbody>
-          <% # %>
+          <% @deals.each do |deal| %>
             <tr>
-              <td></td>
-              <td>#</td>
-              <td>#</td>
-              <td>#</td>
-              <td>#</td>
+              <td><%= link_to deal.name, url_for(deal)  %></td>
+              <td><%= deal.start_date %></td>
+              <td><%= deal.end_date%></td>
+              <td><%= deal.billing_cycle%></td>
+              <td class="pull-right"> <%= link_to 'delete', deal, :method => :delete %></td>
             </tr>
-          <% # %>
+          <% end %>
         </tbody>
       </table>
       </div>
