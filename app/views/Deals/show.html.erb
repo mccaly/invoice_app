@@ -62,7 +62,7 @@
 	  									<tr>
       								  		<td><%= unit.name  %></td>
         							  		<td>$<%= unit.amount %></td>
-        									<td>#</td>
+        									<td><%= unit.access_token %></td>
         									<td class="pull-right"> <%= link_to 'delete', [@deal, unit], :method => :delete %></td>
   								    	</tr>
   										<% end %>

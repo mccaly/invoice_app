@@ -6,7 +6,7 @@ class UnitsController < ApplicationController
 		@unit.deal = @deal
 		if @unit.save
 			flash[:success] = "New Unit saved"
-			redirect_to new_deal_unit_path(@deal)
+			redirect_to deal_path(@deal)
 		else
 			raise unit.errors.full_messages.inspect
 		end
