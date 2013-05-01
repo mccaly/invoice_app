@@ -1,0 +1,8 @@
+<h1>tally new </h1>
+
+	<div class="form">
+		<%= form_for(@tally) do |create_tally| %>
+			<%= create_tally.text_field :access_token, :required => true %>
+			<%= create_tally.submit "Save", class: "btn" %>
+		<% end %>
+	</div>
