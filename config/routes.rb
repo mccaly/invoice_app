@@ -8,9 +8,8 @@ InvoiceApp::Application.routes.draw do
 
   resources :deals do
     resources :units
+    resources :invoices
   end 
-  
-  resources :invoices
 
   resources :tallys
   

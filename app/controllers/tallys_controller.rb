@@ -2,7 +2,7 @@ class TallysController < ApplicationController
 
 
 	def show
-		@tally = Tally.all
+		@tally = Tally
 	end
 
 	def index
@@ -10,9 +10,11 @@ class TallysController < ApplicationController
 	end
 
 	def create
-		@tally = Tally.create(params[:tally])
 		unit = Unit.find_by(access_token: params[:access_token])
+		@tally = Tally.create(params[:tally])
 		@tally.unit_id = unit.id
+		@tally.amount = unit.amount
+		@tally.save
 		respond_to do |format|
 			format.json { render json: @tally}
 		end

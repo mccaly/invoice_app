@@ -72,9 +72,18 @@
   													<%= f.radio_button :billing_cycle, 'Daily' %>  Daily<br/>
   													<%= f.radio_button :billing_cycle, 'Monthly' %>  Monthly<br/>
   													<%= f.radio_button :billing_cycle, 'Yearly' %>  Yearly 
-												</p>
-												</br>
+												  </p>
+												  </br>
 												</div>
+
+                        <div class="span5 offset2">
+                          <p>Payment Type</br/>
+                          </br>
+                          Net:<%= f.text_field :payment_info, placeholder:"30" %>
+                          </p>
+                          </br>
+                        </div>  
+
 											</div>
 										</div>
 

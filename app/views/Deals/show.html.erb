@@ -44,6 +44,7 @@
     							</a></legend>
       							<p>Name: <strong><%= @deal.name %></strong></p>
 	  							<p>Billing Cycle: <strong><%= @deal.billing_cycle %></strong></p>
+                  <p>Payment Info: <strong><%= @deal.payment_info %></strong></p>
 		  						<p>Date Begin: <strong><%= @deal.start_date %></strong></p>
 	  							<p>Date End: <strong><%= @deal.end_date %></strong></p>
 
@@ -69,10 +70,10 @@
   									</tbody>
   								</table>
   							<a class="btn pull-left" type="button" href= "<%= new_deal_unit_path(@deal) %>" > + New Unit</a>
-  										
-
     					</div>
   					</div>
+
+            <a class="btn pull-left" type="button" href= "<%= deal_invoice_path(@deal) %>" > Deal Invoice </a>
 				</div>
 			</div>
 		</div>

@@ -51,15 +51,24 @@
 
   							<div class="row">
   								<div class="span9">	
-  									<div class="span4 offset1">
+  									<div class="span3 offset1">
   										<p>Billing Cycle</br/>
   										</br>
   											<%= deal_show.radio_button :billing_cycle, 'Daily' %>  Daily<br/>
   											<%= deal_show.radio_button :billing_cycle, 'Monthly' %>  Monthly<br/>
   											<%= deal_show.radio_button :billing_cycle, 'Yearly' %>  Yearly 
-										</p>
-										</br>
-									</div>
+										  </p>
+										  </br>
+									   </div>
+
+                    <div class="span4 offset1">
+                      <p>Payment Type</br/>
+                      </br>
+                        Net:<%= deal_show.text_field :payment_info %>
+                      </p>
+                      </br>
+                    </div> 
+
 								</div>
 							</div>
 						</div>

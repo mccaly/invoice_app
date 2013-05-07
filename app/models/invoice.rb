@@ -8,12 +8,11 @@ class Invoice
   field :date_end, :type => Date
   field :name, :type => String
   field :number, :type => String
+  field :status, :type => String
+  field :payment_info, type => Integer
 
-
-
-  belongs_to :account
-
-  belongs_to :user
 
   belongs_to :deal
+
+  has_many :units
 end

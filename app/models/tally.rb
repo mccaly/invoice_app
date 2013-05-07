@@ -3,6 +3,8 @@ class Tally
 	include Mongoid::Timestamps
 
 	field :access_token, :type => String
+	field :unit_id, :type => String
+	field :amount, :type => Integer
 
 	belongs_to :deal
 
