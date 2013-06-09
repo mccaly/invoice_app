@@ -12,10 +12,14 @@ InvoiceApp::Application.routes.draw do
   end 
 
   resources :tallys
+
+  resources :unit_tallys
   
 
 
   match '/invoices/:id', to: 'invoices#show' 
+
+  match '/deals/:deal_id/invoices', to: 'invoices#create', :via => :post
 
   #match '/accounts/:account_id/invoices/new', to: 'units#create'
 

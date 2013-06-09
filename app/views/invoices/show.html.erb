@@ -9,17 +9,20 @@
 		<div class="row">
 			<div class="span12">
 				<div class="well span4 pull-left">
-					<h4>User details Details</h4>
-					<p>User: <strong><%= @user.name %></strong></p>
-	  				<p>Contact email: <strong><%= @account.contact_email %></strong></p>
+					<h4>User Details</h4>
+					<p><strong>Contact email:</strong>  User Company</p>
+					<p><strong>User: </strong><%= @invoice.user_name %></p>
+	  				<p><strong>Contact email: </strong><%= @invoice.user_contact_email %></p>
 				</div>
 				
-				<div class="well span4 pull-left">
-					<p><strong>Invoice Name</strong></p>
-	  				<p><strong>Invoice #</strong></p>
-	  				<p><strong><%= @deal.billing_cyle %></strong></p>
-	  				<p><strong>Invoice start date</strong></p>
-	  				<p><strong>Invoice end date</strong></p>
+				<div class="well span4 pull-right">
+					<p><strong>Invoice: </strong><%= @invoice.name %></p>
+	  				<p><strong>Billing cycle: </strong><%= @invoice.billing_cycle %></p>
+	  				<p><strong>Payment info: </strong><%= @invoice.payment_info %></p>
+	  				<p><strong>Invoice start date: </strong><%= @invoice.start_date %></p>
+	  				<p><strong>Invoice end date: </strong><%= @invoice.end_date %></p>
+	  				<p><strong>Expected payment date: </strong><%= @invoice.expected_payment_date %></p>
+	  				<p><strong>Status: </strong><%= @invoice.status %></p>
 				</div>
 			</div>
 		</div>
@@ -28,40 +31,63 @@
 			<div class="span12">
 				<div class="well span4 pull-left">
 					<h4>Account Details</h4>
-					<p>Name: <strong><%= @account.name %></strong></p>
-  					<p>Contact: <strong>Account contact</strong></p>
-	  				<p>Email: <strong>Account email</strong></p>
+					<p><strong>Name: </strong><%= @invoice.account_name %></p>
+  					<p><strong>Contact: </strong><%= @invoice.account_contact_name %></p>
+	  				<p><strong>Email: </strong><%= @invoice.account_contact_email %></p>
 				</div>
 			</div>
 		</div>
 
-<!--Unit-->
+  								    	
+  		<%= link_to "Invoice Paid", deal_invoice_path(@deal, @invoice, status: "Closed"), method: :put, class: "btn btn-primary pull-left" %>
+  	</br>
+  	</br>
+  	</br>
+ 		
 
-   
-	<% @unit.each do |unit| %>
-	    <div class="row">
-    	  <table class="span12">
-        	<div class="row">
-          <legend>New Unit</legend> 
-            <a class="btn btn-primary btn-large pull-left" type="button"  href="<%= new_account_invoice_unit_path(@account, @invoice) %>">New Unit
-    		</a>
-        </div>
+<!---unit_amounts-->
+
+  <% @invoice_units.each do |units| %>
+    <table class="table table-condensed table-bordered">
+      <caption><h4 class="pull-left"><%= units.name %></h4></caption>
+      <thead>
+        <tr>
+          <th>Date charged</th>
+          <th>Quantity</th>
+          <th>Price/ unit</th>
+          <th>Daily total</th>
+        </tr>
+      </thead>
+  
+        
+          <tbody>
+            <tr>
+            <% units.tallys.where(:date.gte => @invoice.start_date).and(:date.lt => @invoice.end_date).each do |tally| %>
+              <td><%= tally.date %></td>
+              <td><%= tally.quantity %></td>
+              <td>$<%= tally.amount_unit %></td>
+              <td>$<%= tally.amount_total %></td>
+            <tr>          
+          </tbody>
+        <% end %>
+    </table>      
+        
+    <div class="row">
+      <div class="span2 offset10 pull_right">
+      <% unit_tally = units.tallys.where(:date.gte => @invoice.start_date).and(:date.lt => @invoice.end_date) %>
+      <h5> <%= units.name %> total: $<%= unit_tally.sum(:amount_total).to_i %></h5>
       </div>
-    	</div>
-    <% end %>
-
- 
-
-<!--Edit-->
-
-		<div class="row">
-			<div class="span11">
-				<a class="btn btn-primary btn-large pull-right" type="button"> Edit </a>
-			</div>
-		</div>
+    </div>
+  </br>
+  </br>
+  <% end %>
 
 
-	
-
-	</div>
+<div class="row">
+  <div class= " well span2 pull-right">
+    <h5> Total Due: $<%= @invoice.amount %></h5>
+  </div>
 </div>
+
+
+

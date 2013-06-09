@@ -4,12 +4,13 @@ class Tally
 
 	field :access_token, :type => String
 	field :unit_id, :type => String
-	field :amount, :type => Integer
+	field :quantity, :type => Integer
+	field :amount_unit, :type => Integer
+  	field :amount_total, :type => Integer
+  	field :date, :type => Date
 
-	belongs_to :deal
+	belongs_to :deal	
 
 	belongs_to :unit
-
-	has_many :units
 
 end

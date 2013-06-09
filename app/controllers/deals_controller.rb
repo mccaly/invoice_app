@@ -7,8 +7,42 @@ class DealsController < ApplicationController
 	end
 
 	def create
+		process_date(params[:deal], "start_date")
+		process_date(params[:deal], "end_date")
 		@deal = Deal.create(params[:deal])
+		
+
 		if @deal.save
+			if @deal.start_date <= Date.today
+				@invoice = Invoice.create(params[:invoice])
+				@invoice.start_date = @deal.start_date
+				if @deal.billing_cycle == "Daily"
+					@invoice.end_date = @invoice.start_date + 1.day
+				elsif @deal.billing_cycle == "Weekly"
+					@invoice.end_date = @invoice.start_date + 1.week
+				elsif @deal.billing_cycle == "Monthly"
+					@invoice.end_date = @invoice.start_date + 1.month
+				elsif @deal.billing_cycle == "Yearly"
+					@invoice.end_date = @invoice.start_date + 1.year
+				end
+				@invoice.payment_info = @deal.payment_info
+				@invoice.billing_cycle = @deal.billing_cycle
+				@invoice.name = @deal.name
+				@invoice.expected_payment_date = @invoice.end_date + (@invoice.payment_info).days
+				@account = @deal.account
+				@invoice.account = @account
+				@invoice.account_name = @account.name
+				@invoice.account_contact_name = @account.contact_name
+				@invoice.account_contact_email = @account.contact_email
+				@user = User.find_by(account_id: params[:user])
+				@invoice.user_name = @user.name	
+				@invoice.user_contact_email = @user.email				
+				@invoice.deal = @deal
+				@invoice.status = "Active"
+				@invoice.save
+				flash[:success] = "New Invoice created"
+			end
+
 			flash[:success] = "New Deal Created"
 			redirect_to new_deal_unit_path(@deal)
 		else
@@ -20,6 +54,7 @@ class DealsController < ApplicationController
 		@deal = Deal.find(params[:id])
 		@account = @deal.account
 		@unit = @deal.units
+		@invoice = @deal.invoices
 	end
 
 	def edit
@@ -46,4 +81,15 @@ class DealsController < ApplicationController
 			render 'edit'
 		end	
 	end
+
+	protected
+	def process_date(obj, field_name)
+		date = Date.new(obj["#{field_name}(1i)"].to_i, obj["#{field_name}(2i)"].to_i, obj["#{field_name}(3i)"].to_i)
+
+		obj.delete("#{field_name}(1i)")
+		obj.delete("#{field_name}(2i)")
+		obj.delete("#{field_name}(3i)")
+
+		obj[field_name] = date
+    end
 end

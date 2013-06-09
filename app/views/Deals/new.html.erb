@@ -59,7 +59,7 @@
   												</div>
   												<div class="span6">
 			  										<p>Date to end invoice</p>
-  														<%= f.date_select :end_date%>
+  														<%= f.date_select :end_date %>
   												</div>
   											</div>
   										</div>
@@ -70,6 +70,7 @@
   												<p>Billing Cycle</br/>
   												</br>
   													<%= f.radio_button :billing_cycle, 'Daily' %>  Daily<br/>
+                            <%= f.radio_button :billing_cycle, 'Weekly' %>  Weekly<br/>
   													<%= f.radio_button :billing_cycle, 'Monthly' %>  Monthly<br/>
   													<%= f.radio_button :billing_cycle, 'Yearly' %>  Yearly 
 												  </p>

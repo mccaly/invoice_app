@@ -7,7 +7,8 @@ class AccountsController < ApplicationController
 	def show
 		@account = Account.find(params[:id])
 		@deals = @account.deals
-		
+		#@deal = @account.deal
+		@invoice = @account.invoices
 	end
 
 	def index
@@ -46,9 +47,9 @@ class AccountsController < ApplicationController
 		@account = Account.new
 	end
 
-	def account
-		@account = Account.new
-	end
+	#def account
+	#	@account = Account.new
+	#end
 
 
 

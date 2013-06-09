@@ -6,20 +6,21 @@
 	<table class="table table-hover">
  		<thead>
  			<tr>
- 				<th>access_token</th>
- 				<th>unit_id</th>
- 				<th>amount</th>
  				<th>date created</th>
+ 				<th>access token</th>
+ 				<th>quantity</th>
+ 				<th>amount/ unit</th>
+ 				<th>amount total</th>
  			</tr>
  		</thead>
 
  		
  		<tbody>
- 		<%= @tally.each do |tally| %>
+ 		<%= @unit_tally.each do |unit_tally| %>
  			<tr>
  				<td><%= tally.access_token %></td>
  				<td><%= tally.unit_id %></td>
- 				<td>#</td>
+ 				<td><%= tally.amount %></td>
  				<td><%= tally.created_at %></td>
  			</tr>
  		</tbody>

@@ -17,21 +17,23 @@
   </div>
 
   <table class="table table-hover">
-    <caption> Table listing accounts </caption>
     <thead>
       <tr>
-        <th>Account</th>
-        <th>Invoices</th>
-        <th>Last updated</th>
+        <th style="width: 30%">Account</th>
+        <th style="width: 17.5%">Overdue</th>
+        <th style="width: 17.5%">Active</th>
+        <th style="width: 17.5%">Waiting on payment</th>
+        <th style="width: 17.5%">Closed</th>
       </tr>
     </thead>
 
     <tbody>
-      <% @account.each do |t| %>
-      <tr>
-        <td> <%= link_to t.name, url_for(t)  %></td>
-        <td>#</td>
-        <td><%= t.updated_at %></td>
+      <% @account.each do |account| %>
+        <td><%= link_to account.name, url_for(account)  %></td>
+        <td><%= account.invoices.where(status: "Overdue").count %></td>
+        <td><%= account.invoices.where(status: "Active").count %></td>
+        <td><%= account.invoices.where(status: "waiting_on_payment").count %></td>
+        <td><%= account.invoices.where(status: "Closed").count %></td>
       </tr>
       <% end %>
     </tbody>

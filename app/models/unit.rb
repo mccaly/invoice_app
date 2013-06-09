@@ -12,6 +12,10 @@ before_create :generate_access_token
 
   belongs_to :deal
 
+  has_and_belongs_to_many :invoices
+
+  has_many :tallys
+
  private
 
 	def generate_access_token

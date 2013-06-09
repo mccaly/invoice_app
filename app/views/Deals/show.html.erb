@@ -72,13 +72,132 @@
   							<a class="btn pull-left" type="button" href= "<%= new_deal_unit_path(@deal) %>" > + New Unit</a>
     					</div>
   					</div>
-
-            <a class="btn pull-left" type="button" href= "<%= deal_invoice_path(@deal) %>" > Deal Invoice </a>
+          </div>
 				</div>
 			</div>
 		</div>
 
+<!--List of invoices-->
+
+<style>
+  table { table-layout: fixed; }
+</style>
+
+    <div class="span12 offset2">
+      <legend>All invoices </legend>
+      <table class="table table-hover table-bordered">
+        <caption><h5 class="pull-left">Active</h5> </caption>
+        <thead>
+            <tr>
+              <th style="width: 22.5%">Start date</th>
+              <th style="width: 22.5%">End date</th>
+              <th style="width: 10%">$</th>
+              <th style="width: 22.5%">Payment Date</th>
+              <th style="width: 22.5%">Days to payment</th>
+            </tr>
+        </thead>
+
+        <tbody>
+          <% @invoice.each do |invoice| %>
+          <% if invoice.status == "Active" %>
+            <tr>
+              <td><%= link_to invoice.start_date, deal_invoice_path(invoice.deal_id, invoice.id) %></td>
+              <td><%= invoice.end_date %></td>
+              <td>#</td>
+              <td><%= invoice.expected_payment_date %></td>
+              <td><%= (invoice.expected_payment_date - Date.today).to_i %></td>
+            </tr>
+          <% end %>
+          <% end %>
+        </tbody>
+      </table>
 
 
+      <table class="table table-hover table-bordered">
+        <caption><h5 class="pull-left">Waiting on payment</h5> </caption>
+        <thead>
+            <tr>
+              <th style="width: 22.5%">Start date</th>
+              <th style="width: 22.5%">End date</th>
+              <th style="width: 10%">$</th>
+              <th style="width: 22.5%">Payment Date</th>
+              <th style="width: 22.5%">Days to payment</th>
+            </tr>
+        </thead>
+
+        <tbody>
+          <% @invoice.each do |invoice| %>
+          <% if invoice.status == "waiting_on_payment" %>
+            <tr>
+              <td><%= link_to invoice.start_date, deal_invoice_path(invoice.deal_id, invoice.id) %></td>
+              <td><%= invoice.end_date %></td>
+              <td>#</td>
+              <td><%= invoice.expected_payment_date %></td>
+              <td><%= (invoice.expected_payment_date - Date.today).to_i %></td>
+            </tr>
+          <% end %>
+          <% end %>
+        </tbody>
+      </table>
+
+
+      <table class="table table-hover table-bordered">
+        <caption><h5 class="pull-left">Overdue</h5> </caption>
+        <thead>
+            <tr>
+              <th style="width: 22.5%">Start date</th>
+              <th style="width: 22.5%">End date</th>
+              <th style="width: 10%">$</th>
+              <th style="width: 22.5%">Payment Date</th>
+              <th style="width: 22.5%">Days to payment</th>
+            </tr>
+        </thead>
+
+        <tbody>
+          <% @invoice.each do |invoice| %>
+          <% if invoice.status == "Overdue" %>
+            <tr>
+              <td><%= link_to invoice.start_date, deal_invoice_path(invoice.deal_id, invoice.id) %></td>
+              <td><%= invoice.end_date %></td>
+              <td>#</td>
+              <td><%= invoice.expected_payment_date %></td>
+              <td><%= (Date.today - invoice.expected_payment_date).to_i %></td>
+            </tr>
+          <% end %>
+          <% end %>
+        </tbody>
+      </table>
+
+
+      <table class="table table-hover table-bordered">
+        <caption><h5 class="pull-left">Closed</h5> </caption>
+        <thead>
+            <tr>
+              <th style="width: 22.5%">Start date</th>
+              <th style="width: 22.5%">End date</th>
+              <th style="width: 10%">$</th>
+              <th style="width: 22.5%">Payment Date</th>
+              <th style="width: 22.5%">Days to payment</th>
+            </tr>
+        </thead>
+
+        <tbody>
+          <% @invoice.each do |invoice| %>
+          <% if invoice.status == "Closed" %>
+            <tr>
+              <td><%= link_to invoice.start_date, deal_invoice_path(invoice.deal_id, invoice.id) %></td>
+              <td><%= invoice.end_date %></td>
+              <td>#</td>
+              <td><%= invoice.expected_payment_date %></td>
+              <td><%= (invoice.expected_payment_date - Date.today).to_i %></td>
+            </tr>
+          <% end %>
+          <% end %>
+        </tbody>
+      </table>
+
+
+
+    </div>
 	</div>
 </div>
