@@ -42,5 +42,17 @@ class UnitsController < ApplicationController
 	end
 
 	def edit
+		@unit = Unit.find(params[:id])
+	end
+
+	def update
+	@deal = Deal.find(params[:deal_id])
+	@unit = Unit.find(params[:id])
+		if @unit.update_attributes(params[:unit])
+			flash[:success] = "Unit Updated"
+			redirect_to deal_path(@deal)
+		else
+			render 'edit'
+		end	
 	end
 end

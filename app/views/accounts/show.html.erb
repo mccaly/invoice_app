@@ -75,7 +75,7 @@
           <% if invoice.status == "Active" %>
             <tr>
               <td><%= link_to invoice.name, deal_invoice_path(invoice.deal_id, invoice.id) %></td>
-              <td>#</td>
+              <td>$<%= invoice.amount %></td>
               <td><%= invoice.start_date %></td>
               <td><%= invoice.end_date %></td>
               <td><%= invoice.expected_payment_date %></td>
@@ -107,7 +107,7 @@
           <% if invoice.status == "waiting_on_payment" %>
              <tr>
               <td><%= link_to invoice.name, deal_invoice_path(invoice.deal_id, invoice.id) %></td>
-              <td>#</td>
+              <td>$<%= invoice.amount %></td>
               <td><%= invoice.start_date %></td>
               <td><%= invoice.end_date %></td>
               <td><%= invoice.expected_payment_date %></td>
@@ -139,7 +139,7 @@
           <% if invoice.status == "Overdue" %>
              <tr>
               <td><%= link_to invoice.name, deal_invoice_path(invoice.deal_id, invoice.id) %></td>
-              <td>#</td>
+              <td>$<%= invoice.amount %></td>
               <td><%= invoice.start_date %></td>
               <td><%= invoice.end_date %></td>
               <td><%= invoice.expected_payment_date %></td>
@@ -170,7 +170,7 @@
           <% if invoice.status == "Closed" %>
              <tr>
               <td><%= link_to invoice.name, deal_invoice_path(invoice.deal_id, invoice.id) %></td>
-              <td>#</td>
+              <td>$<%= invoice.amount %></td>
               <td><%= invoice.start_date %></td>
               <td><%= invoice.end_date %></td>
               <td><%= invoice.expected_payment_date %></td>

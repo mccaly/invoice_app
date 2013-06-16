@@ -3,12 +3,22 @@ InvoiceApp::Application.routes.draw do
 
   root to: 'static_pages#home'
 
-  resources :users
+  resources :users do
+    member do
+      get "approve"
+    end
+  end
   resources :accounts, only: [:create, :new, :show, :edit, :update]
 
   resources :deals do
+    resources :basecost
     resources :units
-    resources :invoices
+    resources :invoices do 
+      member do
+        put "email_invoice"
+        put "email_reminder"
+      end
+    end
   end 
 
   resources :tallys
@@ -16,6 +26,7 @@ InvoiceApp::Application.routes.draw do
   resources :unit_tallys
   
 
+  match ':controller/:action/:id'
 
   match '/invoices/:id', to: 'invoices#show' 
 

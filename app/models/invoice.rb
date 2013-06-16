@@ -19,13 +19,20 @@ class Invoice
   field :account_contact_email, :type => String
   field :status, :type => String
   field :expected_payment_date, :type => Date
+  field :email_invoice_approved, :type => Boolean
+  field :email_reminder_approved, :type => Boolean
+
 
 
   belongs_to :deal
 
   belongs_to :account
 
+  belongs_to :user
+
   has_and_belongs_to_many :units
+
+  has_and_belongs_to_many :basecost
 
   
 
@@ -36,6 +43,9 @@ class Invoice
       if invoice = deal.invoices.lte(end_date: Date.today).where(status: "Active") || deal.end_date < Date.today
         invoice.each do |i|
           i.update_attribute(:status, "waiting_on_payment")
+          #account = i.account
+          @user = i.user
+          ApprovalMailer.invoice_email_approval(@user).deliver
         end
         if deal.end_date >= Date.today
           @invoice = Invoice.create
@@ -51,6 +61,8 @@ class Invoice
           end
           @invoice.payment_info = deal.payment_info
           @invoice.billing_cycle = deal.billing_cycle
+          @invoice.email_invoice_approved = false
+          @invoice.email_reminder_approved = false
           @invoice.name = deal.name
           @invoice.expected_payment_date = @invoice.end_date + (@invoice.payment_info).days
           @account = deal.account
@@ -58,7 +70,10 @@ class Invoice
           @invoice.account_name = @account.name
           @invoice.account_contact_name = @account.contact_name
           @invoice.account_contact_email = @account.contact_email
-          @user = User.find_by(:account_id == @account.id)
+          @user = @account.user
+          @invoice.user = @user
+          @user.invoices << @invoice
+          @user.save
           @invoice.user_name = @user.name 
           @invoice.user_contact_email = @user.email       
           @invoice.deal = deal
@@ -66,6 +81,11 @@ class Invoice
           deal_units.each do |units|
             @invoice.units << units
           end
+          deal_basecost = deal.basecost
+          deal_basecost.each do |basecost|
+            @invoice.basecost << basecost
+          end
+          @invoice.amount = @invoice.basecost.sum(:total).to_i
           @invoice.status = "Active"
           @invoice.save
         end
@@ -91,6 +111,8 @@ class Invoice
           end
           @invoice.payment_info = deal.payment_info
           @invoice.billing_cycle = deal.billing_cycle
+          @invoice.email_invoice_approved = false
+          @invoice.email_reminder_approved = false
           @invoice.name = deal.name
           @invoice.expected_payment_date = @invoice.end_date + (@invoice.payment_info).days
           @account = deal.account
@@ -98,7 +120,10 @@ class Invoice
           @invoice.account_name = @account.name
           @invoice.account_contact_name = @account.contact_name
           @invoice.account_contact_email = @account.contact_email
-          @user = User.find_by(:account_id == @account.id)
+          @user = @account.user
+          @invoice.user = @user
+          @user.invoices << @invoice
+          @user.save
           @invoice.user_name = @user.name 
           @invoice.user_contact_email = @user.email       
           @invoice.deal = deal
@@ -106,6 +131,11 @@ class Invoice
           deal_units.each do |units|
             @invoice.units << units
           end
+          deal_basecost = deal.basecost
+          deal_basecost.each do |basecost|
+            @invoice.basecost << basecost
+          end
+          @invoice.amount = @invoice.basecost.sum(:total).to_i
           @invoice.status = "Active"
           @invoice.save! 
       end 
@@ -119,6 +149,8 @@ class Invoice
     Invoice.each do |invoice|
         if (invoice.status == "waiting_on_payment") && (Date.today - invoice.end_date).to_i > invoice.payment_info
           invoice.update_attribute(:status, "Overdue")
+          @user = invoice.user
+          ApprovalMailer.reminder_email_approval(@user).deliver
         end  
     end
   end

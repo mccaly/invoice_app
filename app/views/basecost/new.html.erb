@@ -1,5 +1,5 @@
-<% provide(:title, "New Unit") %> 
-<h1>Create New Unit</h1>
+<% provide(:title, "New Base Cost") %> 
+<h1>Create Monthly Recurring Costs</h1>
 
 <div class="row">
 <div class="container">
@@ -33,13 +33,13 @@
 
 		<div class="row">
 			<div class="span12">
-				<legend>Deal Terms</legend>
+				<legend>Monthly Recurring costs</legend>
 				<div class="container-fluid">
   					<div class="row-fluid">
     					<div class="well span3">
       						<p>1. Deal Terms</p>
-                  <p>2. Base Costs</p>
-                  <p><strong>3. Metered Billing</strong></p>
+                  <p><strong>2. Base Costs</strong></p>
+                  <p>3. Metered Billing</p>
                   <p>4. Finish/ Summary</p>
       						</br>
       						</br>
@@ -50,16 +50,19 @@
     					</div>
     					
     					<div class="well span9">
-      							<%= form_for(@unit, :url => {:controller => :units, :action => :create}) do |f| %>
+      							<%= form_for(@basecost, :url => {:controller => :basecost, :action => :create}) do |f| %>
   									<div class="form">	
   										<div class="row">
   											<div class="span11">
-  												<div class="span7 offset1">
-  													<%= f.text_field :name, :required => true, placeholder:"Unit name" %>	
+  												<div class="span6 offset1">
+  													<%= f.text_field :name, :required => true, placeholder:"Name" %>	
   												</div>
-  												<div class="span2">
-  													<%= f.text_field :amount, :required => true, placeholder:"$" %>
+  												<div class="span1">
+  													<%= f.text_field :cost, :required => true, placeholder:"$" %>
   												</div>
+                          <div class="span2">
+                            <%= f.text_field :quantity, :required => true, placeholder:"quantity" %>
+                          </div>
   												<div class="span2">
   													<%= f.submit "Save", class: "btn" %>
   												</div>
@@ -67,7 +70,7 @@
   										</div>
   									</div>
   								<% end %>
-							<a class="btn pull-right" type="button" href= "<%= deal_path(@deal) %>" > No units at this time</a>
+							<a class="btn pull-right" type="button" href= "<%= new_deal_unit_path(@deal) %>" > No recurring costs at this time</a>
     					</div>
   					</div>
 				</div>

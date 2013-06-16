@@ -51,10 +51,21 @@ class User
   ## Token authenticatable
   # field :authentication_token, :type => String
 
-  has_and_belongs_to_many :accounts
+  ##Payment info
+  field :paypal_url, :type => String
+  field :bank_wire_details, :type => String
+  field :company, :type => String
+
+  has_many :accounts
   has_many :invoices
 
+  after_create :send_welcome_email
+
   private
+  def send_welcome_email
+    UserMailer.welcome_email(self).deliver
+  end
+
 	def create_remember_token
 		self.remember_token = SecureRandom.urlsafe_base64
 	end

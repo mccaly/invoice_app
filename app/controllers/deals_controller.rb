@@ -27,6 +27,8 @@ class DealsController < ApplicationController
 				end
 				@invoice.payment_info = @deal.payment_info
 				@invoice.billing_cycle = @deal.billing_cycle
+				@invoice.email_invoice_approved = false
+		        @invoice.email_reminder_approved = false
 				@invoice.name = @deal.name
 				@invoice.expected_payment_date = @invoice.end_date + (@invoice.payment_info).days
 				@account = @deal.account
@@ -34,9 +36,12 @@ class DealsController < ApplicationController
 				@invoice.account_name = @account.name
 				@invoice.account_contact_name = @account.contact_name
 				@invoice.account_contact_email = @account.contact_email
-				@user = User.find_by(account_id: params[:user])
-				@invoice.user_name = @user.name	
-				@invoice.user_contact_email = @user.email				
+				user = current_user
+				@invoice.user = user
+				user.invoices << @invoice
+				user.save
+				@invoice.user_name = user.name	
+				@invoice.user_contact_email = user.email				
 				@invoice.deal = @deal
 				@invoice.status = "Active"
 				@invoice.save
@@ -44,7 +49,7 @@ class DealsController < ApplicationController
 			end
 
 			flash[:success] = "New Deal Created"
-			redirect_to new_deal_unit_path(@deal)
+			redirect_to new_deal_basecost_path(@deal)
 		else
 			raise invoice.errors.full_messages.inspect
 		end
@@ -55,6 +60,7 @@ class DealsController < ApplicationController
 		@account = @deal.account
 		@unit = @deal.units
 		@invoice = @deal.invoices
+		@basecost = @deal.basecost
 	end
 
 	def edit

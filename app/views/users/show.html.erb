@@ -30,10 +30,10 @@
     <tbody>
       <% @account.each do |account| %>
         <td><%= link_to account.name, url_for(account)  %></td>
-        <td><%= account.invoices.where(status: "Overdue").count %></td>
-        <td><%= account.invoices.where(status: "Active").count %></td>
-        <td><%= account.invoices.where(status: "waiting_on_payment").count %></td>
-        <td><%= account.invoices.where(status: "Closed").count %></td>
+        <td><%= account.invoices.where(status: "Overdue").count %> | $<%= account.invoices.where(status: "Overdue").sum(:amount).to_i %></td>
+        <td><%= account.invoices.where(status: "Active").count %> | $<%= account.invoices.where(status: "Active").sum(:amount).to_i %></td>
+        <td><%= account.invoices.where(status: "waiting_on_payment").count %> | $<%= account.invoices.where(status: "waiting_on_payment").sum(:amount).to_i %></td>
+        <td><%= account.invoices.where(status: "Closed").count %> | $<%= account.invoices.where(status: "Closed").sum(:amount).to_i %></td>
       </tr>
       <% end %>
     </tbody>

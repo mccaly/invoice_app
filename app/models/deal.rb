@@ -14,4 +14,6 @@ class Deal
 	has_many :invoices
 
 	has_many :units
+
+	has_many :basecost
 end

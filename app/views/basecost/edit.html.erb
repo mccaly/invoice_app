@@ -1,0 +1,21 @@
+<% provide(:title, "Edit Recurring Cost") %> 
+<h1>Edit Recurring Cost</h1>
+
+<div class="row">
+	<div class="container">
+		<div class="span6 offset3">
+		<%= form_for(@basecost, :url => deal_basecost_path) do |basecost| %>
+			<div class="form">
+				<%= basecost.label :name %>
+				<%= basecost.text_field :name, :required => true %>
+				<%= basecost.label :cost %>
+				<%= basecost.text_field :cost, :required => true %>
+				<%= basecost.label :quantity %>
+				<%= basecost.text_field :quantity, :required => true %>
+				<%= basecost.submit "Save", class: "btn btn-large" %>
+			</div>
+		<% end %>
+	</div>
+
+	</div>
+</div>

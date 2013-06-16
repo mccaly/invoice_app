@@ -1,0 +1,19 @@
+<% provide(:title, "Edit Unit") %> 
+<h1>Edit Unit</h1>
+
+<div class="row">
+	<div class="container">
+		<div class="span6 offset3">
+		<%= form_for(@unit, :url => deal_unit_path) do |unit| %>
+			<div class="form">
+				<%= unit.label :name %>
+				<%= unit.text_field :name, :required => true %>
+				<%= unit.label :amount %>
+				<%= unit.text_field :amount, :required => true %>
+				<%= unit.submit "Save", class: "btn btn-large" %>
+			</div>
+		<% end %>
+	</div>
+
+	</div>
+</div>

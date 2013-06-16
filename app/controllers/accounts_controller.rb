@@ -31,6 +31,9 @@ class AccountsController < ApplicationController
 
 	def create
 		@account = current_user.accounts.build(params[:account])
+		@account.user = current_user
+		current_user.accounts << @account
+		current_user.save
 		if @account.save
 			flash[:success] = "New account saved"
 			redirect_to :controller => :users, :action => :show, :id => current_user.id 

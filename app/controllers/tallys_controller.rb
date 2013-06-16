@@ -11,7 +11,7 @@ class TallysController < ApplicationController
 
 	def create
 		unit = Unit.find_by(access_token: params[:access_token])
-		invoice = unit.invoices.where(:status == 'Active').first
+		invoice = unit.invoices.where(status: 'Active').first
 		tally = Tally.where(:access_token => unit.access_token).and(:date => Date.today).first
 		if tally
 			tally.inc(:quantity, 1)
@@ -29,7 +29,7 @@ class TallysController < ApplicationController
 		 	@tally_new.deal = unit.deal
 		 	unit.tallys << @tally_new
 		 	unit.save
-		 	invoice.inc(:amount, @tally_new.amount_total.to_i)
+		 	invoice.inc(:amount, @tally_new.amount_total)
 		 	@tally_new.save
 
 		end

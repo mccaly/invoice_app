@@ -19,6 +19,12 @@
       <%= f.label :password_confirmation, "Confirm Password" %>
       <%= f.password_field :password_confirmation %>
 
+      <%= f.label :paypal_url %>
+      <%= f.text_field :paypal_url %>
+
+      <%= f.label :bank_wire_details %>
+      <%= f.text_area :bank_wire_details %>
+
       <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
     <% end %>
 

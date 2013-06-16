@@ -1,0 +1,74 @@
+<% provide(:title, "Approval") %> 
+
+<h1>Email Approval</h1>
+
+<div calss="row">
+	<div class="container">
+	<div class="span12">
+		<legend>Invoices that require approval</legend>
+		<table class="table table-hover center">
+    		<thead>
+		      <tr>
+		        <th style="width: 15%">Invoice name</th>
+		        <th style="width: 15%">Account</th>
+		        <th style="width: 15%">Deal</th>
+		        <th style="width: 15%">Start date</th>
+		        <th style="width: 15%">End date</th>
+		        <th style="width: 10%">Amount</th>
+		        <th style="width: 15%"></th>
+		      </tr>
+		    </thead>
+
+		    <tbody>
+		    <tr>	
+		      <% @invoice.each do |invoice| %>
+		        <td><%= link_to invoice.name, deal_invoice_path(invoice.deal_id, invoice.id)  %></td>
+		        <td><%= invoice.account.name %></td>
+		        <td><%= invoice.deal.name %></td>
+		        <td><%= invoice.start_date %></td>
+		        <td><%= invoice.end_date %></td>
+		        <td>$<%= invoice.amount %></td>
+		        <td><%= link_to "Send Invoice", email_invoice_deal_invoice_path(invoice.deal, invoice), method: :put %></td>
+		      </tr>
+		      <% end %>
+		    </tbody>
+		</table>
+	</div>
+</div>
+</div>
+</br>
+</br>
+<div calss="row">
+	<div class="container">
+	<div class="span12">
+		<legend>Reminder emails that require approval</legend>
+		<table class="table table-hover center">
+    		<thead>
+		      <tr>
+		        <th style="width: 15%">Invoice name</th>
+		        <th style="width: 15%">Account</th>
+		        <th style="width: 15%">Deal</th>
+		        <th style="width: 15%">Payment date</th>
+		        <th style="width: 15%">Days to payment</th>
+		        <th style="width: 10%">Amount</th>
+		        <th style="width: 15%"></th>
+		      </tr>
+		    </thead>
+
+		    <tbody>
+		    <tr>	
+		      <% @reminder_invoice.each do |invoice| %>
+		        <td><%= link_to invoice.name, deal_invoice_path(invoice.deal_id, invoice.id)  %></td>
+		        <td><%= invoice.account.name %></td>
+		        <td><%= invoice.deal.name %></td>
+		        <td><%= invoice.expected_payment_date %></td>
+		        <td><%= (invoice.expected_payment_date - Date.today).to_i %></td>
+		        <td>$<%= invoice.amount %></td>
+		        <td><%= link_to "Send Reminder", email_reminder_deal_invoice_path(invoice.deal, invoice), method: :put %></td>
+		      </tr>
+		      <% end %>
+		    </tbody>
+		</table>
+	</div>
+</div>
+</div>
