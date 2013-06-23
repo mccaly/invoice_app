@@ -5,6 +5,7 @@ gem 'bootstrap-sass', '2.1'
 gem 'bcrypt-ruby', '3.0.1'
 gem 'mongoid', '~> 3.0.0'
 gem 'devise'
+gem 'heroku'
 
 
 # Bundle edge Rails instead:
@@ -40,7 +41,7 @@ group :test do
 end
 
 group :production do
-	gem 'pg', '0.12.2'
+	gem 'thin'
 end
 
 # To use ActiveModel has_secure_password
