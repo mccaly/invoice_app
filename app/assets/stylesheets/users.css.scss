@@ -12,3 +12,17 @@ textarea{
   min-height:50px;  
   max-height:200px;
 }
+
+ul.user{
+	list-style-type: none;
+	padding-top: 15px;
+	margin: 0px;
+}
+
+ul.user li{
+	margin-left: 5px; 
+	margin-bottom: -5px;
+	float: left;
+	width: 700px;
+	line-height: 0.1em;
+}

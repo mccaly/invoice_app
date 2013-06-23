@@ -4,18 +4,18 @@ class BasecostController < ApplicationController
 		@deal = Deal.find(params[:deal_id])
 		@basecost = Basecost.create(params[:basecost])
 		@invoice = @deal.invoices.where(status: "Active").first
-		#@invoice = Invoice.find_by(@deal.id == :deal_id).where(status: "Active")
 		@basecost.deal = @deal
 		@deal.basecost << @base
 		@deal.save
 		@basecost.total = @basecost.cost * @basecost.quantity
 		@basecost.save
-		if @basecost.save && @invoice != nil		
+		if @basecost.save && @invoice					
 				@invoice.basecost << @basecost
 				@invoice.save
-			if @basecost.total > 0
-				@invoice.inc(:amount, @basecost.total)
-			end	
+				invoice_basecosts = @invoice.basecost
+				@invoice.basecost_total = invoice_basecosts.sum(:total).to_i
+				@invoice.set(:amount, @invoice.basecost_total + @invoice.metered_total)
+				@invoice.save	
 			flash[:success] = "New Base cost saved"
 
 		#else
@@ -40,7 +40,14 @@ class BasecostController < ApplicationController
 	def update
 	@deal = Deal.find(params[:deal_id])
 	@basecost = Basecost.find(params[:id])
+	@invoice = @deal.invoices.where(status: "Active").first
 		if @basecost.update_attributes(params[:basecost])
+			@basecost.total = (@basecost.cost * @basecost.quantity)
+			@basecost.save
+			invoice_basecosts = @invoice.basecost
+			@invoice.basecost_total = invoice_basecosts.sum(:total).to_i
+			@invoice.set(:amount, @invoice.basecost_total + @invoice.metered_total)
+			@invoice.save	
 			flash[:success] = "Base cost Updated"
 			redirect_to deal_path(@deal)
 		else

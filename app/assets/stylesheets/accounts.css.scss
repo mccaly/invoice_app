@@ -1,0 +1,35 @@
+// Place all the styles related to the API_KEY controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+ul.account{
+	list-style-type: none;
+	padding-top: 0px;
+	margin-bottom: 50px;
+}
+
+ul.account li{
+	margin-left: 20px; 
+	margin-bottom: -5px;
+	float: left;
+	width: 900px;
+	line-height: 0.1em;
+}
+
+#dashboard_image{
+	background-image: url(dashboards/banner.png);
+	width: 940px;
+	height: 70px;
+	margin-top: 20px; 
+}
+
+h8{
+		font-family:"Helvetica Neue", Arial, sans-serif;
+		font-weight:lighter;
+		color:#FFF;
+		font-size:40px;
+		margin-top:40px;
+		margin-left: 330px;
+		text-align: center;
+	}

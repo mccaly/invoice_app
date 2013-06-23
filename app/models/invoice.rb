@@ -5,6 +5,8 @@ class Invoice
 
   
   field :amount, :type => Integer
+  field :basecost_total, :type => Integer, :default => 0
+  field :metered_total, :type => Integer, :default => 0
   field :billing_cycle, :type => String
   field :start_date, :type => Date
   field :end_date, :type => Date
@@ -21,6 +23,10 @@ class Invoice
   field :expected_payment_date, :type => Date
   field :email_invoice_approved, :type => Boolean
   field :email_reminder_approved, :type => Boolean
+  field :adjust_total, :type => Boolean
+  field :adjust_total_text, :type => String
+  field :adjust_total_amount, :type => Integer
+
 
 
 
@@ -43,7 +49,6 @@ class Invoice
       if invoice = deal.invoices.lte(end_date: Date.today).where(status: "Active") || deal.end_date < Date.today
         invoice.each do |i|
           i.update_attribute(:status, "waiting_on_payment")
-          #account = i.account
           @user = i.user
           ApprovalMailer.invoice_email_approval(@user).deliver
         end
@@ -85,7 +90,7 @@ class Invoice
           deal_basecost.each do |basecost|
             @invoice.basecost << basecost
           end
-          @invoice.amount = @invoice.basecost.sum(:total).to_i
+          @invoice.amount = @invoice.metered_total + @invoice.basecost_total
           @invoice.status = "Active"
           @invoice.save
         end
@@ -135,7 +140,7 @@ class Invoice
           deal_basecost.each do |basecost|
             @invoice.basecost << basecost
           end
-          @invoice.amount = @invoice.basecost.sum(:total).to_i
+          @invoice.amount = @invoice.metered_total + @invoice.basecost_total
           @invoice.status = "Active"
           @invoice.save! 
       end 

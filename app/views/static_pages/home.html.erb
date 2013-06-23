@@ -1,13 +1,139 @@
-<div class="center hero-unit">
-	
-	<div class="center">
-		<img src="assets/logo_large.png">
-	</br>
-	</br>
-	</br>
-		<p>We think about invoices so you don't have to.</p><%= link_to "Sign Up", new_user_path, class: "btn btn-large btn-primary" %>
-	</div>	
+
+<!---Banner-->
+<div id="banner">
+    		<div id="banner_text">
+		    	<h1 class="pull-left">Automated invoicing</h1>
+                <h2 class="pull-left text-align:left">Bounce allows you to automatically <strong>create</strong>, <strong>track</strong> and <strong>send</strong> invoices. Enabling you to get paid faster.</h2>
+                <a class="btn btn-primary btn-large" type="button" href= "<%= new_user_path %>" >Sign me up</a>
+    		</div>
+            
+            <div id="banner_image"></div>
+
+            
 </div>
 
-<p> need to get thsi shit fleshed out</p>
+<!--WHy Bounce is awesome-->
+</br>
+</br>
 
+<div id="legend_surround">
+			<legend><h3>why bounce is awesome</h3></legend>
+	
+</div>
+
+ <div id="main_content">
+    
+    	<div id="automate">
+        	<div id="automate_image"></div>
+            <div id="automate_text">
+            	<h3>Automate your invoices</h3>
+                <h4>We think about invoices so you dont have to.</br></br> Bounce enables all your invoices to be auto generated for each blling-period, with notifications for overdue payments, a dashboard for viewing invoice status.</h4>
+            </div>
+            
+            <div id="split"></div>
+        </div>
+        
+        <div id="api">
+        	<div id="api_image"></div>
+            <div id="api_text">
+            	<h3>An API for invoices</h3>
+                <h4>The Bouce API automatically generates the billing amounts for each invoice, even if you are billing a fixed cost or a varying amount, we have you covered.</br></br> No more databse queries. No more excel.</h4>
+             </div>
+    	</div>
+</div>
+
+
+<div id="legend_surround">
+	<legend><h3>features</h3></legend>	
+</div>
+
+<div id="features">
+	<ul class="featured">
+		<li class="featured">
+			<h6><i class="icon-bullhorn"></i></h6><h4></strong>Notifications</strong> on invoice status change</h4>
+		</li>
+
+		<li class="featured">
+			<h6><i class="icon-envelope"></i></h6><h4>Automatically <strong>email invoices & reminders</strong></h4>
+		</li>
+
+		<li class="featured">
+			<h6><i class="icon-wrench"></i></h6><h4>Automatic <strong>invoice creation</strong></h4>
+		</li>
+  		
+
+		<li class="featured">
+			<h6><i class="icon-time"></i></h6><h4>Update deals in <strong>real time</strong></h4>
+		</li>
+
+
+		<li class="featured">
+			<h6><i class="icon-eye-open"></i></h6><h4><strong>Track invoices</strong> from your dashboard</h4>
+		</li>
+
+		<li class="featured">
+			<h6><i class="icon-cog"></i></h6><h4>Easy, <strong>one time set up</strong></h4>
+		</li>
+
+		<li class="featured">
+			<h6><i class="icon-repeat"></i></h6><h4>Invoice, fixed <strong>repeat billing</strong></h4>
+		</li>
+
+		<li class="featured">
+			<h6><i class="icon-random"></i></h6><h4>Invoice, varying <strong>metered billing</strong></h4>
+		</li>
+
+		<li class="featured">
+			<h6><i class="icon-usd"></i></h6><h4>Link clients directly to <strong>Paypal</strong> from invoice</h4>
+		</li>
+
+		<li class="featured">
+			<h6><i class="icon-download-alt"></i></h6><h4>Download <strong>revenue report</strong></h4>
+		</li>
+
+
+  	</ul>
+</div>
+
+<div id="legend_surround">
+	<legend><h3>how it works</h3></legend>
+</div>
+
+<div id="how_it_works">
+	<div id="how_it_works_1">
+		<h5><strong>1. Create the deal terms</strong></h5></br>
+		<h4>Tell us who you want to invoice and what the deal terms are. For example, billing cycle and payment terms.</h4>
+	</div>
+
+	<div id="chevron_1">
+		<h3><strong>></strong></h3>
+	</div>
+
+	<div id="how_it_works_2">
+		<h5><strong>2. Tell us what to charge</strong></h5></br>
+		<h4>Either a fixed monthly amount or ping our servers for metered billing. It takes 30 seconds.</h4>
+	</div>
+
+	<div id="chevron_2">
+		<h3><strong>></strong></h3>
+	</div>
+
+	<div id="how_it_works_3">
+		<h5><strong>3. Get paid</strong></h5></br>
+		<h4>That's it. At the end of every billing cycle Bounce will automatically invoice your clients and make a new one for the next cycle.</h4>
+	</div>
+
+</div>
+
+<div id="get_started">
+	<div id="get_started_text">
+		<h3>start invoicing now</h3>
+	</div>
+	<div id="get_started_button">
+		<a class="btn btn-primary btn-large" type="button" href="<%= new_user_path %>">I never want to make another invoice</a>
+	</div>
+</div>
+
+
+
+ 

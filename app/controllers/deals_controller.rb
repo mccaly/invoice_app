@@ -29,6 +29,7 @@ class DealsController < ApplicationController
 				@invoice.billing_cycle = @deal.billing_cycle
 				@invoice.email_invoice_approved = false
 		        @invoice.email_reminder_approved = false
+		        @invoice.adjust_total = 0
 				@invoice.name = @deal.name
 				@invoice.expected_payment_date = @invoice.end_date + (@invoice.payment_info).days
 				@account = @deal.account
@@ -44,6 +45,7 @@ class DealsController < ApplicationController
 				@invoice.user_contact_email = user.email				
 				@invoice.deal = @deal
 				@invoice.status = "Active"
+				@invoice.amount = @invoice.metered_total + @invoice.basecost_total
 				@invoice.save
 				flash[:success] = "New Invoice created"
 			end
@@ -80,7 +82,15 @@ class DealsController < ApplicationController
 
 	def update
 		@deal = Deal.find(params[:id])
+		@invoice = @deal.invoices.where(status: 'Active')
 		if @deal.update_attributes(params[:deal])
+			if @invoice
+				@invoice.each do |invoice|
+					invoice.update_attributes(name: @deal.name)
+					invoice.update_attributes(payment_info: @deal.payment_info)
+					invoice.save
+				end
+			end	
 			flash[:success] = "Deal Updated"
 			redirect_to deal_path(@deal)
 		else

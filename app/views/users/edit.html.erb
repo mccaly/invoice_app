@@ -5,8 +5,9 @@
   <div class="container">
   <div class="span6 offset3">
     <%= form_for(@user) do |f| %>
+      
       <%= render 'shared/error_messages' %>
-
+    </br></br>
       <%= f.label :name %>
       <%= f.text_field :name %>
 
@@ -19,7 +20,7 @@
       <%= f.label :password_confirmation, "Confirm Password" %>
       <%= f.password_field :password_confirmation %>
 
-      <%= f.label :paypal_url %>
+      <%= f.label :paypal_url, "Paypal address" %>
       <%= f.text_field :paypal_url %>
 
       <%= f.label :bank_wire_details %>

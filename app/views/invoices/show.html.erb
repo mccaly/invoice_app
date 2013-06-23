@@ -4,47 +4,54 @@
 <!--invoice details-->
 
 <div class="row">
-	<div class="container">
+  <div class="container" style="margin-top: 20px;">
 
-		<div class="row">
-			<div class="span12">
-				<div class="well span4 pull-left">
-					<h4>User Details</h4>
-					<p><strong>Contact email:</strong>  User Company</p>
-					<p><strong>User: </strong><%= @invoice.user_name %></p>
-	  				<p><strong>Contact email: </strong><%= @invoice.user_contact_email %></p>
-				</div>
-				
-				<div class="well span4 pull-right">
-					<p><strong>Invoice: </strong><%= @invoice.name %></p>
-	  				<p><strong>Billing cycle: </strong><%= @invoice.billing_cycle %></p>
-	  				<p><strong>Payment info: </strong><%= @invoice.payment_info %></p>
-	  				<p><strong>Invoice start date: </strong><%= @invoice.start_date %></p>
-	  				<p><strong>Invoice end date: </strong><%= @invoice.end_date %></p>
-	  				<p><strong>Expected payment date: </strong><%= @invoice.expected_payment_date %></p>
-	  				<p><strong>Status: </strong><%= @invoice.status %></p>
-				</div>
-			</div>
-		</div>
+    <div class="span4 pull-left">
+      <legend>from</legend>
+        <ul class="account">
+          <li><p><strong>Company: </strong><%= @user.company %></p></li>
+          <li><p><strong>User: </strong><%= @invoice.user_name %></p></li>
+          <li><p><strong>Contact email: </strong><%= @invoice.user_contact_email %></p></li>
+        </ul>
+    </div> 
 
-		<div class="row">
-			<div class="span12">
-				<div class="well span4 pull-left">
-					<h4>Account Details</h4>
-					<p><strong>Name: </strong><%= @invoice.account_name %></p>
-  					<p><strong>Contact: </strong><%= @invoice.account_contact_name %></p>
-	  				<p><strong>Email: </strong><%= @invoice.account_contact_email %></p>
-				</div>
-			</div>
-		</div>
+    <div class="span4 pull-right">
+      <legend>invoice details</legend>
+        <ul class="account">
+          <li><p><strong>Invoice: </strong><%= @invoice.name %></p></li>
+          <li><p><strong>Billing cycle: </strong><%= @invoice.billing_cycle %></p></li>
+          <li><p><strong>Payment info: </strong><%= @invoice.payment_info %></p></li>
+          <li><p><strong>Invoice start date: </strong><%= @invoice.start_date %></p></li>
+          <li><p><strong>Invoice end date: </strong><%= @invoice.end_date %></p></li>
+          <li><p><strong>Expected payment date: </strong><%= @invoice.expected_payment_date %></p></li>
+          <li><p><strong>Status: </strong><%= @invoice.status %></p></li>
+        </ul>
+    </div>  
 
-  								    	
-  		<%= link_to "Invoice Paid", deal_invoice_path(@deal, @invoice, status: "Closed"), method: :put, class: "btn btn-primary pull-left" %>
-  	</br>
-  	</br>
-  	</br>
- 		
+    <div class="span4 pull-left">
+      <legend>to</legend>
+        <ul class="account">
+          <li><p><strong>Name: </strong><%= @invoice.account_name %></p></li>
+          <li><p><strong>Contact: </strong><%= @invoice.account_contact_name %></p></li>
+          <li><p><strong>Email: </strong><%= @invoice.account_contact_email %></p></li>
+        </ul>
+    </div>  
+        
+
+    <div class="span12" style="margin-top: 20px;">                    
+      <%= link_to "Invoice Paid", deal_invoice_path(@deal, @invoice, status: "Closed"), method: :put, class: "btn btn-primary pull-left" %>
+    </div> 
+  </div> 
+</div>    
+    </br>
+    </br>
+    </br>
+    
 <!---mrr_amounts-->
+<div class="row">
+  <div class="container">
+  
+<% if @invoice_basecost.count > 0 %>
 <legend>Monthly Recurring Costs</legend>
 
   <table class="table table-condensed table-bordered">
@@ -69,12 +76,14 @@
         <% end %>          
       </tbody>
   </table> 
+<% end %>   
 
 </br>
 </br>
 
 
 <!---unit_amounts-->
+<% if @invoice_units.count > 0 %>
 <legend>Metered Costs</legend>
   <% @invoice_units.each do |units| %>
     <table class="table table-condensed table-bordered">
@@ -102,22 +111,27 @@
     </table>      
         
     <div class="row">
-      <div class="span5 offset7">
-        <div class="pull_right">
+      <div class="span5 pull-right" style="text-align: right;">
           <% unit_tally = units.tallys.where(:date.gte => @invoice.start_date).and(:date.lt => @invoice.end_date) %>
-          <h5> <%= units.name %> total: $<%= unit_tally.sum(:amount_total).to_i %></h5>
-        </div>
+          <h4> <%= units.name %> total: $<%= unit_tally.sum(:amount_total).to_i %></h4>
       </div>
     </div>
   </br>
   </br>
   <% end %>
+<% end %>
+
+
+</div>
+</div>
 
 
 <div class="row">
-  <div class= " well span2 pull-right">
-    <h5> Total Due: $<%= @invoice.amount %></h5>
-  </div>
+  <div class="container">
+    <div class= "well span4 pull-right" style="text-align: center;">
+      <h5> Total Due: $<%= @invoice.amount %></h5>
+    </div>
+  </div>  
 </div>
 
 

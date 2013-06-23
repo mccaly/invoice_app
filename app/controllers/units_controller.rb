@@ -48,7 +48,12 @@ class UnitsController < ApplicationController
 	def update
 	@deal = Deal.find(params[:deal_id])
 	@unit = Unit.find(params[:id])
+	tally = Tally.where(:access_token => @unit.access_token).and(:date => Date.today).first
 		if @unit.update_attributes(params[:unit])
+			if tally
+				tally.update_attributes(amount_unit: @unit.amount)
+				tally.save
+			end
 			flash[:success] = "Unit Updated"
 			redirect_to deal_path(@deal)
 		else

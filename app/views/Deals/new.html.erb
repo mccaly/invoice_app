@@ -6,105 +6,90 @@
 	<div class="container">
 
 
-<!--Account overview-->
-		<div class="row">
-  			<div class="span12">
-  		    <legend> Account Details</legend>		
-  				<div class="well span4 pull-left">
- 			
-  					<p>Account: <strong><%= @account.name %></strong></p>
-  					<p>Contact name: <strong><%= @account.contact_name %></strong></p>
-	  				<p>Contact email: <strong><%= @account.contact_email %></strong></p>
+<!--acount details-->
 
-  			  	</div>
-  			</div>	
-  		</div>
+    <div class="row">
+        <div class="span12">  
+    
+         
+            <legend style="margin-top: 20px;">account details</legend>
+            <div class="span12">
+            <ul class="account">
+              <li><p><strong>account: </strong><%= @account.name %></p></li>
+              <li><p><strong>contact name: </strong><%= @account.contact_name %></p></li>
+              <li><p><strong>contact email: </strong><%= @account.contact_email %></p></li>
+            </ul>
+            </div>
 
 <!--Deal overview input-->
 
 		<div class="row">
 			<div class="span12">
-				<legend>Deal Terms</legend>
-				<div class="container-fluid">
-  					<div class="row-fluid">
-    					<div class="well span3">
-      						<p><strong>1. Deal Terms</strong></p>
-      						<p>2. Base Costs</p>
-                  <p>3. Metered Billing</p>
-      						<p>4. Finish/ Summary</p>
-      						</br>
-      						</br>
-      						</br>
-      						</br>
-      				
-      					
-    					</div>
-    					
-    					<div class="well span9">
-      						<%= form_for(@deal, :url => {:controller => :deals, :action => :create}) do |f| %>
-  									<div class="form">	
-  										<div class="row">
-  											<div class="span9">
-  												<div class="span14 offset1">
-  													<%= f.text_field :name, :required => true, placeholder:"Deal name" %>	
-  												</div>
+				<legend style="margin-top: 20px;">new deal</legend>
 
-  											</div>
-  										</div>
+        <div class="span2 pull-left">
+          <ul class="account">
+              <li><p><strong>1. deal terms</strong></p></li>
+              <li><p>2. base costs</p></li>
+              <li><p>3. metered billing</p></li>
+              <li><p>4. finish/ summary</p></li>
+            </ul>
+        </div>  
 
-  										<div class="row">
-  											<div class="span9 offset1">
-  												<div class="span6">
-													<p>Date to begin deal</p>
-  														<%= f.date_select :start_date, :required => true %>
-  												</div>
-  												<div class="span6">
-			  										<p>Date to end invoice</p>
-  														<%= f.date_select :end_date %>
-  												</div>
-  											</div>
-  										</div>
 
-  										<div class="row">
-  											<div class="span9">	
-  												<div class="span4 offset1">
-  												<p>Billing Cycle</br/>
-  												</br>
-  													<%= f.radio_button :billing_cycle, 'Daily' %>  Daily<br/>
+        <div class="span9 pull-right">
+              <%= form_for(@deal, :url => {:controller => :deals, :action => :create}) do |f| %>
+                    <div class="form">  
+                      <div class="row">
+                        <div class="span9">
+                          <div class="span6 offset1">
+                            <%= f.text_field :name, :required => true, placeholder:"Deal name" %> 
+                          </div>
+
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="span9 offset1">
+                          <div class="span3">
+                          <p>Date to begin deal</p>
+                              <%= f.date_select :start_date, :required => true %>
+                          </div>
+                          <div class="span3">
+                            <p>Date to end invoice</p>
+                              <%= f.date_select :end_date %>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="span9"> 
+                          <div class="span3 offset1">
+                          <p>Billing Cycle</br/>
+                         
+                            <%= f.radio_button :billing_cycle, 'Daily' %>  Daily<br/>
                             <%= f.radio_button :billing_cycle, 'Weekly' %>  Weekly<br/>
-  													<%= f.radio_button :billing_cycle, 'Monthly' %>  Monthly<br/>
-  													<%= f.radio_button :billing_cycle, 'Yearly' %>  Yearly 
-												  </p>
-												  </br>
-												</div>
-
-                        <div class="span5 offset2">
-                          <p>Payment Type</br/>
+                            <%= f.radio_button :billing_cycle, 'Monthly' %>  Monthly<br/>
+                            <%= f.radio_button :billing_cycle, 'Yearly' %>  Yearly 
+                          </p>
                           </br>
+                        </div>
+
+                        <div class="span3">
+                          <p>Payment Type</br/>
+                    
                           Net:<%= f.text_field :payment_info, placeholder:"30" %>
                           </p>
                           </br>
                         </div>  
-
-											</div>
-										</div>
-
-										<div class="row">
-											<div class="span14">
-												<div class="span4 pull-right">
-													<%= f.hidden_field :account_id, :value => @account.id %>
-													<%= f.submit "Next", class: "btn btn-primary" %>
-												</div>
-											</div>
-										</div>
-									</div>
-							<% end %>
-    					</div>
-  					</div>
-				</div>
-			</div>
-		</div>
-
-
+                          <div class="span2 offset2">
+                          <%= f.hidden_field :account_id, :value => @account.id %>
+                          <%= f.submit "Next", class: "btn btn-primary" %>
+                        </div>
+                      </div>  
+                    </div>
+                  </div>
+              <% end %>
+        </div>
   	</div>
 </div>

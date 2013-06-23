@@ -21,12 +21,21 @@ class AccountsController < ApplicationController
 
 	def update
 	@account = Account.find(params[:id])
-		if @account.update_attributes(params[:account])
+	@invoice = @account.invoices.where(email_reminder_approved: false)
+		if @account.update_attributes(params[:account])	
+			if @invoice
+				@invoice.each do |invoice|
+					invoice.update_attributes(account_name: @account.name)
+					invoice.update_attributes(account_contact_email: @account.contact_email)
+					invoice.update_attributes(account_contact_name: @account.contact_name)
+					invoice.save
+				end
+			end		
 			flash[:success] = "Deal Updated"
 			redirect_to account_path(@account)
 		else
 			render 'edit'
-		end	
+		end
 	end
 
 	def create

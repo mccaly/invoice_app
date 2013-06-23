@@ -1,34 +1,33 @@
 <% provide(:title, "Account details") %> 
 
-<h1>Acount Overview</h1>
+
 
 <div class="row">
 	<div class="container">
 
   		<div class="row">
-  		<div class="span12">	
-  			<div class="well span6 pull-left">
-          <legend>Account details<a class="btn pull-right" type="button" href= "<%= edit_account_path(@account) %>" >Edit details
-                  </a></legend>
-  				<p>Account: <strong><%= @account.name %></strong></p>
-  				<p>Contact name: <strong><%= @account.contact_name %></strong></p>
-  				<p>Contact email: <strong><%= @account.contact_email %></strong></p>
-  			</div>
-  		</div>	
-  		</div>
+  		  <div class="span12">	
   		
-  		<div class="row">	
-  		<div class="span12">	
- 	 		<a class="btn btn-primary btn-large pull-right" type="button" href= "<%= new_deal_path(account_id: @account.id) %>" >New Deal
-    		</a>
-    	</div>
-    	</div>
+          <legend><h3 style="width: 940px; margin-top: 20px;">account details<a class="btn pull-right" type="button" href= "<%= edit_account_path(@account) %>" >edit account</a></h3></legend>
+          <div class="row">
+            <ul class="account">
+              <li><p><strong>account: </strong><%= @account.name %></p></li>
+              <li><p><strong>contact name: </strong><%= @account.contact_name %></p></li>
+              <li><p><strong>contact email: </strong><%= @account.contact_email %></p></li>
+            </ul>
+          </div>
+        	<legend></legend>
+  		  </div>	
+  		</div>
+
+    </br>
+  	
 
 <!--Deal list -->
-
-      <div class="span12">
+  <div class="container" style="margin-left: -20px;">
+    <div class="span12">
       <table class="table table-hover table-bordered table-condensed">
-        <legend>All Deals</legend>
+        <legend><h3 style="width: 940px;">all deals<a class="btn btn-primary btn-large pull-right" type="button" href= "<%= new_deal_path(account_id: @account.id) %>" style="margin-top: -5px;" >new deal</a></h3></legend>
         <thead>
             <tr>
               <th style="width: 50%">Deal name</th>
@@ -56,7 +55,7 @@
 <!--List of invoices-->
 
     	<div class="span12">
-      <legend> Invoices </legend>
+      <legend><h3> invoices</h3> </legend>
     	<table class="table table-hover table-bordered table-condensed">
     		<caption><h5 class="pull-left">Active</h5> </caption>
     		<thead>
@@ -160,8 +159,8 @@
               <th style="width: 10%">$</th>
               <th style="width: 15%">Start Date</th>
               <th style="width: 15%">End Date</th>
-              <th style="width: 15%">Payment Date</th>
-              <th style="width: 15%">Days to payment</th> 
+              <th style="width: 14%">Payment Date</th>
+              <th style="width: 26%">Days since payment</th> 
             </tr>
     		</thead>
 
@@ -184,3 +183,4 @@
 
  	</div>
  </div>
+</div>

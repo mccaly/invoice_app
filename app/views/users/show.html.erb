@@ -2,21 +2,32 @@
 
 <div class="row">
 <div class="container">
-  <aside class="span4">
+  <aside class="span2 pull-left" style="padding-bottom:20px;">
+    <div style="padding-top: 20px;">
   	<section>
       <h1>
         <%= gravatar_for @user %>
-        <%= @user.name %>
-      </h1>
-    </section>
+      </h1>  
+    </section>  
+        <a class="btn" type="button" href= "<%= edit_user_registration_path %>">edit profile</a>
+  </div>
   </aside>
 
-  <div class="span12 offset10">
-    <button class="btn btn-primary" type="button"><%= link_to "New Account", new_account_path %>
-    </button>
+  <div class="row">
+      <ul class="user">
+        <li><p><strong>user name:</strong> <%= @user.name %></p></li>
+        <li><p><strong>company name: </strong><%= @user.company %></p></li>
+        <li><p><strong>email:</strong> <%= @user.email %></p></li>
+        <li><p><strong>paypal: </strong><%= @user.paypal_url %></p></li>
+        <li><p><strong>wire info: </strong><%= @user.bank_wire_details %></p></li>
+      </ul>
   </div>
 
-  <table class="table table-hover">
+  
+<legend style="padding-top: 30px;"><h3 style="width: 940px;">all accounts<a class="btn btn-primary pull-right" type="button" href= "<%= new_account_path %>">new account
+        </a></h3></legend>
+
+  <table class="table table-hover table-condensed">
     <thead>
       <tr>
         <th style="width: 30%">Account</th>
@@ -30,10 +41,10 @@
     <tbody>
       <% @account.each do |account| %>
         <td><%= link_to account.name, url_for(account)  %></td>
-        <td><%= account.invoices.where(status: "Overdue").count %> | $<%= account.invoices.where(status: "Overdue").sum(:amount).to_i %></td>
-        <td><%= account.invoices.where(status: "Active").count %> | $<%= account.invoices.where(status: "Active").sum(:amount).to_i %></td>
-        <td><%= account.invoices.where(status: "waiting_on_payment").count %> | $<%= account.invoices.where(status: "waiting_on_payment").sum(:amount).to_i %></td>
-        <td><%= account.invoices.where(status: "Closed").count %> | $<%= account.invoices.where(status: "Closed").sum(:amount).to_i %></td>
+        <td><%= account.invoices.where(status: "Overdue").count %></br>$<%= account.invoices.where(status: "Overdue").sum(:amount).to_i %></td>
+        <td><%= account.invoices.where(status: "Active").count %></br> $<%= account.invoices.where(status: "Active").sum(:amount).to_i %></td>
+        <td><%= account.invoices.where(status: "waiting_on_payment").count %></br> $<%= account.invoices.where(status: "waiting_on_payment").sum(:amount).to_i %></td>
+        <td><%= account.invoices.where(status: "Closed").count %></br> $<%= account.invoices.where(status: "Closed").sum(:amount).to_i %></td>
       </tr>
       <% end %>
     </tbody>

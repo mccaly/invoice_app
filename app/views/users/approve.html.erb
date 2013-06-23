@@ -1,11 +1,10 @@
 <% provide(:title, "Approval") %> 
 
-<h1>Email Approval</h1>
 
 <div calss="row">
 	<div class="container">
 	<div class="span12">
-		<legend>Invoices that require approval</legend>
+		<legend style="margin-top: 20px;">Invoices that require approval</legend>
 		<table class="table table-hover center">
     		<thead>
 		      <tr>
@@ -22,7 +21,7 @@
 		    <tbody>
 		    <tr>	
 		      <% @invoice.each do |invoice| %>
-		        <td><%= link_to invoice.name, deal_invoice_path(invoice.deal_id, invoice.id)  %></td>
+		        <td><a href="http://localhost:3000/invoices/client_invoice_view/<%= invoice.id %>"><%= invoice.name %></a></td>
 		        <td><%= invoice.account.name %></td>
 		        <td><%= invoice.deal.name %></td>
 		        <td><%= invoice.start_date %></td>

@@ -1,76 +1,74 @@
 <% provide(:title, "New Base Cost") %> 
-<h1>Create Monthly Recurring Costs</h1>
 
 <div class="row">
 <div class="container">
 
 <!--Show Invoice and acount details-->
 
-		<div class="row">
-		<legend>Account & Invoice details</legend>
-			<div class="span12-centered">
+		<legend style="margin-top: 20px;">account & deal terms</legend>
+			<div class="container">
 
-				<div class="well span4 pull-left">
-					<p>Account: <strong><%= @account.name %></strong></p>
-  					<p>Contact name: <strong><%= @account.contact_name %></strong></p>
-	  				<p>Contact email: <strong><%= @account.contact_email %></strong></p>
-				</div>
+        <div class="span5">
+          <legend><h4>account</h4></legend>
+          <ul class="account">
+            <li><p><strong>Account: </strong><%= @account.name %></p></li>
+            <li><p><strong>Contact name: </strong><%= @account.contact_name %></p></li>
+            <li><p><strong>Contact email: </strong><%= @account.contact_email %></p></li>
+          </ul>
+        </div>
 
-				<div class="offset5">
-					<div class="well span4 pull-left">
-						<p>Name: <strong><%= @deal.name %></strong></p>
-	  					<p>Billing Cycle: <strong><%= @deal.billing_cycle %></strong></p>
-              <p>Payment Info: <strong><%= @deal.payment_info %></strong></p>
-		  				<p>Date Begin: <strong><%= @deal.start_date %></strong></p>
-	  					<p>Date End: <strong><%= @deal.end_date %></strong></p>
-					</div>
-				</div>
+
+        <div class="span5">
+          <legend><h4>deal terms</h4></legend>
+          <ul class="account">
+            <li><p><strong>Name: </strong><%= @deal.name %></p></li>
+            <li><p><strong>Billing Cycle: </strong><%= @deal.billing_cycle %></p></li>
+            <li><p><strong>Payment Info: </strong><%= @deal.payment_info %></p></li>
+            <li><p><strong>Date Begin: </strong><%= @deal.start_date %></p></li>
+            <li><p><strong>Date End: </strong><%= @deal.end_date %></p></li>
+          </ul>
+        </div> 
+
 			</div>
-		</div>
 
 
 	<!--Unit input-->
 
 		<div class="row">
 			<div class="span12">
-				<legend>Monthly Recurring costs</legend>
-				<div class="container-fluid">
-  					<div class="row-fluid">
-    					<div class="well span3">
-      						<p>1. Deal Terms</p>
-                  <p><strong>2. Base Costs</strong></p>
-                  <p>3. Metered Billing</p>
-                  <p>4. Finish/ Summary</p>
-      						</br>
-      						</br>
-      						</br>
-      						</br>
-      					
-      					
-    					</div>
+        <legend style="margin-top: 20px;">new deal</legend>
+
+        <div class="span2 pull-left">
+          <ul class="account">
+              <li><p>1. deal terms</p></li>
+              <li><p><strong>2. base costs</strong></p></li>
+              <li><p>3. metered billing</p></li>
+              <li><p>4. finish/ summary</p></li>
+            </ul>
+        </div>  
     					
-    					<div class="well span9">
+    					<div class="span9 pull-right">
       							<%= form_for(@basecost, :url => {:controller => :basecost, :action => :create}) do |f| %>
   									<div class="form">	
   										<div class="row">
-  											<div class="span11">
-  												<div class="span6 offset1">
+  											<div class="span9">
+  												<div class="span4">
   													<%= f.text_field :name, :required => true, placeholder:"Name" %>	
   												</div>
-  												<div class="span1">
+  												<div class="span2">
   													<%= f.text_field :cost, :required => true, placeholder:"$" %>
   												</div>
                           <div class="span2">
                             <%= f.text_field :quantity, :required => true, placeholder:"quantity" %>
                           </div>
-  												<div class="span2">
-  													<%= f.submit "Save", class: "btn" %>
+  												<div class="span1 pull-right">
+  													<%= f.submit "save", class: "btn btn-primary" %>
   												</div>
   											</div>
   										</div>
   									</div>
   								<% end %>
-							<a class="btn pull-right" type="button" href= "<%= new_deal_unit_path(@deal) %>" > No recurring costs at this time</a>
+							<a class="btn pull-right" type="button" href= "<%= new_deal_unit_path(@deal) %>" style="margin-top: -10px;" > no recurring costs at this time</a>
     					</div>
   					</div>
 				</div>

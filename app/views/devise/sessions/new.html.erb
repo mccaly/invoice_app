@@ -1,8 +1,8 @@
-<h2>Sign in</h2>
+
 
 <div class ="container">
 	<div class="row">
-		<div class="well span6 offset3">
+		<div class="well span6 offset3" style="margin-top: 50px;">
 			<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
 			  <div><%= f.label :email %>
 			  <%= f.email_field :email, :autofocus => true %></div><br />
