@@ -18,7 +18,9 @@ class TallysController < ApplicationController
 			@tally_running_total = (tally.amount_unit).to_i
 			tally.inc(:amount_total, @tally_running_total) 
 			invoice.inc(:metered_total, tally.amount_unit)
-			invoice.set(:amount, invoice.metered_total + invoice.basecost_total)
+			if invoice.adjust_total != "true"
+				invoice.set(:amount, invoice.metered_total + invoice.basecost_total)
+			end
 		else
 		 	@tally_new = Tally.create(params[:tally])
 		 	@tally_new.unit = unit
@@ -32,7 +34,9 @@ class TallysController < ApplicationController
 		 	unit.tallys << @tally_new
 		 	unit.save
 		 	invoice.inc(:metered_total, @tally_new.amount_total)
-		 	invoice.set(:amount, invoice.metered_total + invoice.basecost_total)
+		 	if invoice.adjust_total != "true"
+		 		invoice.set(:amount, invoice.metered_total + invoice.basecost_total)
+		 	end
 		 	@tally_new.save
 
 		end

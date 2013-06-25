@@ -9,12 +9,12 @@
     		<thead>
 		      <tr>
 		        <th style="width: 15%">Invoice name</th>
-		        <th style="width: 15%">Account</th>
+		        <th style="width: 13%">Account</th>
 		        <th style="width: 15%">Deal</th>
-		        <th style="width: 15%">Start date</th>
-		        <th style="width: 15%">End date</th>
+		        <th style="width: 12%">Start date</th>
+		        <th style="width: 12%">End date</th>
 		        <th style="width: 10%">Amount</th>
-		        <th style="width: 15%"></th>
+		        <th style="width: 23%"></th>
 		      </tr>
 		    </thead>
 
@@ -27,7 +27,7 @@
 		        <td><%= invoice.start_date %></td>
 		        <td><%= invoice.end_date %></td>
 		        <td>$<%= invoice.amount %></td>
-		        <td><%= link_to "Send Invoice", email_invoice_deal_invoice_path(invoice.deal, invoice), method: :put %></td>
+		        <td><%= link_to "edit invoice", edit_deal_invoice_path(invoice.deal, invoice) %> | <%= link_to "send invoice", email_invoice_deal_invoice_path(invoice.deal, invoice), method: :put, confirm: "Are you sure you want to send this invoice?" %></td>
 		      </tr>
 		      <% end %>
 		    </tbody>
@@ -45,12 +45,12 @@
     		<thead>
 		      <tr>
 		        <th style="width: 15%">Invoice name</th>
-		        <th style="width: 15%">Account</th>
+		        <th style="width: 13%">Account</th>
 		        <th style="width: 15%">Deal</th>
-		        <th style="width: 15%">Payment date</th>
-		        <th style="width: 15%">Days to payment</th>
+		        <th style="width: 12%">Payment date</th>
+		        <th style="width: 12%">Days to payment</th>
 		        <th style="width: 10%">Amount</th>
-		        <th style="width: 15%"></th>
+		        <th style="width: 23%"></th>
 		      </tr>
 		    </thead>
 
@@ -63,7 +63,7 @@
 		        <td><%= invoice.expected_payment_date %></td>
 		        <td><%= (invoice.expected_payment_date - Date.today).to_i %></td>
 		        <td>$<%= invoice.amount %></td>
-		        <td><%= link_to "Send Reminder", email_reminder_deal_invoice_path(invoice.deal, invoice), method: :put %></td>
+		        <td><%= link_to "edit invoice", edit_deal_invoice_path(invoice.deal, invoice) %> | <%= link_to "send reminder", email_reminder_deal_invoice_path(invoice.deal, invoice), method: :put, confirm: "Are you sure you want to send this invoice?" %></td>
 		      </tr>
 		      <% end %>
 		    </tbody>

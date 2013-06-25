@@ -6,6 +6,8 @@ class UsersController < ApplicationController
 	def show
 		@user = User.find(params[:id])
     @account = @user.accounts
+    @invoice_email = @user.invoices.where(status: 'waiting_on_payment').and(:email_invoice_approved => false)
+    @reminder_invoice = @user.invoices.where(status: 'Overdue').and(:email_reminder_approved => false)
 	end
 
   def new

@@ -133,8 +133,8 @@
       <div class="well" style="height: 120px;">
         <%= form_for(@invoice, :url => deal_invoice_path) do |invoice| %>
         <div class="span2">
-          <%= invoice.label :adjust_total, 'adjust total' %>
-          <%= invoice.check_box :adjust_total %>
+          <%= invoice.radio_button :adjust_total, 'true' %> Edit total</br>
+          <%= invoice.radio_button :adjust_total, 'false' %> Do not edit total
         </div>  
         <div class="span5">
           <%= invoice.label :adjust_total_text, 'description of changes' %>

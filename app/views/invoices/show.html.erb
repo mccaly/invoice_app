@@ -24,6 +24,7 @@
           <li><p><strong>Invoice start date: </strong><%= @invoice.start_date %></p></li>
           <li><p><strong>Invoice end date: </strong><%= @invoice.end_date %></p></li>
           <li><p><strong>Expected payment date: </strong><%= @invoice.expected_payment_date %></p></li>
+          <li><p><strong>Payment date: </strong><% if @invoice.status_closed_date != nil %><%= @invoice.expected_payment_date %><% else %>N/A<% end %></p></li>
           <li><p><strong>Status: </strong><%= @invoice.status %></p></li>
         </ul>
     </div>  
@@ -38,8 +39,12 @@
     </div>  
         
 
-    <div class="span12" style="margin-top: 20px;">                    
-      <%= link_to "Invoice Paid", deal_invoice_path(@deal, @invoice, status: "Closed"), method: :put, class: "btn btn-primary pull-left" %>
+    <div class="span12" style="margin-top: 20px;"> 
+      <%= form_for(@invoice, :url => deal_invoice_path) do |invoice| %>
+        <%= invoice.hidden_field :status, :value => "Closed" %>
+        <%= invoice.hidden_field :status_closed_date, :value => Date.today %>
+        <%= invoice.submit "Invoice paid", class: "btn btn-primary pull-left" %>
+      <% end %>
     </div> 
   </div> 
 </div>    
@@ -125,14 +130,30 @@
 </div>
 </div>
 
-
-<div class="row">
-  <div class="container">
-    <div class= "well span4 pull-right" style="text-align: center;">
-      <h5> Total Due: $<%= @invoice.amount %></h5>
+<% if @invoice.adjust_total != "true" %>
+    
+    <div class="row">
+      <div class="container">
+        <div class= "well span4 pull-right" style="text-align: center;">
+          <h5> Total Due: $<%= @invoice.amount %></h5>
+           <div class="pull-right"><%= link_to "edit", edit_deal_invoice_path(@deal, @invoice) %></div>    
+        </div>
+      </div>  
     </div>
-  </div>  
-</div>
+
+<% else %>
+    <div class="row">
+      <div class="container">
+        <div class= "well span4 pull-right" style="text-align: center;">
+          <p><%= @invoice.user_company %> calculated total: $<%= @invoice.basecost_total + @invoice.metered_total %></p></br>
+          <h5>Updated total: $<%= @invoice.amount %></h5><p>(please pay this amount)</p>  
+          <p>Update description: <%= @invoice.adjust_total_text %></p>    
+          
+          <div class="pull-right"><%= link_to "edit", edit_deal_invoice_path(@deal, @invoice) %></div>     
+        </div>
+      </div>  
+    </div>
+<% end %>
 
 
 

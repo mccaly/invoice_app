@@ -201,7 +201,7 @@
               <td><%= invoice.end_date %></td>
               <td>$<%= invoice.amount %></td>
               <td><%= invoice.expected_payment_date %></td>
-              <td><%= (invoice.expected_payment_date - Date.today).to_i %></td>
+              <td><%= (Date.today - invoice.status_closed_date).to_i %></td>
             </tr>
           <% end %>
           <% end %>

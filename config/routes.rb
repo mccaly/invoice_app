@@ -25,12 +25,12 @@ InvoiceApp::Application.routes.draw do
 
   resources :unit_tallys
   
-  #match '/invoices/:id', to: 'invoices#show'
+  match '/invoices/:id', to: 'invoices#show'
   #match '/invoices/:id/edit', to: 'invoices#edit'
 
-  #match ':controller/:action/:id' 
+  match ':controller/:action/:id' 
 
-  #match '/deals/:deal_id/invoices', to: 'invoices#create', :via => :post
+  match '/deals/:deal_id/invoices', to: 'invoices#create', :via => :post
 
   #match '/accounts/:account_id/invoices/new', to: 'units#create'
 

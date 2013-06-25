@@ -11,24 +11,26 @@ class InvoicesController < ApplicationController
 		@invoice = Invoice.find(params[:id])
 		@invoice_units = @invoice.units
 		@invoice_total = @invoice.amount
-		 @invoice_basecost = @invoice.basecost 
-
+		@invoice_basecost = @invoice.basecosts 
 	end
 
 	def update
 		@deal = Deal.find(params[:deal_id])
 		@invoice = Invoice.find(params[:id])
-		@invoice.update_attributes(params)
-		if @invoice.adjust_total == 1
-			@invoice.amount = 13
-			@invoice.save
-			flash[:success] = "Invoice updated"
-			redirect_to deal_invoice_path(@deal, @invoice)
-		else
-			@invoice.amount = 43
-			@invoice.save
-			flash[:success] = "Invoice updated"
-			redirect_to deal_invoice_path(@deal, @invoice)
+		@invoice.update_attributes(params[:invoice])
+		@invoice.save
+		if @invoice.update_attributes
+			if @invoice.adjust_total == 'true'
+				@invoice.amount = @invoice.adjust_total_amount
+				@invoice.save
+				flash[:success] = "Invoice updated"
+				redirect_to deal_invoice_path(@deal, @invoice)
+			else
+				@invoice.amount = (@invoice.basecost_total + @invoice.metered_total)
+				@invoice.save
+				flash[:success] = "Invoice updated"
+				redirect_to deal_invoice_path(@deal, @invoice)
+			end
 		end
 	end
 
@@ -44,7 +46,7 @@ class InvoicesController < ApplicationController
 		@deal = Deal.find(params[:deal_id])
 		@invoice_units = @invoice.units
 		@invoice_total = @invoice.amount
-		@invoice_basecost = @invoice.basecost 
+		@invoice_basecost = @invoice.basecosts 
 		#@units_tally = @invoice_units.tallys
 	end
 

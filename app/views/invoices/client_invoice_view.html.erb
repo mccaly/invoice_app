@@ -121,14 +121,30 @@
 </div>
 </div>
 
-
-<div class="row">
-  <div class="container">
-    <div class= "well span4 pull-right" style="text-align: center;">
-      <h5> Total Due: $<%= @invoice.amount %></h5>
+<!--invoice total -->
+<% if @invoice.adjust_total != "true" %>
+    
+    <div class="row">
+      <div class="container">
+        <div class= "well span4 pull-right" style="text-align: center;">
+          <h5> Total Due: $<%= @invoice.amount %></h5>
+        </div>
+      </div>  
     </div>
-  </div>  
-</div>
+
+<% else %>
+    <div class="row">
+      <div class="container">
+        <div class= "well span4 pull-right" style="text-align: center;">
+          <p><%= @invoice.user_company %> calculated total: $<%= @invoice.basecost_total + @invoice.metered_total %></p></br>
+          <h5>Updated total: $<%= @invoice.amount %></h5><p>(please pay this amount)</p>  
+          <p>Update description: <%= @invoice.adjust_total_text %></p>      
+        </div>
+      </div>  
+    </div>
+<% end %>
+
+<!--payment info-->
 
 <div class="row" style="height: 200px;">
   <div class="container">

@@ -20,12 +20,14 @@ class Invoice
   field :account_contact_name, :type => String
   field :account_contact_email, :type => String
   field :status, :type => String
+  field :status_closed_date, :type => Date
   field :expected_payment_date, :type => Date
   field :email_invoice_approved, :type => Boolean
   field :email_reminder_approved, :type => Boolean
-  field :adjust_total, :type => Boolean
+  field :adjust_total, :type => String, :default => 'false'
   field :adjust_total_text, :type => String
   field :adjust_total_amount, :type => Integer
+
 
 
 
@@ -38,7 +40,7 @@ class Invoice
 
   has_and_belongs_to_many :units
 
-  has_and_belongs_to_many :basecost
+  has_and_belongs_to_many :basecosts
 
   
 
@@ -88,9 +90,13 @@ class Invoice
           end
           deal_basecost = deal.basecost
           deal_basecost.each do |basecost|
-            @invoice.basecost << basecost
+            @invoice.basecosts << basecost
+            @invoice.save!
           end
-          @invoice.amount = @invoice.metered_total + @invoice.basecost_total
+          invoice_basecosts = @invoice.basecosts
+          @invoice.basecost_total = invoice_basecosts.sum(:total).to_i
+          @invoice.set(:amount, @invoice.basecost_total + @invoice.metered_total)
+          @invoice.save 
           @invoice.status = "Active"
           @invoice.save
         end
@@ -140,6 +146,8 @@ class Invoice
           deal_basecost.each do |basecost|
             @invoice.basecost << basecost
           end
+          invoice_basecosts = @invoice.basecost
+          @invoice.basecost_total = invoice_basecosts.sum(:total).to_i
           @invoice.amount = @invoice.metered_total + @invoice.basecost_total
           @invoice.status = "Active"
           @invoice.save! 

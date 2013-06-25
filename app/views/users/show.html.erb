@@ -23,6 +23,16 @@
       </ul>
   </div>
 
+</br>
+
+  <div class="row">
+    <div class="container">
+      <div class=" well span7">
+      <p>Invoices ready to be sent: <%= @invoice_email.count %>  |  Reminders ready to be sent: <%= @reminder_invoice.count %></p> 
+      <a class="btn pull-right" type="button" href= "<%= approve_user_path(@user) %>" style="margin-top: -35px;">review</a>
+    </div>
+    </div>
+  </div>  
   
 <legend style="padding-top: 30px;"><h3 style="width: 940px;">all accounts<a class="btn btn-primary pull-right" type="button" href= "<%= new_account_path %>">new account
         </a></h3></legend>

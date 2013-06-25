@@ -10,9 +10,9 @@ class BasecostController < ApplicationController
 		@basecost.total = @basecost.cost * @basecost.quantity
 		@basecost.save
 		if @basecost.save && @invoice					
-				@invoice.basecost << @basecost
+				@invoice.basecosts << @basecost
 				@invoice.save
-				invoice_basecosts = @invoice.basecost
+				invoice_basecosts = @invoice.basecosts
 				@invoice.basecost_total = invoice_basecosts.sum(:total).to_i
 				@invoice.set(:amount, @invoice.basecost_total + @invoice.metered_total)
 				@invoice.save	
@@ -41,17 +41,18 @@ class BasecostController < ApplicationController
 	@deal = Deal.find(params[:deal_id])
 	@basecost = Basecost.find(params[:id])
 	@invoice = @deal.invoices.where(status: "Active").first
-		if @basecost.update_attributes(params[:basecost])
-			@basecost.total = (@basecost.cost * @basecost.quantity)
-			@basecost.save
-			invoice_basecosts = @invoice.basecost
+	@basecost.update_attributes(params[:basecost])	
+	@basecost.total = (@basecost.cost * @basecost.quantity)
+	@basecost.save	
+		if @invoice
+			invoice_basecosts = @invoice.basecosts
 			@invoice.basecost_total = invoice_basecosts.sum(:total).to_i
 			@invoice.set(:amount, @invoice.basecost_total + @invoice.metered_total)
 			@invoice.save	
 			flash[:success] = "Base cost Updated"
 			redirect_to deal_path(@deal)
 		else
-			render 'edit'
+			
 		end	
 	end
 
