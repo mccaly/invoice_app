@@ -19,7 +19,6 @@ class InvoicesController < ApplicationController
 		@invoice = Invoice.find(params[:id])
 		@invoice.update_attributes(params[:invoice])
 		@invoice.save
-		if @invoice.update_attributes
 			if @invoice.adjust_total == 'true'
 				@invoice.amount = @invoice.adjust_total_amount
 				@invoice.save
@@ -31,7 +30,6 @@ class InvoicesController < ApplicationController
 				flash[:success] = "Invoice updated"
 				redirect_to deal_invoice_path(@deal, @invoice)
 			end
-		end
 	end
 
 	def invoice
@@ -79,6 +77,6 @@ class InvoicesController < ApplicationController
 		@deal = @invoice.deal
 		@invoice_units = @invoice.units
 		@invoice_total = @invoice.amount
-		@invoice_basecost = @invoice.basecost 
+		@invoice_basecost = @invoice.basecosts 
   	end
 end
