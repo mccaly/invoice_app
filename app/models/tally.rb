@@ -11,6 +11,6 @@ class Tally
 
 	belongs_to :deal	
 
-	belongs_to :unit
+	belongs_to :unit_tally
 
 end

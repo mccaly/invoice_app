@@ -74,7 +74,7 @@
         <% @invoice_basecost.each do |basecost| %>
         <tr>
           <td><%= basecost.name %></td>
-          <td>$<%= basecost.cost %></td>
+          <td>$<%= basecost.amount %></td>
           <td><%= basecost.quantity %></td>
           <td>$<%= basecost.total %></td>
         <tr>
@@ -90,9 +90,9 @@
 <!---unit_amounts-->
 <% if @invoice_units.count > 0 %>
 <legend>Metered Costs</legend>
-  <% @invoice_units.each do |units| %>
+  <% @invoice_units.each do |unit_tally| %>
     <table class="table table-condensed table-bordered">
-      <caption><h4 class="pull-left"><%= units.name %></h4></caption>
+      <caption><h4 class="pull-left"><%= unit_tally.name %></h4></caption>
       <thead>
         <tr>
           <th>Date charged</th>
@@ -105,7 +105,7 @@
         
           <tbody>
             <tr>
-            <% units.tallys.where(:date.gte => @invoice.start_date).and(:date.lt => @invoice.end_date).each do |tally| %>
+            <% unit_tally.tallys.each do |tally| %>
               <td><%= tally.date %></td>
               <td><%= tally.quantity %></td>
               <td>$<%= tally.amount_unit %></td>
@@ -117,8 +117,7 @@
         
     <div class="row">
       <div class="span5 pull-right" style="text-align: right;">
-          <% unit_tally = units.tallys.where(:date.gte => @invoice.start_date).and(:date.lt => @invoice.end_date) %>
-          <h4> <%= units.name %> total: $<%= unit_tally.sum(:amount_total).to_i %></h4>
+          <h4> <%= unit_tally.name %> total: $<%= unit_tally.total.to_i %></h4>
       </div>
     </div>
   </br>

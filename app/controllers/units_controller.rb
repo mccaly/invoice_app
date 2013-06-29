@@ -7,10 +7,18 @@ class UnitsController < ApplicationController
 		#@invoice = Invoice.find_by(@deal.id == :deal_id).where(status: "Active")
 		@unit.deal = @deal
 		@unit.save
-		if @unit.save && @invoice != nil		
-				@invoice.units << @unit
+		if @unit.save && @invoice		
+				unit_tally = UnitTally.create
+				unit_tally.name = @unit.name
+				unit_tally.access_token = @unit.access_token
+				unit_tally.status = 'Active'
+				unit_tally.end_date = @invoice.end_date
+				unit_tally.set(:total, unit_tally.tallys.sum(:amount_total).to_i)
+				unit_tally.invoice = @invoice
+				unit_tally.unit = @unit
+				unit_tally.save
+				@invoice.unit_tallys << unit_tally
 				@invoice.save
-
 			flash[:success] = "New Unit saved"
 			redirect_to deal_path(@deal)
 		#else

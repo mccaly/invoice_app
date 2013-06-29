@@ -10,8 +10,6 @@ class DealsController < ApplicationController
 		process_date(params[:deal], "start_date")
 		process_date(params[:deal], "end_date")
 		@deal = Deal.create(params[:deal])
-		
-
 		if @deal.save
 			if @deal.start_date <= Date.today
 				@invoice = Invoice.create(params[:invoice])
@@ -45,6 +43,7 @@ class DealsController < ApplicationController
 				@invoice.user_contact_email = user.email				
 				@invoice.deal = @deal
 				@invoice.status = "Active"
+				@invoice.metered_total = @invoice.unit_tallys.sum(:total).to_i
 				@invoice.amount = @invoice.metered_total + @invoice.basecost_total
 				@invoice.save
 				flash[:success] = "New Invoice created"
@@ -62,7 +61,7 @@ class DealsController < ApplicationController
 		@account = @deal.account
 		@unit = @deal.units
 		@invoice = @deal.invoices
-		@basecost = @deal.basecost
+		@basecost = @deal.basecosts
 	end
 
 	def edit

@@ -1,0 +1,2 @@
+class UnitTallyController < ApplicationController
+end

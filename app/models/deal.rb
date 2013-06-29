@@ -15,5 +15,7 @@ class Deal
 
 	has_many :units
 
-	has_many :basecost
+	has_many :basecosts
+
+	has_many :basecost_tallys
 end

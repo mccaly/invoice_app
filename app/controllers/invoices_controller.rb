@@ -9,9 +9,9 @@ class InvoicesController < ApplicationController
 
 	def edit
 		@invoice = Invoice.find(params[:id])
-		@invoice_units = @invoice.units
+		@invoice_units = @invoice.unit_tallys
 		@invoice_total = @invoice.amount
-		@invoice_basecost = @invoice.basecosts 
+		@invoice_basecost = @invoice.basecost_tallys
 	end
 
 	def update
@@ -40,11 +40,10 @@ class InvoicesController < ApplicationController
 		@account = Account.find_by(params[:account_id])
 		@invoice = Invoice.find(params[:id])
 		@user = @invoice.user
-		@unit = @invoice.units
 		@deal = Deal.find(params[:deal_id])
-		@invoice_units = @invoice.units
+		@invoice_units = @invoice.unit_tallys
 		@invoice_total = @invoice.amount
-		@invoice_basecost = @invoice.basecosts 
+		@invoice_basecost = @invoice.basecost_tallys
 		#@units_tally = @invoice_units.tallys
 	end
 
@@ -75,8 +74,8 @@ class InvoicesController < ApplicationController
   		@user = @invoice.user
   		@unit = @invoice.units
 		@deal = @invoice.deal
-		@invoice_units = @invoice.units
+		@invoice_units = @invoice.unit_tallys
 		@invoice_total = @invoice.amount
-		@invoice_basecost = @invoice.basecosts 
+		@invoice_basecost = @invoice.basecost_tallys
   	end
 end

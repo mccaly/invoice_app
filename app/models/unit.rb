@@ -12,9 +12,7 @@ before_create :generate_access_token
 
   belongs_to :deal
 
-  has_and_belongs_to_many :invoices
-
-  has_many :tallys
+  has_many :unit_tallys
 
  private
 
