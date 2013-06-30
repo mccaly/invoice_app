@@ -1,3 +1,12 @@
+development:
+  sessions:
+    default:
+      uri:  <%= ENV['MONGOHQ_URL'] %>
+        options:
+          skip_version_check: true
+            safe: true
+
+
 # development:
 #   # Configure available database sessions. (required)
 #   sessions:
@@ -21,7 +30,7 @@
 production:
   sessions:
     default:
-      uri:  'mongodb://andrewmccalister@googlemail.com:3seatsofa@dharma.mongohq.com:10072/app12497979' 
+      uri:  <%= ENV['MONGOHQ_URL'] %>
         options:
           skip_version_check: true
             safe: true
