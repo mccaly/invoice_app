@@ -63,9 +63,9 @@
         <% @invoice_basecost.each do |basecost| %>
         <tr>
           <td><%= basecost.name %></td>
-          <td>$<%= basecost.cost %></td>
+          <td>$<%= basecost.amount %></td>
           <td><%= basecost.quantity %></td>
-          <td>$<%= basecost.total %></td>
+          <td>$<%= basecost.total/100.0 %></td>
         <tr>
         <% end %>          
       </tbody>
@@ -81,7 +81,7 @@
 <legend>Metered Costs</legend>
   <% @invoice_units.each do |units| %>
     <table class="table table-condensed table-bordered">
-      <caption><h4 class="pull-left"><%= unit_tally.name %></h4></caption>
+      <caption><h4 class="pull-left"><%= units.name %></h4></caption>
       <thead>
         <tr>
           <th>Date charged</th>
@@ -94,11 +94,11 @@
         
           <tbody>
             <tr>
-            <% units.tallys.where(:date.gte => @invoice.start_date).and(:date.lt => @invoice.end_date).each do |tally| %>
+            <% units.tallys.each do |tally| %>
               <td><%= tally.date %></td>
               <td><%= tally.quantity %></td>
-              <td>$<%= tally.amount_unit %></td>
-              <td>$<%= tally.amount_total %></td>
+              <td>$<%= tally.amount_unit/100.0 %></td>
+              <td>$<%= tally.amount_total/100.0 %></td>
             <tr>  
             <% end %>        
           </tbody>
@@ -106,7 +106,7 @@
         
     <div class="row">
       <div class="span5 pull-right" style="text-align: right;">
-          <h4> <%= unit_tally.name %> total: $<%= unit_tally.total.to_i %></h4>
+          <h4> <%= units.name %> total: $<%= units.total.to_i/100.0 %></h4>
       </div>
     </div>
   </br>
@@ -119,7 +119,7 @@
   <div class="row">
     <div class="container">
       <div class= "well span4 pull-right" style="text-align: center;">
-        <h5> Total Due: $<%= @invoice.amount %></h5>
+        <h5> Total Due: $<%= @invoice.amount/100.0 %></h5>
       </div>
     </div>  
   </div>

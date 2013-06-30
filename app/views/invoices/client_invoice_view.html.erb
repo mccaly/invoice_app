@@ -65,9 +65,9 @@
         <% @invoice_basecost.each do |basecost| %>
         <tr>
           <td><%= basecost.name %></td>
-          <td>$<%= basecost.cost %></td>
+          <td>$<%= basecost.amount/100.0 %></td>
           <td><%= basecost.quantity %></td>
-          <td>$<%= basecost.total %></td>
+          <td>$<%= basecost.total/100.0 %></td>
         <tr>
         <% end %>          
       </tbody>
@@ -99,8 +99,8 @@
             <% units.tallys.where(:date.gte => @invoice.start_date).and(:date.lt => @invoice.end_date).each do |tally| %>
               <td><%= tally.date %></td>
               <td><%= tally.quantity %></td>
-              <td>$<%= tally.amount_unit %></td>
-              <td>$<%= tally.amount_total %></td>
+              <td>$<%= tally.amount_unit/100.0 %></td>
+              <td>$<%= tally.amount_total/100.0 %></td>
             <tr>  
             <% end %>        
           </tbody>
@@ -108,7 +108,7 @@
         
     <div class="row">
       <div class="span5 pull-right" style="text-align: right;">
-          <h4> <%= unit_tally.name %> total: $<%= unit_tally.total.to_i %></h4>
+          <h4> <%= unit_tally.name %> total: $<%= unit_tally.total.to_i/100.0 %></h4>
       </div>
     </div>
   </br>
@@ -126,7 +126,7 @@
     <div class="row">
       <div class="container">
         <div class= "well span4 pull-right" style="text-align: center;">
-          <h5> Total Due: $<%= @invoice.amount %></h5>
+          <h5> Total Due: $<%= @invoice.amount/100.0 %></h5>
         </div>
       </div>  
     </div>
@@ -135,8 +135,8 @@
     <div class="row">
       <div class="container">
         <div class= "well span4 pull-right" style="text-align: center;">
-          <p><%= @invoice.user_company %> calculated total: $<%= @invoice.basecost_total + @invoice.metered_total %></p></br>
-          <h5>Updated total: $<%= @invoice.amount %></h5><p>(please pay this amount)</p>  
+          <p><%= @invoice.user_company %> calculated total: $<%= (@invoice.basecost_total + @invoice.metered_total)/100.0 %></p></br>
+          <h5>Updated total: $<%= @invoice.amount/100.0 %></h5><p>(please pay this amount)</p>  
           <p>Update description: <%= @invoice.adjust_total_text %></p>      
         </div>
       </div>  
@@ -153,7 +153,7 @@
       <INPUT TYPE="hidden" NAME="cmd" VALUE="_xclick">
       <INPUT TYPE="hidden" NAME="business" VALUE="<%= @user.paypal_url %>">
       <INPUT TYPE="hidden" NAME="item_name" VALUE="<%= @invoice.name %>">
-      <INPUT TYPE="hidden" NAME="amount" VALUE="<%= @invoice.amount %>">
+      <INPUT TYPE="hidden" NAME="amount" VALUE="<%= @invoice.amount/100.0 %>">
       <INPUT TYPE="hidden" NAME="currency_code" VALUE="USD">
       <input type="hidden" name="button_subtype" value="services">
       <INPUT TYPE="hidden" NAME="lc" VALUE="US">

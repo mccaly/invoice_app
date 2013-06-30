@@ -74,9 +74,9 @@
         <% @invoice_basecost.each do |basecost| %>
         <tr>
           <td><%= basecost.name %></td>
-          <td>$<%= basecost.amount %></td>
+          <td>$<%= basecost.amount/100.0 %></td>
           <td><%= basecost.quantity %></td>
-          <td>$<%= basecost.total %></td>
+          <td>$<%= basecost.total/100.0 %></td>
         <tr>
         <% end %>          
       </tbody>
@@ -108,8 +108,8 @@
             <% unit_tally.tallys.each do |tally| %>
               <td><%= tally.date %></td>
               <td><%= tally.quantity %></td>
-              <td>$<%= tally.amount_unit %></td>
-              <td>$<%= tally.amount_total %></td>
+              <td>$<%= tally.amount_unit/100.0 %></td>
+              <td>$<%= tally.amount_total/100.0 %></td>
             <tr>  
             <% end %>        
           </tbody>
@@ -117,7 +117,7 @@
         
     <div class="row">
       <div class="span5 pull-right" style="text-align: right;">
-          <h4> <%= unit_tally.name %> total: $<%= unit_tally.total.to_i %></h4>
+          <h4> <%= unit_tally.name %> total: $<%= unit_tally.total.to_i/100.0 %></h4>
       </div>
     </div>
   </br>
@@ -134,7 +134,7 @@
     <div class="row">
       <div class="container">
         <div class= "well span4 pull-right" style="text-align: center;">
-          <h5> Total Due: $<%= @invoice.amount %></h5>
+          <h5> Total Due: $<%= @invoice.amount/100.0 %></h5>
            <div class="pull-right"><%= link_to "edit", edit_deal_invoice_path(@deal, @invoice) %></div>    
         </div>
       </div>  
@@ -144,8 +144,8 @@
     <div class="row">
       <div class="container">
         <div class= "well span4 pull-right" style="text-align: center;">
-          <p><%= @invoice.user_company %> calculated total: $<%= @invoice.basecost_total + @invoice.metered_total %></p></br>
-          <h5>Updated total: $<%= @invoice.amount %></h5><p>(please pay this amount)</p>  
+          <p><%= @invoice.user_company %> calculated total: $<%= (@invoice.basecost_total + @invoice.metered_total)/100.0 %></p></br>
+          <h5>Updated total: $<%= @invoice.amount/100.0 %></h5><p>(please pay this amount)</p>  
           <p>Update description: <%= @invoice.adjust_total_text %></p>    
           
           <div class="pull-right"><%= link_to "edit", edit_deal_invoice_path(@deal, @invoice) %></div>     

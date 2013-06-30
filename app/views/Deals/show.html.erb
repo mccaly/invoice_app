@@ -51,7 +51,7 @@
                       <% @basecost.each do |basecost| %>
                       <tr>
                             <td><%= basecost.name  %></td>
-                            <td>$<%= basecost.cost %></td>
+                            <td>$<%= basecost.cost/100.00 %></td>
                           <td><%= basecost.quantity %></td>
                           <td> <a href= "<%= edit_deal_basecost_path(@deal, basecost) %>">edit</a>  | <%= link_to 'delete', [@deal, basecost], :method => :delete %></td>
                         </tr>
@@ -75,7 +75,7 @@
                       <% @unit.each do |unit| %>
                       <tr>
                             <td><%= unit.name  %></td>
-                            <td>$<%= unit.amount %></td>
+                            <td>$<%= unit.amount/100.0 %></td>
                           <td><%= unit.access_token %></td>
                           <td><a href= "<%= edit_deal_unit_path(@deal, unit) %>">edit</a> | <%= link_to 'delete', [@deal, unit], :method => :delete %></td>
                         </tr>
@@ -115,7 +115,7 @@
             <tr>
               <td><%= link_to invoice.start_date, deal_invoice_path(invoice.deal_id, invoice.id) %></td>
               <td><%= invoice.end_date %></td>
-              <td>$<%= invoice.amount %></td>
+              <td>$<%= invoice.amount/100.0 %></td>
               <td><%= invoice.expected_payment_date %></td>
               <td><%= (invoice.expected_payment_date - Date.today).to_i %></td>
             </tr>
@@ -143,7 +143,7 @@
             <tr>
               <td><%= link_to invoice.start_date, deal_invoice_path(invoice.deal_id, invoice.id) %></td>
               <td><%= invoice.end_date %></td>
-              <td>$<%= invoice.amount %></td>
+              <td>$<%= invoice.amount/100.0 %></td>
               <td><%= invoice.expected_payment_date %></td>
               <td><%= (invoice.expected_payment_date - Date.today).to_i %></td>
             </tr>
@@ -171,7 +171,7 @@
             <tr>
               <td><%= link_to invoice.start_date, deal_invoice_path(invoice.deal_id, invoice.id) %></td>
               <td><%= invoice.end_date %></td>
-              <td>$<%= invoice.amount %></td>
+              <td>$<%= invoice.amount/100.0 %></td>
               <td><%= invoice.expected_payment_date %></td>
               <td><%= (Date.today - invoice.expected_payment_date).to_i %></td>
             </tr>
@@ -199,7 +199,7 @@
             <tr>
               <td><%= link_to invoice.start_date, deal_invoice_path(invoice.deal_id, invoice.id) %></td>
               <td><%= invoice.end_date %></td>
-              <td>$<%= invoice.amount %></td>
+              <td>$<%= invoice.amount/100.0 %></td>
               <td><%= invoice.expected_payment_date %></td>
               <td><%= (Date.today - invoice.status_closed_date).to_i %></td>
             </tr>

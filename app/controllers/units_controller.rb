@@ -2,6 +2,7 @@ class UnitsController < ApplicationController
 
 	def create
 		@deal = Deal.find(params[:deal_id])
+		params[:unit][:amount] = (params[:unit][:amount].to_f * 100).to_i	
 		@unit = Unit.create(params[:unit])
 		@invoice = @deal.invoices.where(status: "Active").first
 		#@invoice = Invoice.find_by(@deal.id == :deal_id).where(status: "Active")
@@ -57,6 +58,7 @@ class UnitsController < ApplicationController
 	@deal = Deal.find(params[:deal_id])
 	@unit = Unit.find(params[:id])
 	tally = Tally.where(:access_token => @unit.access_token).and(:date => Date.today).first
+	params[:unit][:amount] = (params[:unit][:amount].to_f * 100).to_i	
 		if @unit.update_attributes(params[:unit])
 			if tally
 				tally.update_attributes(amount_unit: @unit.amount)

@@ -9,7 +9,7 @@
 			<div class="form">
 				<%= unit.label :name %>
 				<%= unit.text_field :name, :required => true %>
-				<%= unit.label :amount %>
+				<%= unit.label (:amount)/100.0 %>
 				<%= unit.text_field :amount, :required => true %>
 				<%= unit.submit "Save", class: "btn btn-primary" %>
 			</div>

@@ -17,6 +17,7 @@ class InvoicesController < ApplicationController
 	def update
 		@deal = Deal.find(params[:deal_id])
 		@invoice = Invoice.find(params[:id])
+		params[:invoice][:adjust_total_amount] = (params[:invoice][:adjust_total_amount].to_f * 100).to_i	
 		@invoice.update_attributes(params[:invoice])
 		@invoice.save
 			if @invoice.adjust_total == 'true'
@@ -72,7 +73,7 @@ class InvoicesController < ApplicationController
   	def client_invoice_view
   		@invoice = Invoice.find(params[:id])
   		@user = @invoice.user
-  		@unit = @invoice.units
+  		@unit = @invoice.unit_tallys
 		@deal = @invoice.deal
 		@invoice_units = @invoice.unit_tallys
 		@invoice_total = @invoice.amount

@@ -2,6 +2,7 @@ class BasecostController < ApplicationController
 	
 	def create
 		@deal = Deal.find(params[:deal_id])
+		params[:basecost][:cost] = (params[:basecost][:cost].to_f * 100).to_i	
 		@basecost = Basecost.create(params[:basecost])
 		@invoice = @deal.invoices.where(status: "Active").first
 		@basecost.deal = @deal
@@ -52,6 +53,7 @@ class BasecostController < ApplicationController
 	@basecost = Basecost.find(params[:id])
 	@invoice = @deal.invoices.where(status: "Active").first
 	basecost_tally = @basecost.basecost_tallys.where(status: "Active").first
+	params[:basecost][:cost] = (params[:basecost][:cost].to_f * 100).to_i	
 	@basecost.update_attributes(params[:basecost])	
 	@basecost.total = (@basecost.cost * @basecost.quantity)
 	@basecost.save	
