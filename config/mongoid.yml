@@ -9,7 +9,7 @@ development:
       database: invoice_app_development
       # Provides the hosts the default session can connect to. Must be an array
       # of host:port pairs. (required) 
-      hosts:
+        hosts:
         #<%= ENV['mongodb://andrewmccalister@googlemail.com:3seatsofa@dharma.mongohq.com:10072/app12497979'] %>
         - localhost:27017
 
@@ -17,7 +17,7 @@ development:
 production:
   sessions:
     default:
-      uri:  <%= ENV['MONGOHQ_URL'] %>
+      uri: <%= ENV['mongodb://heroku:5f73de66b069b82dfdf4d0be6ff45b23@dharma.mongohq.com:10072/app12497979'] %>
         options:
           skip_version_check: true
             safe: true
@@ -82,9 +82,9 @@ production:
 #   sessions:
 #     default:
 #       database: invoice_app_test
-#       hosts:
+#         hosts:
 #         - localhost:27017
-#       options:
+#         options:
 #         consistency: :strong
 #         # In the test environment we lower the retries and retry interval to
 #         # low amounts for fast failures.

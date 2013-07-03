@@ -57,9 +57,9 @@ class User
   field :company, :type => String
 
   ##account info
-  #field :admin, :type => Boolean, :default => false 
+  field :admin, :type => Boolean, :default => false 
   #field :passed_free_trial, :type => Boolean, :defaut =>false
-  #field :plan_type, :type => String
+  field :plan_type, :type => String
 
   has_many :accounts
   has_many :invoices
