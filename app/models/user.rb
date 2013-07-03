@@ -56,17 +56,42 @@ class User
   field :bank_wire_details, :type => String
   field :company, :type => String
 
+  ##account info
+  #field :admin, :type => Boolean, :default => false 
+  #field :passed_free_trial, :type => Boolean, :defaut =>false
+  #field :plan_type, :type => String
+
   has_many :accounts
   has_many :invoices
 
   after_create :send_welcome_email
 
-  private
-  def send_welcome_email
-    UserMailer.welcome_email(self).deliver
+
+
+  #send reminder that free trail is about to expire
+  def self.send_reminder_that_trial_period_will_expire  
+      User.each do |user|
+          if (user.admin == false) && user.created_at < (Date.today - 25.days)
+            ApprovalMailer.trial_period_reminder_5days(user).deliver
+          end  
+      end
   end
 
-	def create_remember_token
-		self.remember_token = SecureRandom.urlsafe_base64
-	end
+  # #take user out of free trial
+  # def self.change_user_status_if_past_free_trial
+  #   User.each do |user|
+  #     # if (user.admin == false) && user.created_at < (Date.today - 30.days)
+  #      # user.toggle!(:passed_free_trial)
+  #     # end
+  # end
+
+
+private
+    def send_welcome_email
+      UserMailer.welcome_email(self).deliver
+    end
+
+  	def create_remember_token
+  		self.remember_token = SecureRandom.urlsafe_base64
+  	end
 end
