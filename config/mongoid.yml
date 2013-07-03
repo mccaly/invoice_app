@@ -9,7 +9,7 @@ development:
       database: invoice_app_development
       # Provides the hosts the default session can connect to. Must be an array
       # of host:port pairs. (required) 
-        hosts:
+      hosts:
         #<%= ENV['mongodb://andrewmccalister@googlemail.com:3seatsofa@dharma.mongohq.com:10072/app12497979'] %>
         - localhost:27017
 
@@ -18,9 +18,9 @@ production:
   sessions:
     default:
       uri: <%= ENV['MONGOHQ_URL'] %>
-        options:
-          skip_version_check: true
-          safe: true
+      options:
+        skip_version_check: true
+        safe: true
       #<% end %>
 #       options:
 #         # Change whether the session persists in safe mode by default.
