@@ -17,10 +17,10 @@ development:
 production:
   sessions:
     default:
-      uri: <%= ENV['mongodb://heroku:5f73de66b069b82dfdf4d0be6ff45b23@dharma.mongohq.com:10072/app12497979'] %>
+      uri: <%= ENV['MONGOHQ_URL'] %>
         options:
           skip_version_check: true
-            safe: true
+          safe: true
       #<% end %>
 #       options:
 #         # Change whether the session persists in safe mode by default.
