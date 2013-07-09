@@ -7,6 +7,7 @@ gem 'bcrypt-ruby', '3.0.1'
 gem 'mongoid', '~> 3.1.2'
 gem 'devise'
 gem 'coffee-rails', '3.2.2'
+gem 'uglifier', '1.2.3'
 
 
 
