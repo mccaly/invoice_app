@@ -65,7 +65,7 @@
                       <div class="row">
                         <div class="span9"> 
                           <div class="span3 offset1">
-                          <p>Billing Cycle</br/>
+                          <p>Billing Cycle</br>
                          
                             <%= f.radio_button :billing_cycle, 'Daily' %>  Daily<br/>
                             <%= f.radio_button :billing_cycle, 'Weekly' %>  Weekly<br/>
@@ -76,13 +76,19 @@
                         </div>
 
                         <div class="span3">
-                          <p>Payment Type</br/>
+                          <p>Payment Type</br>
                     
                           Net:<%= f.text_field :payment_info, placeholder:"30" %>
                           </p>
-                          </br>
+
+                          <p>
+
+                          PO #
+                          <%= f.text_field :po_number %>
+                          </p>
+
                         </div>  
-                          <div class="span2 offset2">
+                          <div class="span2 offset6">
                           <%= f.hidden_field :account_id, :value => @account.id %>
                           <%= f.submit "Next", class: "btn btn-primary" %>
                         </div>
