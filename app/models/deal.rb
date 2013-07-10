@@ -7,6 +7,7 @@ class Deal
 	field :end_date, :type => Date
 	field :billing_cycle, :type => String
 	field :payment_info, :type => Integer
+	field :po_number, :type => String
 
 
 	belongs_to :account
