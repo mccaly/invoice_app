@@ -9,6 +9,10 @@ class AccountsController < ApplicationController
 		@deals = @account.deals
 		#@deal = @account.deal
 		@invoice = @account.invoices
+		respond_to do |format|
+			format.html
+			format.csv { render text: @account.to_csv }
+		end
 	end
 
 	def index

@@ -44,7 +44,7 @@ class TallysController < ApplicationController
 		end
 
 		respond_to do |format|
-			format.json { render json: @tally}
+			format.json { render json: @tally_new}
 		end
 	end
 

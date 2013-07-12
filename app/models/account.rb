@@ -16,5 +16,9 @@ class Account
 
   has_many :deals
 
+  def self.to_csv
+
+  end
+
 
 end
