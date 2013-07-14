@@ -3,7 +3,7 @@
 <div id="docs">
 	<div id="docs_text">
 		<h3><strong>docs</strong></h3></br></br>
-		<p>This documentation gives an overview on how to set up Bounce invoicing both for metered and fixed cost billing.</p>
+		<p>This documentation gives an overview on how to set up Bounce invoicing for both metered and fixed cost billing.</p>
 
 	</br>
 	</br>
@@ -16,9 +16,9 @@
 		<div id="new_account_image"></div>
 	</br>
 		<p>In each account you specify:</br>
-		- new account name: this normaly the name of the company you will be invoicing</br>
-		- account contact: the name of the person that will receive teh invoice</br>
-		- contact email address: the email address the invoice will be sent to</br>
+		- account name: this normaly the name of the company you will be invoicing.</br>
+		- account contact: the name of the person that will receive the invoice.</br>
+		- contact email address: the email address the invoice will be sent to.</br>
 		</p>
 	</br>
 		<div id="new_account_details_image"></div>
@@ -30,16 +30,16 @@
 
 	</br>
 		<p><strong>1. deal terms</strong></br>
-		This is where you put the specifics for specifics deals relating to an account. For example an Account, may have a deal for each quarter of the year.</p>
+		This is where you detail the specifics for each deal relating to an account. For example an Account, may have a deal for each quarter of the year.</p>
 	</br>
 
 		<div id="new_deal_image"></div>
 	</br>
 
 		<p>In each deal you specify:</br>
-		- name of the deal (please note this will also become the name of the invoice)</br>
-		- deal length: The amount of time you want the client invoiced on the current deal terms</br>
-		- billing cycle: how often you want an invoice sent</br>
+		- name of the deal (please note this will also become the name of the invoice).</br>
+		- deal length: the amount of time you want the client invoiced on the current deal terms.</br>
+		- billing cycle: how often you want an invoice sent (i.e month, weekly, etc).</br>
 		- payment terms: for example, net-30</br>
 		</p>
 	</br>
@@ -48,7 +48,7 @@
 	
 	</br>
 	</br>
-		<p>With each deal you can decide to charge your client on a fixed recurring cost (the same amount each billing cycle), metered billing (a variable amount each billing cycle), or both.</p>
+		<p>With each deal you can decide to charge your client a fixed recurring cost (the same amount each billing cycle), metered billing (a variable amount each billing cycle), or both.</p>
 
 	</br>	
 	</br>
@@ -57,16 +57,16 @@
 	</br>
 
 		<p>For each recurring cost you specify the following:</br>
-		- name: for example ‘pro account’</br>
-		- $: the cost for an individual pro account</br>
-		- quantity: the amount fo pro accounts you are charging for each month
+		- name: for example ‘pro account’.</br>
+		- $: the cost for an individual pro account.</br>
+		- quantity: the amount of pro accounts you are charging for each month.
 		</p>
 
 		</br>
 		<div id="base_cost"></div>
 		</br>
 
-		<p>You can skip adding any base costs if your invoice will be absed solely off metered billing</p>
+		<p>You can skip adding any base costs if your invoice will be based solely off metered billing</p>
 
 	</br>
 
@@ -81,13 +81,13 @@
 		
 
 		<p>For each metered cost specify:</br>
-		- unit name: for example 'summer campaign ad impression'</br>
-		- $: the cost for each individual unit you want to charge for
+		- unit name: for example 'summer campaign ad impression'.</br>
+		- $: the cost for each individual unit you want to charge for.
 		</p>
 	</br>
 	<div id="metered_billing"></div>
 	</br>
-	<p>You can skip adding any metered billing if your invoice will be absed solely off base costs</p>
+	<p>You can skip adding any metered billing if your invoice will be absed solely on base costs.</p>
 
 	</br>
 		<p>You will be able to add more recurring costs on the deal overview page, see below.</p>
@@ -95,7 +95,7 @@
 	</br>	
 	</br>
 		<p><strong>4. Deal overview</strong></br>
-		This page gives you an overview of the details you entered allowing you to edit the terms and add or delete new recurring and metered costs.</p>
+		This page gives you an overview of the details you entered allowing you to edit the terms and add or delete base and metered costs.</p>
 
 	</br>
 
@@ -109,7 +109,7 @@
 	</br>
 		<div id="secret_key"></div>
 	</br>
-		<p>This secret key allows you to call the Bounce API every time you detect and event you want to charge for. When bounce detects the call to our API we will automatically update the correct invoice with the desired amount (that you associated with the metered cost in ‘3. Metered costs’ above)</p>
+		<p>This secret key allows you to call the Bounce API every time you detect and event you want to charge for. When bounce detects the call to our API we will automatically update the correct invoice with the desired amount (that you associated with the metered cost in  part '3. Metered costs’ above)</p>
 	</br>
 		<h4><code>http POST https://bounceup.herokuapp.com/tallys access_token=[secret_key]</code></h4>
 
@@ -131,8 +131,13 @@
 
 		<h3>notifications</h3>
 	</br>
-		<p>When an invoice comes to the end of a billing cycle you will get notified that it is ready for review. You can then check the amount being billed is correct, enabling you to change it if not. Upon your approval, Bounce will automatically send the invoice to your client’s email (specified in ‘setting up account’).
+		<p>When an invoice comes to the end of a billing cycle you will get notified that it is ready for review. You can then check the amount being billed is correct, enabling you to change it if it is not the orrect amount. Upon your approval, Bounce will automatically send the invoice to your client’s email (specified in ‘setting up account’).
 		</br>
+		<p>You can approve the invoices and payment reminder emails at any point by clicking on 'review' on your account dashboard.</p>
+	</br>
+
+		<div id="notifications"></div>
+
 		</br>	
 		You will also get notified when an invoice becomes overdue. Again you can review the invoice and approve Bounce to send an email reminder to the client.</p>
 

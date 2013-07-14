@@ -303,7 +303,7 @@ body{
 	
 	#docs{
 		width: 940px;
-		height: 4150px;
+		height: 4250px;
 		margin-left:auto;
 		margin-right:auto;
 		padding-bottom: 30px;
@@ -397,6 +397,17 @@ body{
 		background-image:url(docs/secret_key.png);
 		width: 615px;
 		height: 170px;
+		background-repeat: no-repeat;
+		border-style: solid;
+		border-width: thin;
+		margin-right: auto;
+		margin-left: auto;
+	}
+
+	#notifications{
+		background-image:url(docs/notifications.png);
+		width: 766px;
+		height: 110px;
 		background-repeat: no-repeat;
 		border-style: solid;
 		border-width: thin;
