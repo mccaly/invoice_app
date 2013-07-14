@@ -1,7 +1,7 @@
 #namespace :invoices do 
 	desc "change status of invoice that is ending (either because invoice end date is today or deal is ending today) & creatign new invoice if deal still has more time"
 	task :create_next_invoice => :environment do
-		Invoice.create_next_invioce
+		Invoice.create_next_invoice
 	end	
 
 	desc "create new invoice if deal starts today & invoice doesnt already exist"
