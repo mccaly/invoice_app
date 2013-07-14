@@ -1,4 +1,4 @@
-namespace :invoices do 
+#namespace :invoices do 
 	desc "change status of invoice that is ending (either because invoice end date is today or deal is ending today) & creatign new invoice if deal still has more time"
 	task :create_next_invoice => :environment do
 		Invoice.create_next_invioce
@@ -13,4 +13,4 @@ namespace :invoices do
 	task :change_invoice_status_to_overdue => :environment do
 		Invoice.change_invoice_status_to_overdue
 	end	
-end
+#end
