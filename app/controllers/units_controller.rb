@@ -52,6 +52,7 @@ class UnitsController < ApplicationController
 
 	def edit
 		@unit = Unit.find(params[:id])
+		@amount = @unit.amount/100.00
 	end
 
 	def update

@@ -46,6 +46,7 @@ class BasecostController < ApplicationController
 
 	def edit
 		@basecost = Basecost.find(params[:id])
+		@amount = @basecost.cost/100.00
 	end
 
 	def update

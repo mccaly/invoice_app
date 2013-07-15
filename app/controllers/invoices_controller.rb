@@ -74,7 +74,7 @@ class InvoicesController < ApplicationController
   		@invoice = Invoice.find(params[:id])
   		@user = @invoice.user
   		@unit = @invoice.unit_tallys
-		@deal = @invoice.deal
+		@deal = Deal.find_by(params[:deal_id])
 		@invoice_units = @invoice.unit_tallys
 		@invoice_total = @invoice.amount
 		@invoice_basecost = @invoice.basecost_tallys

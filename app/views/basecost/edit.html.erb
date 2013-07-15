@@ -9,7 +9,7 @@
 				<%= basecost.label :name %>
 				<%= basecost.text_field :name, :required => true %>
 				<%= basecost.label :cost %>
-				<%= basecost.text_field :cost, :required => true %>
+				<%= basecost.text_field :cost, :required => true, value:@amount  %>
 				<%= basecost.label :quantity %>
 				<%= basecost.text_field :quantity, :required => true %>
 				<%= basecost.submit "Save", class: "btn btn-primary" %>
