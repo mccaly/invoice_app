@@ -18,10 +18,11 @@ class UsersController < ApplicationController
   	@user = User.new(params[:user])
   	if @user.save
       UserMailer.welcome_email(@user).deliver!
+      UserMailer.new_user(@user).deliver!
 			flash[:success] = "Welcome to Invoice App"
  			redirect_to @user
  		else
-			render 'new'
+			redirect_to new_user_path(@user)
   	end
 	end
 

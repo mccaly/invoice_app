@@ -13,4 +13,9 @@ class UserMailer < ActionMailer::Base
   	mail(:to => user.email, :subject => "Bounce 30 day free trial expiring")
   end
 
+  def new_user(user)
+    @user = user
+    mail(:to => "andrewmccalister@googlemail.com", :subject => "new user has signed up")
+  end
+
 end
