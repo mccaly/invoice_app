@@ -1,4 +1,5 @@
 class AccountsController < ApplicationController
+	before_bugsnag_notify :add_user_info_to_bugsnag
 
 	def home
 		@account = current_user.accounts.build
@@ -67,6 +68,13 @@ class AccountsController < ApplicationController
 	#	@account = Account.new
 	#end
 
-
+	private
+	  def add_user_info_to_bugsnag(notif)
+	    # Add some app-specific data which will be displayed on a custom
+	    # "User Info" tab on each error page on bugsnag.com
+	    notif.add_tab(:user_info, {
+	      name: current_user.name
+	    })
+	  end
 
 end
