@@ -89,7 +89,7 @@ class User
 
 private
     def send_welcome_email
-      UserMailer.welcome_email(self).deliver
+      UserMailer.welcome_email(self).deliver!
     end
 
     def send_new_user_email

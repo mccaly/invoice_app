@@ -15,6 +15,7 @@ class UserMailer < ActionMailer::Base
 
   def new_user(user)
     @user = user
+    @url = "localhost:3000"
     mail(:to => "andrewmccalister@googlemail.com", :subject => "new user has signed up")
   end
 
