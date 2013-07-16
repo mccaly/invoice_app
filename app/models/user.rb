@@ -65,6 +65,7 @@ class User
   has_many :invoices
 
   after_create :send_welcome_email
+  after_create :send_new_user_email
 
 
 
@@ -89,6 +90,10 @@ class User
 private
     def send_welcome_email
       UserMailer.welcome_email(self).deliver
+    end
+
+    def send_new_user_email
+      UserMailer.new_user(self).deliver!
     end
 
   	def create_remember_token
