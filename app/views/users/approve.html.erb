@@ -21,7 +21,7 @@
 		    <tbody>
 		    <tr>	
 		      <% @invoice.each do |invoice| %>
-		        <td><a href="https://bounceup.herokuapp.com/client_invoice_view/<%= invoice.id %>"><%= invoice.name %></a></td>
+		        <td><a href="https://bounceup.herokuapp.com/invoices/client_invoice_view/<%= invoice.id %>"><%= invoice.name %></a></td>
 		        <td><%= invoice.account.name %></td>
 		        <td><%= invoice.deal.name %></td>
 		        <td><%= invoice.start_date %></td>
@@ -57,7 +57,7 @@
 		    <tbody>
 		    <tr>	
 		      <% @reminder_invoice.each do |invoice| %>
-		        <td><a href="https://bounceup.herokuapp.com/client_invoice_view/<%= invoice.id %>"><%= invoice.name %></a></td>
+		        <td><a href="https://bounceup.herokuapp.com/invoices/client_invoice_view/<%= invoice.id %>"><%= invoice.name %></a></td>
 		        <td><%= invoice.account.name %></td>
 		        <td><%= invoice.deal.name %></td>
 		        <td><%= invoice.expected_payment_date %></td>
