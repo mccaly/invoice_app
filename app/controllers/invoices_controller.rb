@@ -12,6 +12,7 @@ class InvoicesController < ApplicationController
 		@invoice_units = @invoice.unit_tallys
 		@invoice_total = @invoice.amount
 		@invoice_basecost = @invoice.basecost_tallys
+		@deal = @invoice.deal
 	end
 
 	def update
