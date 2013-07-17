@@ -21,12 +21,12 @@
 		    <tbody>
 		    <tr>	
 		      <% @invoice.each do |invoice| %>
-		        <td><a href="http://localhost:3000/invoices/client_invoice_view/<%= invoice.id %>"><%= invoice.name %></a></td>
+		        <td><a href="https://bounceup.herokuapp.com/client_invoice_view/<%= invoice.id %>"><%= invoice.name %></a></td>
 		        <td><%= invoice.account.name %></td>
 		        <td><%= invoice.deal.name %></td>
 		        <td><%= invoice.start_date %></td>
 		        <td><%= invoice.end_date %></td>
-		        <td>$<%= invoice.amount %></td>
+		        <td>$<%= invoice.amount/100.00 %></td>
 		        <td><%= link_to "edit invoice", edit_deal_invoice_path(invoice.deal, invoice) %> | <%= link_to "send invoice", email_invoice_deal_invoice_path(invoice.deal, invoice), method: :put, confirm: "Are you sure you want to send this invoice?" %></td>
 		      </tr>
 		      <% end %>
@@ -57,12 +57,12 @@
 		    <tbody>
 		    <tr>	
 		      <% @reminder_invoice.each do |invoice| %>
-		        <td><%= link_to invoice.name, deal_invoice_path(invoice.deal_id, invoice.id)  %></td>
+		        <td><a href="https://bounceup.herokuapp.com/client_invoice_view/<%= invoice.id %>"><%= invoice.name %></a></td>
 		        <td><%= invoice.account.name %></td>
 		        <td><%= invoice.deal.name %></td>
 		        <td><%= invoice.expected_payment_date %></td>
 		        <td><%= (invoice.expected_payment_date - Date.today).to_i %></td>
-		        <td>$<%= invoice.amount %></td>
+		        <td>$<%= invoice.amount/100.00 %></td>
 		        <td><%= link_to "edit invoice", edit_deal_invoice_path(invoice.deal, invoice) %> | <%= link_to "send reminder", email_reminder_deal_invoice_path(invoice.deal, invoice), method: :put, confirm: "Are you sure you want to send this invoice?" %></td>
 		      </tr>
 		      <% end %>
