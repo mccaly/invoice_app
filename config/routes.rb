@@ -6,6 +6,7 @@ InvoiceApp::Application.routes.draw do
   resources :users do
     member do
       get "approve"
+      get "export"
     end
   end
   resources :accounts, only: [:create, :new, :show, :edit, :update]

@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_filter :correct_user, only: [:edit, :update]
 
 
+
 	def show
 		@user = User.find(params[:id])
     @account = @user.accounts
@@ -48,6 +49,60 @@ class UsersController < ApplicationController
     @reminder_invoice = @user.invoices.where(status: 'Overdue').and(:email_reminder_approved => false)
   end
 
+  def export
+    @user = User.find(params[:id])
+
+  end
+
+  def export_csv
+    @user = User.find(params[:id])
+    @start_date = Date.civil(params[:users]["start_date(1i)"].to_i,
+                         params[:users]["start_date(2i)"].to_i,
+                         params[:users]["start_date(3i)"].to_i)
+    @end_date = Date.civil(params[:users]["end_date(1i)"].to_i,
+                         params[:users]["end_date(2i)"].to_i,
+                         params[:users]["end_date(3i)"].to_i)
+    user_invoices = @user.invoices
+    @basecosts = []
+    @units = []
+    user_invoices.each do |invoice|
+      basecosts = invoice.basecost_tallys.where(:created_at.gte => @start_date).and(:created_at.lte => @end_date)
+      basecosts.each do |basecost|
+        @basecosts << basecost
+       
+      end
+    end
+    user_invoices.each do |invoice|
+      costs = invoice.unit_tallys.where(:created_at.gte => @start_date).and(:created_at.lte => @end_date)
+      costs.each do |cost|
+        @units << costs
+       
+      end
+    end
+    
+
+    export = CSV.generate do |csv|
+      csv << ["date", "invoice name", "basecost", "metered cost", "$"]
+        @basecosts.each do |basecost|
+          invoice = basecost.invoice
+          invoice_name = invoice.name 
+          csv << [basecost.created_at, invoice_name, basecost.name, "nil", basecost.amount]
+        end
+
+        @units.each do |unit|
+          unit.each do |unit_i|
+            invoice = unit_i.invoice
+            invoice_name = invoice.name 
+            csv << [unit_i.created_at, invoice_name, "nil", unit_i.name, unit_i.total]
+         end
+        end
+    end    
+    
+    send_data export, :type => "text/plain", :filename => "export.csv"
+
+
+
+  end
 
 
   private

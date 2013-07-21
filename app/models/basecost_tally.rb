@@ -1,6 +1,7 @@
 class BasecostTally
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::MultiParameterAttributes
 
   field :name, :type => String
   field :status, :type => String
