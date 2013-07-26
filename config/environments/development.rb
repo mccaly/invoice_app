@@ -44,8 +44,8 @@ InvoiceApp::Application.configure do
   :address              => 'smtp.gmail.com',
   :port                 => 587,
   :domain               => 'gmail.com',
-  :user_name            => 'andrewmccalister@googlemail.com',
-  :password             => '3seatsofa12',
+  :user_name            => 'support@get-bounce.com',
+  :password             => 'bouncepss7428',
   :authentication       => :login,
   :enable_starttls_auto => true  
   }

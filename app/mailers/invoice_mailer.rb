@@ -1,5 +1,5 @@
 class InvoiceMailer < ActionMailer::Base
-  default from: "andrewmccalister@googlemail.com"
+  default from: "support@get-bounce.com"
 
   def invoice_to_client(invoice)
   	@account = invoice.account

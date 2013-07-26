@@ -1,5 +1,5 @@
 class ApprovalMailer < ActionMailer::Base
-	 default from: "andrewmccalister@googlemail.com"
+	 default from: "support@get-bounce.com"
 
 	def invoice_email_approval(user)
 		@user = user
