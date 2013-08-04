@@ -10,6 +10,8 @@ gem 'coffee-rails', '3.2.2'
 gem 'uglifier', '1.2.3'
 gem 'sass-rails',   '3.2.5'
 gem 'bugsnag'
+gem 'wicked_pdf'
+gem 'font-awesome-rails'
 
 
 
@@ -25,6 +27,7 @@ end
 
 group :development do
 	gem 'annotate', '2.5.0'
+  gem 'webrick', '~> 1.3.1'
 end
 
 

@@ -82,7 +82,7 @@ class UsersController < ApplicationController
     
 
     export = CSV.generate do |csv|
-      csv << ["date", "invoice name", "basecost", "metered cost", "$"]
+      csv << ["date", "invoice name", "basecost name", "metered cost name", "$"]
         @basecosts.each do |basecost|
           invoice = basecost.invoice
           invoice_name = invoice.name 
