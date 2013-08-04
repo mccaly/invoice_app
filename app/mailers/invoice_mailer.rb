@@ -5,12 +5,7 @@ class InvoiceMailer < ActionMailer::Base
   	@account = invoice.account
   	@invoice = invoice
   	@user = invoice.user
-  	mail(:to => @account.contact_email, :subject => "You have received an invoice") do |format|
-      format.text
-      format.pdf do
-        attachments['invoice.pdf'] = WickedPDF.new.pdf_from_string(render_to_string(:pdf => 'invoice', :template => 'invoices/client_invoice_view/@invoice.id.pdf'))
-      end
-    end
+  	mail(:to => @account.contact_email, :subject => "You have received an invoice")
   end
 
   def reminder_to_client(invoice)
