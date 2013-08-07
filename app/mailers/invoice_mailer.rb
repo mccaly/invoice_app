@@ -5,7 +5,7 @@ class InvoiceMailer < ActionMailer::Base
   	@account = invoice.account
   	@invoice = invoice
   	@user = invoice.user
-  	mail(:to => @account.contact_email, :subject => "You have received an invoice")
+  	mail(:to => @account.contact_email, :subject => "You have received an invoice") 
   end
 
   def reminder_to_client(invoice)
