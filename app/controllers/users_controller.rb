@@ -3,10 +3,10 @@ class UsersController < ApplicationController
   before_filter :correct_user, only: [:edit, :update]
 
 	def show
-		@user = User.find(params[:id])
-    @account = @user.accounts
-    @invoice_email = @user.invoices.where(status: 'waiting_on_payment').and(:email_invoice_approved => false)
-    @reminder_invoice = @user.invoices.where(status: 'Overdue').and(:email_reminder_approved => false)
+    @user             = User.find(params[:id])
+    @account          = @user.accounts
+    @invoice_email    = @user.invoices.where(status: 'waiting_on_payment').and(email_invoice_approved: false)
+    @reminder_invoice = @user.invoices.where(status: 'Overdue').and(email_reminder_approved: false)
 	end
 
   def new
@@ -47,8 +47,8 @@ class UsersController < ApplicationController
   def approve
     @user             = User.find(params[:id])
     accounts          = @user.accounts
-    @invoice          = @user.invoices.where(status: 'waiting_on_payment').and(:email_invoice_approved => false)
-    @reminder_invoice = @user.invoices.where(status: 'Overdue').and(:email_reminder_approved => false)
+    @invoice          = @user.invoices.where(status: 'waiting_on_payment').and(email_invoice_approved: false)
+    @reminder_invoice = @user.invoices.where(status: 'Overdue').and(email_reminder_approved: false)
   end
 
   def export
@@ -98,10 +98,8 @@ class UsersController < ApplicationController
          end
         end
     end
-
     send_data export, type: 'text/plain', filename: 'export.csv'
   end
-
 
   private
 
