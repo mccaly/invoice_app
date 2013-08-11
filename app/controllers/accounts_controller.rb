@@ -7,9 +7,9 @@ class AccountsController < ApplicationController
 
 	def show
 		@account = Account.find(params[:id])
-		@deals = @account.deals
-		#@deal = @account.deal
+		@deals   = @account.deals
 		@invoice = @account.invoices
+
 		respond_to do |format|
 			format.html
 			format.csv { render text: @account.to_csv }
@@ -30,9 +30,9 @@ class AccountsController < ApplicationController
 		if @account.update_attributes(params[:account])
 			if @invoice
 				@invoice.each do |invoice|
-					invoice.update_attributes(account_name: @account.name)
-					invoice.update_attributes(account_contact_email: @account.contact_email)
-					invoice.update_attributes(account_contact_name: @account.contact_name)
+					invoice.update_attributes(account_name:          @account.name,
+																		account_contact_email: @account.contact_email,
+					                          account_contact_name:  @account.contact_name)
 					invoice.save
 				end
 			end
@@ -44,13 +44,14 @@ class AccountsController < ApplicationController
 	end
 
 	def create
-		@account = current_user.accounts.build(params[:account])
-		@account.user = current_user
+		@account              = current_user.accounts.build(params[:account])
+		@account.user         = current_user
 		current_user.accounts << @account
 		current_user.save
+
 		if @account.save
 			flash[:success] = "New account saved"
-			redirect_to :controller => :users, :action => :show, :id => current_user.id
+			redirect_to controller: :users, action: :show, id: current_user.id
 		else
 			render 'users/show'
 		end
