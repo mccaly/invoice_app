@@ -1,10 +1,8 @@
-<% provide(:title, "New Unit") %> 
+<% provide(:title, "New Unit") %>
 
 <div class="row">
-<div class="container">
-
-<!--Show Invoice and acount details-->
-
+  <div class="container">
+  <!--Show Invoice and acount details-->
 		<legend style="margin-top: 20px;">account & deal terms</legend>
       <div class="container">
 
@@ -17,7 +15,6 @@
           </ul>
         </div>
 
-
         <div class="span5">
           <legend><h4>deal terms</h4></legend>
           <ul class="account">
@@ -28,50 +25,36 @@
             <li><p><strong>Date End: </strong><%= @deal.end_date %></p></li>
             <li><p><strong>PO #: </strong><%= @deal.po_number %></p></li>
           </ul>
-        </div> 
+        </div>
 
       </div>
-
-
-
-	<!--Unit input-->
-
+  	<!--Unit input-->
 		<div class="row">
       <div class="span12">
         <legend style="margin-top: 20px;">new deal</legend>
 
-        <div class="span2 pull-left">
-          <ul class="account">
-              <li><p>1. deal terms</p></li>
-              <li><p>2. base costs</p></li>
-              <li><p><strong>3. metered billing</strong></p></li>
-              <li><p>4. finish/ summary</p></li>
-            </ul>
-        </div> 
-    					
-    					<div class="span9 pull-right">
-      							<%= form_for(@unit, :url => {:controller => :units, :action => :create}) do |f| %>
-  									<div class="form">	
-  										<div class="row">
-  												<div class="span7">
-  													<%= f.text_field :name, :required => true, placeholder:"Unit name" %>	
-  												</div>
-  												<div class="span2">
-  													<%= f.text_field :amount, :required => true, placeholder:"$" %>
-  												</div>
-  												<div class="span1 pull-right">
-  													<%= f.submit "Save", class: "btn btn-primary" %>
-  												</div>
-  										</div>
-  									</div>
-  								<% end %>
-							<a class="btn pull-right" type="button" href= "<%= deal_path(@deal) %>" style="margin-top: -15px" > no units at this time</a>
-    					</div>
+          <div class="span2 pull-left">
+            <ul class="account">
+                <li><p>1. deal terms</p></li>
+                <li><p>2. base costs</p></li>
+                <li><p><strong>3. metered billing</strong></p></li>
+                <li><p>4. finish/ summary</p></li>
+              </ul>
+          </div>
+
+  					<div class="span9 pull-right">
+							<%= form_for(@unit, html: {class: 'form-inline'}, url: {controller: :units, action: :create}) do |f| %>
+								<%= f.text_field :name, class: 'input-medium', required: true, placeholder:"Unit name" %>
+                <label class="text_field" style="padding:0 20px 0;">
+                  $ <%= f.text_field :amount, class: 'input-medium', required: true, placeholder:"0.00" %>
+                </label>
+								<%= f.submit "Save", class: "btn btn-primary" %>
+                <a class="btn" type="button" href= "<%= deal_path(@deal) %>" > no units at this time</a>
+  						<% end %>
   					</div>
+					</div>
 				</div>
 			</div>
 		</div>
-
-
+  </div>
 </div>
-</div>	

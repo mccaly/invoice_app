@@ -9,7 +9,7 @@
 #  updated_at :datetime         not null
 #
 
-class User 
+class User
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::MultiParameterAttributes
@@ -20,23 +20,23 @@ class User
          :recoverable, :rememberable, :trackable, :validatable
 
   ## Database authenticatable
-  field :name, :type => String
-  field :email,              :type => String, :default => ""
-  field :encrypted_password, :type => String, :default => ""
-  
+  field :name,               type: String
+  field :email,              type: String, default: ''
+  field :encrypted_password, type: String, default: ''
+
   ## Recoverable
-  field :reset_password_token,   :type => String
-  field :reset_password_sent_at, :type => Time
+  field :reset_password_token,   type: String
+  field :reset_password_sent_at, type: Time
 
   ## Rememberable
-  field :remember_created_at, :type => Time
+  field :remember_created_at, type: Time
 
   ## Trackable
-  field :sign_in_count,      :type => Integer, :default => 0
-  field :current_sign_in_at, :type => Time
-  field :last_sign_in_at,    :type => Time
-  field :current_sign_in_ip, :type => String
-  field :last_sign_in_ip,    :type => String
+  field :sign_in_count,      type: Integer, default: 0
+  field :current_sign_in_at, type: Time
+  field :last_sign_in_at,    type: Time
+  field :current_sign_in_ip, type: String
+  field :last_sign_in_ip,    type: String
 
   ## Confirmable
   # field :confirmation_token,   :type => String
@@ -53,14 +53,14 @@ class User
   # field :authentication_token, :type => String
 
   ##Payment info
-  field :paypal_url, :type => String
-  field :bank_wire_details, :type => String
-  field :company, :type => String
+  field :paypal_url,         type: String
+  field :bank_wire_details,  type: String
+  field :company,            type: String
 
   ##account info
-  field :admin, :type => Boolean, :default => false 
-  #field :passed_free_trial, :type => Boolean, :defaut =>false
-  field :plan_type, :type => String
+  field :admin,              type: Boolean, default: false
+  #field :passed_free_trial, type: Boolean, defaut:false
+  field :plan_type,          type: String
 
   has_many :accounts
   has_many :invoices
@@ -68,14 +68,12 @@ class User
   after_create :send_welcome_email
   after_create :send_new_user_email
 
-
-
   #send reminder that free trail is about to expire
-  def self.send_reminder_that_trial_period_will_expire  
+  def self.send_reminder_that_trial_period_will_expire
       User.each do |user|
           if (user.admin == false) && user.created_at < (Date.today - 25.days)
             ApprovalMailer.trial_period_reminder_5days(user).deliver
-          end  
+          end
       end
   end
 
@@ -87,17 +85,16 @@ class User
   #     # end
   # end
 
+  private
+  def send_welcome_email
+    UserMailer.welcome_email(self).deliver!
+  end
 
-private
-    def send_welcome_email
-      UserMailer.welcome_email(self).deliver!
-    end
+  def send_new_user_email
+    UserMailer.new_user(self).deliver!
+  end
 
-    def send_new_user_email
-      UserMailer.new_user(self).deliver!
-    end
-
-  	def create_remember_token
-  		self.remember_token = SecureRandom.urlsafe_base64
-  	end
+	def create_remember_token
+		self.remember_token = SecureRandom.urlsafe_base64
+	end
 end

@@ -1,27 +1,25 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title><%= full_title(yield(:title)) %></title>
-  <%= stylesheet_link_tag    "application", media: "all" %>
-  <%= stylesheet_link_tag    "datepicker" %>
-  <%= javascript_include_tag "application" %>
-  <%= javascript_include_tag "bootstrap-datepicker" %>
-  <%= csrf_meta_tags %>
-  <%= render 'layouts/shim' %>
-  <link rel="stylesheet" type="text/css" href="assets/stylesheets/font-awesome.css"/>
- 
-
-</head>
-<body>
-	<%= render'layouts/header' %>
-	<div class="conatiner">	
-		<% flash.each do |key, value| %>
-			<div class="alert alert-<%= key %>"><%= value %></div>
-		<% end %>
-		<%= yield %>
-		<%= render 'layouts/footer' %>
-
-	</div>	
-
-</body>
+  <head>
+    <title><%= full_title(yield(:title)) %></title>
+    <%= stylesheet_link_tag    "application", media: "all" %>
+    <%= stylesheet_link_tag    "datepicker" %>
+    <%= javascript_include_tag "application" %>
+    <%= javascript_include_tag "bootstrap-datepicker" %>
+    <%= csrf_meta_tags %>
+    <%= render 'layouts/shim' %>
+    <!-- TODO is this the issue? -->
+    <!-- Fixes: ActionController::RoutingError (No route matches [GET] "/assets/stylesheets/font-awesome.css"): -->
+    <!-- <link rel="stylesheet" type="text/css" href="assets/stylesheets/font-awesome.css"/> -->
+  </head>
+  <body>
+  	<%= render'layouts/header' %>
+  	<div class="container">
+  		<% flash.each do |key, value| %>
+  			<div class="alert alert-<%= key %>"><%= value %></div>
+  		<% end %>
+  		<%= yield %>
+  		<%= render 'layouts/footer' %>
+  	</div>
+  </body>
 </html>
