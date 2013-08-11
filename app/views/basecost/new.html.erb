@@ -1,12 +1,11 @@
-<% provide(:title, "New Base Cost") %> 
+<% provide(:title, "New Base Cost") %>
 
 <div class="row">
-<div class="container">
+  <div class="container">
 
-<!--Show Invoice and acount details-->
-
-		<legend style="margin-top: 20px;">account & deal terms</legend>
-			<div class="container">
+  <!--Show Invoice and acount details-->
+    <legend style="margin-top: 20px;">account &amp; deal terms</legend>
+      <div class="container">
 
         <div class="span5">
           <legend><h4>account</h4></legend>
@@ -16,7 +15,6 @@
             <li><p><strong>Contact email: </strong><%= @account.contact_email %></p></li>
           </ul>
         </div>
-
 
         <div class="span5">
           <legend><h4>deal terms</h4></legend>
@@ -28,54 +26,37 @@
             <li><p><strong>Date End: </strong><%= @deal.end_date %></p></li>
             <li><p><strong>PO #: </strong><%= @deal.po_number %></p></li>
           </ul>
-        </div> 
+        </div>
+      </div>
 
-			</div>
+      <!--Unit input-->
+      <div class="row">
+        <div class="span12">
+          <legend style="margin-top: 20px;">new deal</legend>
 
+          <div class="span2 pull-left">
+            <ul class="account">
+                <li><p>1. deal terms</p></li>
+                <li><p><strong>2. base costs</strong></p></li>
+                <li><p>3. metered billing</p></li>
+                <li><p>4. finish/ summary</p></li>
+              </ul>
+          </div>
 
-	<!--Unit input-->
-
-		<div class="row">
-			<div class="span12">
-        <legend style="margin-top: 20px;">new deal</legend>
-
-        <div class="span2 pull-left">
-          <ul class="account">
-              <li><p>1. deal terms</p></li>
-              <li><p><strong>2. base costs</strong></p></li>
-              <li><p>3. metered billing</p></li>
-              <li><p>4. finish/ summary</p></li>
-            </ul>
-        </div>  
-    					
-    					<div class="span9 pull-right">
-      							<%= form_for(@basecost, :url => {:controller => :basecost, :action => :create}) do |f| %>
-  									<div class="form">	
-  										<div class="row">
-  											<div class="span9">
-  												<div class="span4">
-  													<%= f.text_field :name, :required => true, placeholder:"Name" %>	
-  												</div>
-  												<div class="span2">
-  													<%= f.text_field :cost, :required => true, placeholder:"$" %>
-  												</div>
-                          <div class="span2">
-                            <%= f.text_field :quantity, :required => true, placeholder:"quantity" %>
-                          </div>
-  												<div class="span1 pull-right">
-  													<%= f.submit "save", class: "btn btn-primary" %>
-  												</div>
-  											</div>
-  										</div>
-  									</div>
-  								<% end %>
-							<a class="btn pull-right" type="button" href= "<%= new_deal_unit_path(@deal) %>" style="margin-top: -10px;" > no recurring costs at this time</a>
-    					</div>
-  					</div>
-				</div>
-			</div>
-		</div>
-
-
+          <div class="span9 pull-right">
+            <%= form_for(@basecost, html: {class: 'form-inline'}, url: {controller: :basecost, action: :create}) do |f| %>
+              <%= f.text_field :name, class: 'input-medium', required: true, placeholder:"Name" %>
+              <label class="text_field" style="padding:0 20px 0;">
+                $ <%= f.text_field :cost,  class: 'input-small', required: true, placeholder:"0.00" %>
+              </label>
+              <%= f.text_field :quantity, class: 'input-small', required: true, placeholder:"quantity" %>
+              <%= f.submit "save", class: "btn btn-primary" %>
+            <% end %>
+            <a class="btn pull-right" type="button" href= "<%= new_deal_unit_path(@deal) %>" style="margin-top: -10px;" > no recurring costs at this time</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-</div>	
