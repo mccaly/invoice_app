@@ -51,8 +51,8 @@
               </label>
               <%= f.text_field :quantity, class: 'input-small', required: true, placeholder:"quantity" %>
               <%= f.submit "save", class: "btn btn-primary" %>
+              <a class="btn pull-right" type="button" href= "<%= new_deal_unit_path(@deal) %>"> no recurring costs at this time</a>
             <% end %>
-            <a class="btn pull-right" type="button" href= "<%= new_deal_unit_path(@deal) %>" style="margin-top: -10px;" > no recurring costs at this time</a>
             </div>
           </div>
         </div>
