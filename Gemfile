@@ -10,6 +10,7 @@ gem 'coffee-rails', '3.2.2'
 gem 'uglifier', '1.2.3'
 gem 'sass-rails',   '3.2.5'
 gem 'bugsnag'
+gem 'wkhtmltopdf-binary'
 gem 'wicked_pdf'
 gem 'font-awesome-rails'
 
