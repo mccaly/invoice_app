@@ -1,0 +1,174 @@
+<% provide(:title, "New Invoice") %> 
+<%= javascript_include_tag "invoices" %>
+
+<!--invoice details-->
+
+<div class="row">
+  <div class="container" style="margin-top: 20px;">
+
+    <div class="span4 pull-left">
+      <legend>from</legend>
+        <ul class="account">
+          <li><p><strong>Company: </strong><%= @user.company %></p></li>
+          <li><p><strong>User: </strong><%= @invoice.user_name %></p></li>
+          <li><p><strong>Contact email: </strong><%= @invoice.user_contact_email %></p></li>
+        </ul>
+    </div> 
+
+    <div class="span4 pull-right">
+      <legend>invoice details</legend>
+        <ul class="account">
+          <li><p><strong>Invoice: </strong><%= @invoice.name %></p></li>
+          <li><p><strong>Billing cycle: </strong><%= @invoice.billing_cycle %></p></li>
+          <li><p><strong>Payment info: </strong><%= @invoice.payment_info %></p></li>
+          <li><p><strong>Invoice start date: </strong><%= @invoice.start_date %></p></li>
+          <li><p><strong>Invoice end date: </strong><%= @invoice.end_date %></p></li>
+          <li><p><strong>Expected payment date: </strong><%= @invoice.expected_payment_date %></p></li>
+          <li><p><strong>Status: </strong><%= @invoice.status %></p></li>
+          <li><p><strong>PO #: </strong><%= @deal.po_number %></p></li>
+        </ul>
+    </div>  
+
+    <div class="span4 pull-left">
+      <legend>to</legend>
+        <ul class="account">
+          <li><p><strong>Name: </strong><%= @invoice.account_name %></p></li>
+          <li><p><strong>Contact: </strong><%= @invoice.account_contact_name %></p></li>
+          <li><p><strong>Email: </strong><%= @invoice.account_contact_email %></p></li>
+        </ul>
+    </div>  
+        
+  </div> 
+</div>    
+    </br>
+    </br>
+    </br>
+    
+<!---mrr_amounts-->
+<div class="row">
+  <div class="container">
+  
+<% if @invoice_basecost.count > 0 %>
+<legend>Monthly Recurring Costs</legend>
+
+  <table class="table table-condensed table-bordered">
+      <thead>
+        <tr>
+          <th style="width: 40%">Name</th>
+          <th style="width: 20%">Cost</th>
+          <th style="width: 20%">Quantity</th>
+          <th style="width: 20%">Total</th>
+        </tr>
+      </thead>
+  
+        
+      <tbody>
+        <% @invoice_basecost.each do |basecost| %>
+        <tr>
+          <td><%= basecost.name %></td>
+          <td>$<%= basecost.amount/100.0 %></td>
+          <td><%= basecost.quantity %></td>
+          <td>$<%= basecost.total/100.0 %></td>
+        <tr>
+        <% end %>          
+      </tbody>
+  </table> 
+<% end %>   
+
+</br>
+</br>
+
+
+<!---unit_amounts-->
+<% if @invoice_units.count > 0 %>
+<legend>Metered Costs</legend>
+  <% @invoice_units.each do |units| %>
+    <table class="table table-condensed table-bordered">
+      <caption><h4 class="pull-left"><%= unit_tally.name %></h4></caption>
+      <thead>
+        <tr>
+          <th>Date charged</th>
+          <th>Quantity</th>
+          <th>Price/ unit</th>
+          <th>Daily total</th>
+        </tr>
+      </thead>
+  
+        
+          <tbody>
+            <tr>
+            <% units.tallys.where(:date.gte => @invoice.start_date).and(:date.lt => @invoice.end_date).each do |tally| %>
+              <td><%= tally.date %></td>
+              <td><%= tally.quantity %></td>
+              <td>$<%= tally.amount_unit/100.0 %></td>
+              <td>$<%= tally.amount_total/100.0 %></td>
+            <tr>  
+            <% end %>        
+          </tbody>
+    </table>      
+        
+    <div class="row">
+      <div class="span5 pull-right" style="text-align: right;">
+          <h4> <%= unit_tally.name %> total: $<%= unit_tally.total.to_i/100.0 %></h4>
+      </div>
+    </div>
+  </br>
+  </br>
+  <% end %>
+<% end %>
+
+
+</div>
+</div>
+
+<!--invoice total -->
+<% if @invoice.adjust_total != "true" %>
+    
+    <div class="row">
+      <div class="container">
+        <div class= "well span4 pull-right" style="text-align: center;">
+          <h5> Total Due: $<%= @invoice.amount/100.0 %></h5>
+        </div>
+      </div>  
+    </div>
+
+<% else %>
+    <div class="row">
+      <div class="container">
+        <div class= "well span4 pull-right" style="text-align: center;">
+          <p><%= @invoice.user_company %> calculated total: $<%= (@invoice.basecost_total + @invoice.metered_total)/100.0 %></p></br>
+          <h5>Updated total: $<%= @invoice.amount/100.0 %></h5><p>(please pay this amount)</p>  
+          <p>Update description: <%= @invoice.adjust_total_text %></p>      
+        </div>
+      </div>  
+    </div>
+<% end %>
+
+<!--payment info-->
+
+<div class="row" style="height: 200px;">
+  <div class="container">
+  <legend>payment details</legend>
+    <div class ="span3 pull-left">
+      <FORM NAME="paypal" ACTION="https://www.paypal.com/cgi-bin/webscr" METHOD="POST">
+      <INPUT TYPE="hidden" NAME="cmd" VALUE="_xclick">
+      <INPUT TYPE="hidden" NAME="business" VALUE="<%= @user.paypal_url %>">
+      <INPUT TYPE="hidden" NAME="item_name" VALUE="<%= @invoice.name %>">
+      <INPUT TYPE="hidden" NAME="amount" VALUE="<%= @invoice.amount/100.0 %>">
+      <INPUT TYPE="hidden" NAME="currency_code" VALUE="USD">
+      <input type="hidden" name="button_subtype" value="services">
+      <INPUT TYPE="hidden" NAME="lc" VALUE="US">
+      <div id="paypal_button" onClick="document.forms['paypal'].submit();"></div>
+      </FORM>
+    </div> 
+</br>
+  <div class="span3" style="margin-top:-30px;">
+    <legend><h4>wire details</h4></legend>
+    <p><%= @user.bank_wire_details %></p>
+  </div>
+</div>
+
+   
+</div>
+</div>
+
