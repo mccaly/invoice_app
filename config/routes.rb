@@ -26,7 +26,7 @@ InvoiceApp::Application.routes.draw do
   end
 
   match '/invoices/:id',            to: 'invoices#show'
-  match ':controller/:action/:id'
+  match '/:controller/:action/:id'
   match '/deals/:deal_id/invoices', to: 'invoices#create', via: :post
   match '/help',                    to: 'static_pages#help'
   match '/about',                   to: 'static_pages#about'
