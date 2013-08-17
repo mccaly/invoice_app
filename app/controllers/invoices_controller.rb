@@ -79,5 +79,12 @@ class InvoicesController < ApplicationController
 		@invoice_units = @invoice.unit_tallys
 		@invoice_total = @invoice.amount
 		@invoice_basecost = @invoice.basecost_tallys
+		respond_to do |format|
+	      format.html
+	      format.pdf do
+	        render 	:pdf 			=> @invoice.name + '.pdf',
+	        		:disposition    => 'attachment'
+	      end
+	    end
   	end
 end
