@@ -21,7 +21,7 @@
 		    <tbody>
 		    <tr>	
 		      <% @invoice.each do |invoice| %>
-		        <td><a href="https://www.get-bounce.com/invoices/client_invoice_view/<%= invoice.id %>"><%= invoice.name %></a></td>
+		        <td><a href="/invoices/client_invoice_view/<%= invoice.id %>"><%= invoice.name %></a></td>
 		        <td><%= invoice.account.name %></td>
 		        <td><%= invoice.deal.name %></td>
 		        <td><%= invoice.start_date %></td>
