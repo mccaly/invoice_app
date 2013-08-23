@@ -1,4 +1,14 @@
 InvoiceApp::Application.routes.draw do
+  get "account/create"
+
+  get "account/collection"
+
+  get "account/get"
+
+  get "account/update"
+
+  get "account/delete"
+
   devise_for :users
 
   root to: 'static_pages#home'
@@ -6,6 +16,7 @@ InvoiceApp::Application.routes.draw do
   resources :tallys
   resources :unit_tallys
   resources :accounts, only: [:create, :new, :show, :edit, :update]
+  resources :pdf
 
   resources :users do
     member do
@@ -32,4 +43,9 @@ InvoiceApp::Application.routes.draw do
   match '/about',                   to: 'static_pages#about'
   match '/docs',                    to: 'static_pages#docs'
   match '/dashboard' => 'users#dashboard', :as => 'user_root'
+
+  namespace :api do 
+    get "/accounts(.:format)" => "accounts#collection"
+    get "/accounts/:id(.:format)" => "accounts#get"
+  end
 end
