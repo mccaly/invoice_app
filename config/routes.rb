@@ -45,6 +45,7 @@ InvoiceApp::Application.routes.draw do
   match '/dashboard' => 'users#dashboard', :as => 'user_root'
 
   namespace :api do 
+    post "/accounts(.:format)" => "accounts#create"
     get "/accounts(.:format)" => "accounts#collection"
     get "/accounts/:id(.:format)" => "accounts#get"
   end
