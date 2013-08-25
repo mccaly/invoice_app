@@ -1,4 +1,14 @@
 InvoiceApp::Application.routes.draw do
+  get "deals_controller/create"
+
+  get "deals_controller/collection"
+
+  get "deals_controller/get"
+
+  get "deals_controller/update"
+
+  get "deals_controller/delete"
+
   get "account/create"
 
   get "account/collection"
@@ -37,7 +47,8 @@ InvoiceApp::Application.routes.draw do
   end
 
   match '/invoices/:id',            to: 'invoices#show'
-  match ':controller/:action/:id'
+  # this route needs to be rethought to add in support for non-logged in users looking at a prepared invoice
+  #match ':controller/:action/:id'
   match '/deals/:deal_id/invoices', to: 'invoices#create', via: :post
   match '/help',                    to: 'static_pages#help'
   match '/about',                   to: 'static_pages#about'
@@ -45,8 +56,15 @@ InvoiceApp::Application.routes.draw do
   match '/dashboard' => 'users#dashboard', :as => 'user_root'
 
   namespace :api do 
+    post "/accounts/:account_id/deals(.:format)" => 'deals#create'
+    get "/accounts/:account_id/deals(.:format)" => "deals#collection"
+    get "/accounts/:account_id/deals/:id(.:format)" => "deals#get"
+    delete "/accounts/:account_id/deals/:id(.:format)" => "deals#delete"
+
     post "/accounts(.:format)" => "accounts#create"
     get "/accounts(.:format)" => "accounts#collection"
     get "/accounts/:id(.:format)" => "accounts#get"
+    delete "/accounts/:id(.:format)" => "accounts#delete"
+    
   end
 end
