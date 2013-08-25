@@ -37,10 +37,12 @@ class Api::AccountsController < Api::ApiController
       end
       render json: account
     else
-      render json: false
+      render json: false, status: 400
     end
   end
 
   def delete
+    account = current_user.accounts.find(params[:id])
+    render json: account.destroy
   end
 end
