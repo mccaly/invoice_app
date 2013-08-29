@@ -31,7 +31,7 @@ class AccountsController < ApplicationController
 			if @invoice
 				@invoice.each do |invoice|
 					invoice.update_attributes(account_name:          @account.name,
-																		account_contact_email: @account.contact_email,
+											  account_contact_email: @account.contact_email,
 					                          account_contact_name:  @account.contact_name)
 					invoice.save
 				end
