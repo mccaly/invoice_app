@@ -22,7 +22,7 @@
 set :output, "#{path}/log/cron.log"
 
 every 1.day, :at => '12:00 am' do
-	runner "Invoice.create_next_invioce"
-	runner "Invoice.create_new_invoice_on_deal_start"
+	runner "Deal.create_next_invioce"
+	runner "Deal.create_new_invoice_on_deal_start"
 	runner "Invoice.change_invoice_status_to_overdue"
 end
