@@ -1,4 +1,24 @@
 InvoiceApp::Application.routes.draw do
+  get "metered_cost/create"
+
+  get "metered_cost/collection"
+
+  get "metered_cost/get"
+
+  get "metered_cost/update"
+
+  get "metered_cost/delete"
+
+  get "base_cost/create"
+
+  get "base_cost/collection"
+
+  get "base_cost/get"
+
+  get "base_cost/update"
+
+  get "base_cost/delete"
+
   get "deals_controller/create"
 
   get "deals_controller/collection"
