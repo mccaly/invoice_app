@@ -1,9 +1,13 @@
 class Api::DealsController < Api::ApiController
+
   def create
     account = current_user.accounts.find(params[:account_id])
     if account
-      deal = account.deals.build(params[:account])
+      self.process_date(params[:deal], "start_date")
+      self.process_date(params[:deal], "end_date")
+      deal = account.deals.build(params[:deal])
       account.deals << deal
+      deal.process_deal(params, current_user)
       if account.save
         render json: deal
       else 
@@ -45,5 +49,12 @@ class Api::DealsController < Api::ApiController
   def delete
     account = current_user.accounts.find(params[:id])
     render json: account.destroy
+  end
+
+  protected
+  def process_date(obj, field_name)
+    dateval = obj["#{field_name}"];
+    date = Date.parse(dateval)
+    obj[field_name] = date
   end
 end
