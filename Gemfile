@@ -12,6 +12,7 @@ gem 'sass-rails',   '3.2.5'
 gem 'bugsnag'
 gem 'wicked_pdf'
 gem 'font-awesome-rails'
+gem 'jbuilder'
 
 
 
