@@ -80,7 +80,7 @@ class BasecostController < ApplicationController
 			flash[:success] = "Base cost Updated"
 			redirect_to deal_path(@deal)
 		else
-
+			redirect_to deal_path(@deal)
 		end
 	end
 

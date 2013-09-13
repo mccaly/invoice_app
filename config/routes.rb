@@ -76,6 +76,19 @@ InvoiceApp::Application.routes.draw do
   match '/dashboard' => 'users#dashboard', :as => 'user_root'
 
   namespace :api do 
+    get "/accounts/:account_id/invoices(.:format)" => "invoice#collection"
+    get "/accounts/:account_id/invoices/:id(.:format)" => "invoice#get"
+
+    post "/accounts/:account_id/deals/:deal_id/metereds(.:format)" => 'metered_cost#create'
+    get "/accounts/:account_id/deals/:deal_id/metereds(.:format)" => "metered_cost#collection"
+    get "/accounts/:account_id/deals/:deal_id/metereds/:id(.:format)" => "metered_cost#get"
+    delete "/accounts/:account_id/deals/:deal_id/metereds/:id(.:format)" => "metered_cost#delete"
+
+    post "/accounts/:account_id/deals/:deal_id/basecosts(.:format)" => 'base_cost#create'
+    get "/accounts/:account_id/deals/:deal_id/basecosts(.:format)" => "base_cost#collection"
+    get "/accounts/:account_id/deals/:deal_id/basecosts/:id(.:format)" => "base_cost#get"
+    delete "/accounts/:account_id/deals/:deal_id/basecosts/:id(.:format)" => "base_cost#delete"
+
     post "/accounts/:account_id/deals(.:format)" => 'deals#create'
     get "/accounts/:account_id/deals(.:format)" => "deals#collection"
     get "/accounts/:account_id/deals/:id(.:format)" => "deals#get"
