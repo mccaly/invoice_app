@@ -1,12 +1,23 @@
-class Api::DealsController < Api::ApiController
+class Api::InvoiceController < Api::ApiController
 
-  def get
-    invoice = Invoice.find(params[:id])
-    if invoice && invoice.user = current_user
-      render json: invoice
-    else 
-      render nothing: true, status: 404
-    end
-  end
+  	def get
+		account = current_user.accounts.find(params[:account_id])
+	  	if account
+			invoice = account.invoices.find(params[:id])
+			if invoice
+				return render json: invoice
+			end
+	    end
 
+	    render nothing: true, status: 404
+  	end
+
+  	def collection 
+  		account = current_user.accounts.find(params[:account_id])
+	  	if account
+			return render json: account.invoices
+	    end
+
+	    render nothing: true, status: 404
+  	end
 end

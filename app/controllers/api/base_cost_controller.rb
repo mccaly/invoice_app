@@ -1,14 +1,14 @@
-class Api::BaseCostController < ApplicationController
+class Api::BaseCostController < Api::ApiController
   def create
     account = current_user.accounts.find(params[:account_id])
     if account
       deal = account.deals.find(params[:deal_id])
       if deal 
         params[:basecost][:cost] = (params[:basecost][:cost].to_f * 100).to_i
-        basecost = deal.basecosts.build(params[:basecost)
+        basecost = deal.basecosts.build(params[:basecost])
         basecost.total = basecost.cost * basecost.quantity
         deal.units << basecost
-        self.update_invoice_base_cost_tally(deal,basecost)
+        self.create_invoice_base_cost_tally(deal,basecost)
         render json: basecost 
       end
     else
@@ -16,37 +16,16 @@ class Api::BaseCostController < ApplicationController
     end
   end
 
-  protected
-  def create_invoice_base_cost_tally(deal, basecost)
-    invoice = deal.invoices.where(status: "Active").first
-    if invoice
-      basecost_tally           = BasecostTally.create
-      basecost_tally.basecost  = basecost
-      basecost_tally.name      = basecost.name
-      basecost_tally.amount    = basecost.cost
-      basecost_tally.quantity  = basecost.quantity
-      basecost_tally.set(:total, basecost_tally.amount * basecost_tally.quantity)
-      basecost_tally.invoice   = invoice
-      #basecost_tally.end_date = invoice.end_date
-      basecost_tally.status    = 'Active'
-      basecost_tally.deal      = @deal
-      basecost_tally.save
-
-      deal.basecost_tallys    << basecost_tally
-
-      invoice.basecost_tallys << basecost_tally
-      invoice_basecosts        = invoice.basecost_tallys
-      invoice.basecost_total  = invoice_basecosts.sum(:total).to_i
-      
-      invoice.set(:amount, @invoice.basecost_total + @invoice.metered_total)
-      invoice.save
-    end
-  end
-    
-  end
-
   def collection
-    render json: current_user.accounts.find(params[:account_id]).basecosts
+    account = current_user.accounts.find(params[:account_id])
+    if account
+      deal = account.deals.find(params[:deal_id])
+      if deal 
+        return render json: deal.basecosts
+      end
+    end
+    
+    render nothing: true, status: 404
   end
 
   def get
@@ -87,7 +66,49 @@ class Api::BaseCostController < ApplicationController
     render nothing: true, status: 404
   end
 
+  def delete
+    account = current_user.accounts.find(params[:account_id])
+    if account
+      deal = account.deals.find(params[:deal_id])
+      if deal 
+        basecost = deal.basecosts.find(params[:id])
+        if basecost
+          self.delete_invoice_base_cost_tally(deal,basecost)
+          return render json: basecost.destroy
+        end
+      end
+    end
+
+    render nothing: true, status: 404
+  end
+
   protected
+  def create_invoice_base_cost_tally(deal, basecost)
+    invoice = deal.invoices.where(status: "Active").first
+    if invoice
+      basecost_tally           = BasecostTally.create
+      basecost_tally.basecost  = basecost
+      basecost_tally.name      = basecost.name
+      basecost_tally.amount    = basecost.cost
+      basecost_tally.quantity  = basecost.quantity
+      basecost_tally.set(:total, basecost_tally.amount * basecost_tally.quantity)
+      basecost_tally.invoice   = invoice
+      #basecost_tally.end_date = invoice.end_date
+      basecost_tally.status    = 'Active'
+      basecost_tally.deal      = deal
+      basecost_tally.save
+
+      basecost.basecost_tallys    << basecost_tally
+
+      invoice.basecost_tallys << basecost_tally
+      invoice_basecosts        = invoice.basecost_tallys
+      invoice.basecost_total   = invoice_basecosts.sum(:total).to_i
+      
+      invoice.set(:amount, invoice.basecost_total + invoice.metered_total)
+      invoice.save
+    end
+  end
+
   def update_invoice_base_cost_tally(deal, basecost)
     basecost_tally = basecost.basecost_tallys.where(status: "Active").first
     if basecost_tally
@@ -104,23 +125,6 @@ class Api::BaseCostController < ApplicationController
     end
   end
 
-  def delete
-    account = current_user.accounts.find(params[:account_id])
-    if account
-      deal = account.deals.find(params[:deal_id])
-      if deal 
-        basecost = deal.basecosts.find(params[:metered_id])
-        if basecost
-          self.delete_invoice_base_cost_tally(deal,basecost)
-          return render json: basecost.destroy
-        end
-      end
-    end
-
-    render nothing: true, status: 404
-  end
-
-  protected
   def delete_invoice_base_cost_tally(deal, basecost)
     basecost_tally = basecost.basecost_tallys.where(status: "Active").first
     basecost_tally.destroy
@@ -130,4 +134,5 @@ class Api::BaseCostController < ApplicationController
     invoice.set(:amount, invoice.basecost_total + invoice.metered_total)
     invoice.save
   end
+
 end
